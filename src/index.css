@@ -306,3 +306,27 @@ body {
   top: 8px;
   right: 16px;
 }
+
+/* ─────────── i18n / RTL helpers ─────────── */
+html[dir="rtl"] body {
+  /* Body font is set dynamically by LanguageContext, but keep tabular numbers latin */
+  font-feature-settings: "kern", "liga";
+}
+
+/* Keep numbers, code, and forms in Latin even in RTL languages */
+html[dir="rtl"] input,
+html[dir="rtl"] code,
+html[dir="rtl"] .font-space,
+html[dir="rtl"] .font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Mirror chevron-style icons inside RTL flow when needed */
+html[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Make the scroll indicator and orbit animations honour RTL */
+html[dir="rtl"] .nav-link::after {
+  background: linear-gradient(270deg, #a78bfa, #ec4899);
+}

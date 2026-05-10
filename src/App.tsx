@@ -1,27 +1,45 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ClassIXPage from './pages/ClassIXPage';
 import ClassXPage from './pages/ClassXPage';
 import UnitDetailPage from './pages/UnitDetailPage';
+import LoginPage from './pages/LoginPage';
+import { AuthProvider } from './auth/AuthContext';
+import ProtectedRoute from './auth/ProtectedRoute';
+import { LanguageProvider } from './i18n/LanguageContext';
+
+function Shell() {
+  const location = useLocation();
+  const isLogin = location.pathname === '/login';
+
+  return (
+    <div className="min-h-screen bg-brand-dark text-gray-200">
+      {!isLogin && <Navbar />}
+      <main>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+          <Route path="/class-ix" element={<ProtectedRoute><ClassIXPage /></ProtectedRoute>} />
+          <Route path="/class-x" element={<ProtectedRoute><ClassXPage /></ProtectedRoute>} />
+          <Route path="/class-ix/unit/:unitNumber" element={<ProtectedRoute><UnitDetailPage /></ProtectedRoute>} />
+          <Route path="/class-x/unit/:unitNumber" element={<ProtectedRoute><UnitDetailPage /></ProtectedRoute>} />
+        </Routes>
+      </main>
+      {!isLogin && <Footer />}
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <HashRouter>
-      <div className="min-h-screen bg-brand-dark text-gray-200 font-poppins">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/class-ix" element={<ClassIXPage />} />
-            <Route path="/class-x" element={<ClassXPage />} />
-            <Route path="/class-ix/unit/:unitNumber" element={<UnitDetailPage />} />
-            <Route path="/class-x/unit/:unitNumber" element={<UnitDetailPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </HashRouter>
+    <LanguageProvider>
+      <AuthProvider>
+        <HashRouter>
+          <Shell />
+        </HashRouter>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }

@@ -3,10 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kinematics Explorer - Physics by Adnan Katper</title>
+    <title>Physics by Adnan Katper — Class IX & X</title>
+    <meta name="description" content="Master physics with Adnan Katper. Class IX & X physics with simulations, examples, and clear explanations." />
+    <meta name="theme-color" content="#0a0a1a" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Tiny pre-React loader so first paint is never blank */
+      html, body { background: #0a0a1a; margin: 0; }
+      #root:empty::before {
+        content: '';
+        position: fixed; inset: 0;
+        background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.15), transparent 50%),
+                    radial-gradient(circle at 70% 70%, rgba(236,72,153,0.12), transparent 50%),
+                    #0a0a1a;
+      }
+      #root:empty::after {
+        content: '⚛';
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        color: #a78bfa; font-size: 48px;
+        animation: spin 1.5s linear infinite;
+      }
+      @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    </style>
   </head>
   <body>
     <div id="root"></div>
