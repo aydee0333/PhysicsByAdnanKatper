@@ -1,77 +1,60 @@
-import { useState } from 'react';
-import {
-  Atom, Flame, Volume2, Lightbulb, Zap, Microscope,
-  Ruler, Scale, Thermometer, Timer, FlaskConical, Eye,
-  ChevronDown, ChevronUp, Check, X, RotateCcw,
-  Globe, Radio, Orbit, Sun, Waves
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { Atom, Ruler, Scale, Thermometer, Timer, FlaskConical, Eye, Check, X, RotateCcw } from 'lucide-react';
 
-const branches = [
-  { icon: <Atom size={32} />, name: 'Mechanics', desc: 'Study of motion, forces, and energy. Like how a cricket ball flies when you hit it with a bat, or how a car moves on the road.' },
-  { icon: <Flame size={32} />, name: 'Heat / Thermodynamics', desc: 'Study of temperature and heat transfer. Like why your tea gets cold after some time, or why a tandoor is so hot, or how engines work.' },
-  { icon: <Volume2 size={32} />, name: 'Sound', desc: 'Study of sound waves and vibrations. Like how azan (call to prayer) travels from the mosque to your home, or why you can hear a train before you see it.' },
-  { icon: <Lightbulb size={32} />, name: 'Optics', desc: 'Study of light and vision. Like how a mirror reflects your face, how a lens helps you see better, or why the sky looks blue.' },
-  { icon: <Zap size={32} />, name: 'Electricity', desc: 'Study of electric charges and currents. Like how electricity powers your home fan and lights, or why you get a shock from a door handle in winter.' },
-  { icon: <Microscope size={32} />, name: 'Atomic Physics', desc: 'Study of atoms and tiny particles. Like what everything in the world is made of — even you, me, and this table are made of tiny atoms!' },
-  { icon: <Radio size={32} />, name: 'Nuclear Physics', desc: 'Study of the nucleus inside atoms. Like how nuclear power plants make electricity, or how the sun produces so much energy.' },
-  { icon: <Globe size={32} />, name: 'Geo Physics', desc: 'Study of Earth using physics. Like how earthquakes happen, how mountains form, or how we find oil and gas under the ground.' },
-  { icon: <Orbit size={32} />, name: 'Particle Physics', desc: 'Study of the smallest particles in the universe. Like what happens inside particle accelerators, or how the universe began with the Big Bang.' },
-  { icon: <Sun size={32} />, name: 'Astro Physics', desc: 'Study of stars, planets, galaxies, and the entire universe. Like how stars are born, why planets orbit the sun, and what black holes are.' },
-  { icon: <Waves size={32} />, name: 'Plasma Physics', desc: 'Study of plasma — the fourth state of matter. Like lightning bolts, the sun, and neon signs. Plasma is super-hot gas where electrons are free.' },
-];
-
-const fundamentalQuantities = [
-  { quantity: 'Mass', symbol: 'm', unit: 'kilogram', unitSymbol: 'kg', example: 'A 1 kg bag of flour from the bazaar' },
-  { quantity: 'Length', symbol: 'l', unit: 'meter', unitSymbol: 'm', example: 'A cricket pitch is 20.12 meters long' },
-  { quantity: 'Time', symbol: 't', unit: 'second', unitSymbol: 's', example: 'One azan takes about 3 minutes = 180 seconds' },
-  { quantity: 'Temperature', symbol: 'T', unit: 'kelvin', unitSymbol: 'K', example: 'Room temperature in summer is about 300 K (27°C)' },
-  { quantity: 'Electric Current', symbol: 'I', unit: 'ampere', unitSymbol: 'A', example: 'A mobile phone charger uses about 1-2 A' },
-  { quantity: 'Luminous Intensity', symbol: 'Iv', unit: 'candela', unitSymbol: 'cd', example: 'A bright LED bulb is about 100 cd' },
-  { quantity: 'Amount of Substance', symbol: 'n', unit: 'mole', unitSymbol: 'mol', example: 'Used to count very small things like atoms and molecules' },
-];
-
+// Matching Game - Quantities (fixed order)
 const quantitiesList = [
   { id: 1, text: 'Mass', pairId: 1 },
-  { id: 3, text: 'Length', pairId: 2 },
-  { id: 5, text: 'Time', pairId: 3 },
-  { id: 7, text: 'Temperature', pairId: 4 },
-  { id: 9, text: 'Current', pairId: 5 },
+  { id: 2, text: 'Length', pairId: 2 },
+  { id: 3, text: 'Time', pairId: 3 },
+  { id: 4, text: 'Temperature', pairId: 4 },
+  { id: 5, text: 'Electric Current', pairId: 5 },
+  { id: 6, text: 'Amount of Substance', pairId: 6 },
+  { id: 7, text: 'Luminous Intensity', pairId: 7 },
 ];
 
+// SI Units - RANDOMIZED order (important!)
 const unitsList = [
-  { id: 2, text: 'kilogram (kg)', pairId: 1 },
-  { id: 4, text: 'meter (m)', pairId: 2 },
-  { id: 6, text: 'second (s)', pairId: 3 },
-  { id: 8, text: 'kelvin (K)', pairId: 4 },
-  { id: 10, text: 'ampere (A)', pairId: 5 },
+  { id: 10, text: 'metre (m)', pairId: 2 },
+  { id: 11, text: 'kilogram (kg)', pairId: 1 },
+  { id: 12, text: 'kelvin (K)', pairId: 4 },
+  { id: 13, text: 'second (s)', pairId: 3 },
+  { id: 14, text: 'candela (cd)', pairId: 7 },
+  { id: 15, text: 'mole (mol)', pairId: 6 },
+  { id: 16, text: 'ampere (A)', pairId: 5 },
+];
+
+const mcqs = [
+  { q: "The SI unit of length is:", options: ["Centimetre", "Metre", "Kilometre", "Millimetre"], answer: 1 },
+  { q: "How many base quantities are there in the SI system?", options: ["5", "6", "7", "10"], answer: 2 },
+  { q: "The least count of a Vernier Calipers is:", options: ["0.01 mm", "0.1 mm", "1 mm", "0.001 mm"], answer: 1 },
+  { q: "Which of the following is a derived quantity?", options: ["Mass", "Length", "Time", "Speed"], answer: 3 },
+  { q: "The prefix 'kilo' represents:", options: ["10⁻³", "10²", "10³", "10⁶"], answer: 2 },
 ];
 
 export default function Unit1Content() {
-  const [openBranch, setOpenBranch] = useState<number | null>(null);
+  const [openTopic, setOpenTopic] = useState<number | null>(null);
   const [matchSelectedQ, setMatchSelectedQ] = useState<number | null>(null);
   const [matchSelectedU, setMatchSelectedU] = useState<number | null>(null);
   const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
   const [matchResult, setMatchResult] = useState<{ correct: boolean; pairId: number } | null>(null);
+  const [currentMCQ, setCurrentMCQ] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [score, setScore] = useState(0);
 
+  // Matching Game
   const handleQuantityClick = (qId: number, pairId: number) => {
     if (matchedPairs.includes(pairId)) return;
     setMatchSelectedQ(qId);
     setMatchResult(null);
 
     if (matchSelectedU !== null) {
-      const unit = unitsList.find((u) => u.id === matchSelectedU);
+      const unit = unitsList.find(u => u.id === matchSelectedU);
       const isCorrect = unit && unit.pairId === pairId;
-      
       setMatchResult({ correct: isCorrect, pairId });
-      
-      if (isCorrect) {
-        setMatchedPairs([...matchedPairs, pairId]);
-      }
-      
+      if (isCorrect) setMatchedPairs([...matchedPairs, pairId]);
       setTimeout(() => {
-        setMatchSelectedQ(null);
-        setMatchSelectedU(null);
-        setMatchResult(null);
+        setMatchSelectedQ(null); setMatchSelectedU(null); setMatchResult(null);
       }, 1200);
     }
   };
@@ -82,153 +65,259 @@ export default function Unit1Content() {
     setMatchResult(null);
 
     if (matchSelectedQ !== null) {
-      const qty = quantitiesList.find((q) => q.id === matchSelectedQ);
+      const qty = quantitiesList.find(q => q.id === matchSelectedQ);
       const isCorrect = qty && qty.pairId === pairId;
-      
       setMatchResult({ correct: isCorrect, pairId });
-      
-      if (isCorrect) {
-        setMatchedPairs([...matchedPairs, pairId]);
-      }
-      
+      if (isCorrect) setMatchedPairs([...matchedPairs, pairId]);
       setTimeout(() => {
-        setMatchSelectedQ(null);
-        setMatchSelectedU(null);
-        setMatchResult(null);
+        setMatchSelectedQ(null); setMatchSelectedU(null); setMatchResult(null);
       }, 1200);
     }
   };
 
-  const resetMatchingGame = () => {
-    setMatchedPairs([]);
-    setMatchSelectedQ(null);
-    setMatchSelectedU(null);
-    setMatchResult(null);
+  const resetGame = () => {
+    setMatchedPairs([]); setMatchSelectedQ(null); setMatchSelectedU(null); setMatchResult(null);
+  };
+
+  // MCQ
+  const handleMCQAnswer = (optionIndex: number) => {
+    setSelectedOption(optionIndex);
+    setShowAnswer(true);
+    if (optionIndex === mcqs[currentMCQ].answer) setScore(score + 1);
+  };
+
+  const nextMCQ = () => {
+    if (currentMCQ < mcqs.length - 1) {
+      setCurrentMCQ(currentMCQ + 1);
+      setSelectedOption(null); setShowAnswer(false);
+    }
+  };
+
+  const resetMCQ = () => {
+    setCurrentMCQ(0); setSelectedOption(null); setShowAnswer(false); setScore(0);
   };
 
   return (
-    <div>
-      {/* WHAT IS PHYSICS + BRANCHES */}
-      <div className="glass-card rounded-3xl p-8 md:p-10 mb-16">
-        <h2 className="text-2xl md:text-3xl font-black text-white mb-6">What is Physics?</h2>
-        <p className="text-xl text-white mb-8">
-          Physics is the branch of science that studies <strong>matter, energy, and their interactions</strong>.
+    <div className="space-y-12 text-gray-200">
+
+      {/* 1. What is Physics */}
+      <div className="glass-card rounded-3xl p-8">
+        <div className="flex items-center gap-4 mb-6">
+          <Atom size={32} className="text-brand-purple" />
+          <h2 className="text-3xl font-black">What is Physics?</h2>
+        </div>
+        <p className="text-xl text-gray-300">
+          Physics is the branch of science that studies <span className="text-white font-semibold">matter, energy, and their interactions</span>.
         </p>
+      </div>
 
-        <h3 className="text-xl font-bold text-white mb-5">Main Branches of Physics</h3>
-        <p className="text-gray-400 mb-6">Click on any branch to see its definition:</p>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {branches.map((b, i) => {
-            const isOpen = openBranch === i;
-            return (
-              <button
-                key={i}
-                onClick={() => setOpenBranch(isOpen ? null : i)}
-                className={`rounded-2xl p-5 text-left transition-all border ${
-                  isOpen ? 'bg-white/10 border-brand-cyan' : 'glass-card border-white/10 hover:bg-white/5'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="text-brand-cyan">{b.icon}</div>
-                  <span className="font-bold text-white text-lg">{b.name}</span>
-                </div>
-                {isOpen && (
-                  <div className="mt-4 pt-4 border-t border-white/10">
-                    <p className="text-gray-300 text-sm leading-relaxed">{b.desc}</p>
-                  </div>
-                )}
-                <div className="mt-3 flex items-center gap-1 text-xs text-brand-cyan">
-                  {isOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                  <span>{isOpen ? 'Hide definition' : 'Show definition'}</span>
-                </div>
-              </button>
-            );
-          })}
+      {/* 2. Physical Quantities */}
+      <div className="glass-card rounded-3xl p-8">
+        <div className="flex items-center gap-4 mb-6">
+          <Ruler size={32} className="text-brand-cyan" />
+          <h2 className="text-3xl font-black">Physical Quantities</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white/5 rounded-2xl p-6">
+            <h4 className="font-bold text-brand-cyan mb-4">Base Quantities (7)</h4>
+            <ul className="space-y-1.5 text-gray-300">
+              <li>• Length</li><li>• Mass</li><li>• Time</li><li>• Electric Current</li>
+              <li>• Temperature</li><li>• Amount of Substance</li><li>• Luminous Intensity</li>
+            </ul>
+          </div>
+          <div className="bg-white/5 rounded-2xl p-6">
+            <h4 className="font-bold text-brand-pink mb-4">Derived Quantities</h4>
+            <ul className="space-y-1.5 text-gray-300">
+              <li>• Speed = Distance ÷ Time</li>
+              <li>• Area = Length × Length</li>
+              <li>• Force = Mass × Acceleration</li>
+              <li>• Density = Mass ÷ Volume</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      {/* MATCHING GAME - QUANTITY TO UNIT */}
-      <div className="glass-card rounded-3xl p-8 md:p-10 mb-16">
-        <h3 className="text-2xl font-bold text-white mb-2">⚡ Match Quantity with its Unit</h3>
-        <p className="text-gray-400 mb-6">Click a quantity, then click its correct unit. Correct = Green ✓ | Wrong = Red ✗</p>
+      {/* 3. SI Units */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">SI Base Units</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead><tr className="border-b border-white/10 text-brand-cyan">
+              <th className="py-3 text-left">Quantity</th><th className="py-3 text-left">Unit</th><th className="py-3 text-left">Symbol</th>
+            </tr></thead>
+            <tbody>
+              {[["Length","Metre","m"],["Mass","Kilogram","kg"],["Time","Second","s"],
+                ["Current","Ampere","A"],["Temperature","Kelvin","K"],["Amount","Mole","mol"],
+                ["Intensity","Candela","cd"]].map((r,i)=>(
+                <tr key={i} className="border-b border-white/5"><td className="py-3">{r[0]}</td><td>{r[1]}</td><td className="font-mono text-brand-cyan">{r[2]}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Quantities */}
-          <div>
-            <p className="font-bold text-brand-cyan mb-3">📐 Quantities</p>
-            <div className="space-y-3">
-              {quantitiesList.map((q) => {
-                const isMatched = matchedPairs.includes(q.pairId);
-                const isSelected = matchSelectedQ === q.id;
-                const isResult = matchResult && matchResult.pairId === q.pairId;
-                
-                return (
-                  <button
-                    key={q.id}
-                    onClick={() => handleQuantityClick(q.id, q.pairId)}
-                    disabled={isMatched}
-                    className={`w-full p-4 rounded-2xl text-left font-medium transition-all flex items-center justify-between border-2 ${
-                      isMatched 
-                        ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400' 
-                        : isResult && !matchResult.correct
-                        ? 'bg-red-500/15 border-red-500 text-red-400'
-                        : isSelected 
-                        ? 'bg-brand-cyan/20 border-brand-cyan' 
-                        : 'glass-card border-white/10 hover:border-white/30'
-                    }`}
-                  >
-                    <span>{q.text}</span>
-                    {isMatched && <Check size={20} className="text-emerald-400" />}
-                    {isResult && !matchResult.correct && <X size={20} className="text-red-400" />}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+      {/* 4. Prefixes */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">SI Prefixes</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[["kilo","k","10³"],["mega","M","10⁶"],["milli","m","10⁻³"],["micro","μ","10⁻⁶"],["nano","n","10⁻⁹"],["centi","c","10⁻²"]].map((p,i)=>(
+            <div key={i} className="bg-white/5 p-4 rounded-xl flex justify-between"><span>{p[0]} ({p[1]})</span><span className="text-brand-amber">{p[2]}</span></div>
+          ))}
+        </div>
+      </div>
 
-          {/* Units */}
-          <div>
-            <p className="font-bold text-brand-amber mb-3">📏 Units</p>
-            <div className="space-y-3">
-              {unitsList.map((u) => {
-                const isMatched = matchedPairs.includes(u.pairId);
-                const isSelected = matchSelectedU === u.id;
-                const isResult = matchResult && matchResult.pairId === u.pairId;
-                
-                return (
-                  <button
-                    key={u.id}
-                    onClick={() => handleUnitClick(u.id, u.pairId)}
-                    disabled={isMatched}
-                    className={`w-full p-4 rounded-2xl text-left font-medium transition-all flex items-center justify-between border-2 ${
-                      isMatched 
-                        ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400' 
-                        : isResult && !matchResult.correct
-                        ? 'bg-red-500/15 border-red-500 text-red-400'
-                        : isSelected 
-                        ? 'bg-brand-amber/20 border-brand-amber' 
-                        : 'glass-card border-white/10 hover:border-white/30'
-                    }`}
-                  >
-                    <span>{u.text}</span>
-                    {isMatched && <Check size={20} className="text-emerald-400" />}
-                    {isResult && !matchResult.correct && <X size={20} className="text-red-400" />}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+      {/* 5. Scientific Notation */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">Scientific Notation</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-white/5 p-5 rounded-xl">Speed of Light: <span className="text-brand-cyan font-bold">3 × 10⁸ m/s</span></div>
+          <div className="bg-white/5 p-5 rounded-xl">Mass of Electron: <span className="text-brand-cyan font-bold">9.1 × 10⁻³¹ kg</span></div>
+        </div>
+      </div>
+
+      {/* 6. Measuring Instruments - ENHANCED */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">Measuring Instruments</h2>
+        
+        <div className="mb-8 p-6 bg-white/5 rounded-2xl">
+          <h4 className="font-bold text-brand-lime mb-2">What is Least Count?</h4>
+          <p className="text-gray-300">Least Count is the <strong>smallest value</strong> that an instrument can measure accurately. For example, a normal ruler has a least count of 1 mm.</p>
         </div>
 
-        {matchedPairs.length === 5 && (
-          <p className="text-center mt-8 text-emerald-400 font-bold text-xl">🎉 Excellent! All matches correct!</p>
-        )}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Metre Rule */}
+          <div className="bg-white/5 p-6 rounded-2xl">
+            <h4 className="font-bold text-xl mb-3 flex items-center gap-2">📏 Metre Rule</h4>
+            <p className="text-sm text-gray-400 mb-3">Least Count: <strong className="text-brand-cyan">1 mm (0.1 cm)</strong></p>
+            <p className="text-gray-300 text-sm">Used to measure length up to 1 metre. Place the object along the scale and read from the zero mark.</p>
+          </div>
 
-        <button onClick={resetMatchingGame} className="mt-6 text-sm text-gray-400 hover:text-white flex items-center gap-2 mx-auto">
+          {/* Vernier Calipers */}
+          <div className="bg-white/5 p-6 rounded-2xl">
+            <h4 className="font-bold text-xl mb-3 flex items-center gap-2">🔧 Vernier Calipers</h4>
+            <p className="text-sm text-gray-400 mb-3">Least Count: <strong className="text-brand-cyan">0.1 mm (0.01 cm)</strong></p>
+            <p className="text-gray-300 text-sm mb-3">Used for measuring small lengths like thickness of coins or wires.</p>
+            <div className="text-xs bg-brand-dark/50 p-3 rounded-lg">
+              <strong>How to read:</strong><br />
+              1. Read Main Scale Reading (MSR)<br />
+              2. Find matching Vernier division<br />
+              3. Total = MSR + (Vernier × 0.01 cm)
+            </div>
+          </div>
+
+          {/* Screw Gauge */}
+          <div className="bg-white/5 p-6 rounded-2xl">
+            <h4 className="font-bold text-xl mb-3 flex items-center gap-2">⚙️ Screw Gauge (Micrometer)</h4>
+            <p className="text-sm text-gray-400 mb-3">Least Count: <strong className="text-brand-cyan">0.01 mm</strong></p>
+            <p className="text-gray-300 text-sm mb-3">Used to measure very small diameters (wire, sheet thickness).</p>
+            <div className="text-xs bg-brand-dark/50 p-3 rounded-lg">
+              <strong>How to read:</strong><br />
+              1. Read Sleeve Scale (MSR)<br />
+              2. Read Thimble Scale<br />
+              3. Total = MSR + (Thimble × 0.01 mm)
+            </div>
+          </div>
+
+          {/* Physical Balance */}
+          <div className="bg-white/5 p-6 rounded-2xl">
+            <h4 className="font-bold text-xl mb-3 flex items-center gap-2">⚖️ Physical Balance</h4>
+            <p className="text-sm text-gray-400 mb-3">Least Count: <strong className="text-brand-cyan">0.1 g</strong></p>
+            <p className="text-gray-300 text-sm">Used to measure mass of objects by comparison method using standard weights.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. Errors & Significant Figures */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">Errors &amp; Significant Figures</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="font-bold text-brand-rose mb-3">Types of Errors</h4>
+            <ul className="space-y-2 text-gray-300 text-sm">
+              <li>• <strong>Systematic:</strong> Repeat in same direction (faulty instrument)</li>
+              <li>• <strong>Random:</strong> Irregular (parallax error, human mistake)</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-bold text-brand-cyan mb-3">Significant Figures Rules</h4>
+            <ul className="space-y-1.5 text-sm text-gray-300">
+              <li>1. All non-zero digits are significant</li>
+              <li>2. Zeros between non-zero digits are significant</li>
+              <li>3. Leading zeros are NOT significant</li>
+              <li>4. Trailing zeros after decimal ARE significant</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* MATCHING GAME - Units Randomized */}
+      <div className="glass-card rounded-3xl p-8">
+        <h3 className="text-2xl font-bold mb-4">⚡ Match Quantity with Unit</h3>
+        <p className="text-sm text-gray-400 mb-6">Units are shuffled. Match correctly!</p>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div>
+            <p className="font-bold text-brand-cyan mb-3">Physical Quantities</p>
+            {quantitiesList.map(q => (
+              <button key={q.id} onClick={() => handleQuantityClick(q.id, q.pairId)}
+                disabled={matchedPairs.includes(q.pairId)}
+                className={`w-full p-4 mb-2 rounded-xl text-left flex justify-between border-2 transition-all ${
+                  matchedPairs.includes(q.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
+                  matchResult?.pairId === q.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' :
+                  matchSelectedQ === q.id ? 'bg-brand-cyan/20 border-brand-cyan' : 'glass-card border-white/10'
+                }`}>
+                {q.text}
+                {matchedPairs.includes(q.pairId) && <Check size={18} />}
+              </button>
+            ))}
+          </div>
+          <div>
+            <p className="font-bold text-brand-amber mb-3">SI Units (Shuffled)</p>
+            {unitsList.map(u => (
+              <button key={u.id} onClick={() => handleUnitClick(u.id, u.pairId)}
+                disabled={matchedPairs.includes(u.pairId)}
+                className={`w-full p-4 mb-2 rounded-xl text-left flex justify-between border-2 transition-all ${
+                  matchedPairs.includes(u.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
+                  matchResult?.pairId === u.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' :
+                  matchSelectedU === u.id ? 'bg-brand-amber/20 border-brand-amber' : 'glass-card border-white/10'
+                }`}>
+                {u.text}
+                {matchedPairs.includes(u.pairId) && <Check size={18} />}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button onClick={resetGame} className="mt-6 text-sm text-gray-400 hover:text-white flex items-center gap-2 mx-auto">
           <RotateCcw size={16} /> Reset Game
         </button>
       </div>
+
+      {/* MCQ Quiz */}
+      <div className="glass-card rounded-3xl p-8">
+        <h2 className="text-3xl font-black mb-6">MCQ Quiz</h2>
+        <div className="bg-white/5 p-8 rounded-2xl">
+          <p className="font-bold mb-4">Q{currentMCQ + 1}. {mcqs[currentMCQ].q}</p>
+          <div className="space-y-3">
+            {mcqs[currentMCQ].options.map((opt, i) => (
+              <button key={i} onClick={() => handleMCQAnswer(i)} disabled={showAnswer}
+                className={`w-full p-4 text-left rounded-xl border transition-all ${
+                  showAnswer && i === mcqs[currentMCQ].answer ? 'bg-emerald-500/20 border-emerald-500' :
+                  showAnswer && i === selectedOption && i !== mcqs[currentMCQ].answer ? 'bg-red-500/20 border-red-500' :
+                  'border-white/10 hover:bg-white/10'
+                }`}>
+                {opt}
+              </button>
+            ))}
+          </div>
+          {showAnswer && (
+            <button onClick={nextMCQ} className="mt-6 px-6 py-2 bg-brand-cyan text-black font-bold rounded-xl">
+              {currentMCQ < mcqs.length - 1 ? "Next Question" : "Finish Quiz"}
+            </button>
+          )}
+          <div className="mt-4 text-sm text-gray-400">Score: {score} / {mcqs.length}</div>
+        </div>
+        <button onClick={resetMCQ} className="mt-4 text-xs text-gray-500 hover:text-white">Restart Quiz</button>
+      </div>
+
     </div>
   );
 }

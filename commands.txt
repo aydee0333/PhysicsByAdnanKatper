@@ -1,0 +1,12 @@
+1. Install dependencies (only one time)
+npm install
+
+2.Start the development server
+Run:
+npm run dev
+
+You should see output like:
+
+text
+  VITE v4.x.x  ready in 200 ms
+  ➜  Local:   http://localhost:5173/
