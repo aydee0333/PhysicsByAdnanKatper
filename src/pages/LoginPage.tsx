@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import gsap from 'gsap';
 import {
   Atom, Eye, EyeOff, Lock, User, ArrowRight, Loader2,
   Sparkles, Phone, MapPin, ShieldCheck,
@@ -141,8 +140,8 @@ export default function LoginPage() {
             <Atom size={22} />
           </div>
           <div>
-            <span className="font-bold text-xl">Physics</span>
-            <span className="block text-xs text-brand-cyan">By Adnan Katper</span>
+            <span className="font-bold text-xl">{t('brand.name')}</span>
+            <span className="block text-xs text-brand-cyan">{t('brand.subtitle')}</span>
           </div>
         </Link>
         <LanguageSwitcher />
@@ -182,14 +181,14 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Username</label>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('login.username')}</label>
                 <div className="relative mt-2">
                   <User className="absolute left-4 top-4 text-gray-500" size={18} />
                   <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter your username"
+                    placeholder={t('login.usernamePh')}
                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
                     required
                   />
@@ -197,18 +196,18 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Password</label>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('login.password')}</label>
                 <div className="relative mt-2">
                   <Lock className="absolute left-4 top-4 text-gray-500" size={18} />
                   <input
                     type={showPwd ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    placeholder={t('login.passwordPh')}
                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-12 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
                     required
                   />
-                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-4 top-4 text-gray-400">
+                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-4 top-4 text-gray-400" aria-label={t('login.show')}>
                     {showPwd ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
@@ -222,7 +221,7 @@ export default function LoginPage() {
                 className="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan text-white font-bold text-lg flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transition-all disabled:opacity-70"
               >
                 {submitting ? (
-                  <><Loader2 className="animate-spin" size={20} /> Signing in...</>
+                  <><Loader2 className="animate-spin" size={20} /> {t('login.signingIn')}</>
                 ) : (
                   <>{t('login.signIn')} <ArrowRight size={20} /></>
                 )}

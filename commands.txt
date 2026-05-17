@@ -10,3 +10,8 @@ You should see output like:
 text
   VITE v4.x.x  ready in 200 ms
   ➜  Local:   http://localhost:5173/
+
+Push it to GitHub
+git add .
+git commit -m "Your message"
+git push origin main

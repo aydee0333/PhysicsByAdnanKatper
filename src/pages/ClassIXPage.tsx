@@ -7,114 +7,106 @@ import {
   Ruler, Move, Gauge, RotateCcw, Magnet,
   Zap, Droplets, Thermometer
 } from 'lucide-react';
+import { useT } from '../i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const classIXUnits = [
-  {
-    number: '01',
-    title: 'Physical Quantities and Measurement',
-    icon: <Ruler size={40} />,
-    color: 'from-[#7c3aed] to-[#a78bfa]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
-    borderGlow: 'hover:border-brand-purple/30',
-    textColor: 'text-brand-purple',
-    topics: ['Base & Derived Quantities', 'SI Units', 'Measuring Instruments', 'Significant Figures'],
-  },
-  {
-    number: '02',
-    title: 'Kinematics',
-    icon: <Move size={40} />,
-    color: 'from-[#06b6d4] to-[#22d3ee]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(6,182,212,0.2)]',
-    borderGlow: 'hover:border-brand-cyan/30',
-    textColor: 'text-brand-cyan',
-    topics: ['Rest & Motion', 'Distance & Displacement', 'Speed & Velocity', 'Acceleration', 'Equations of Motion'],
-  },
-  {
-    number: '03',
-    title: 'Dynamics',
-    icon: <Gauge size={40} />,
-    color: 'from-[#ec4899] to-[#f472b6]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
-    borderGlow: 'hover:border-brand-pink/30',
-    textColor: 'text-brand-pink',
-    topics: ['Force & Laws of Motion', 'Newton\'s Laws', 'Momentum', 'Law of Conservation'],
-  },
-  {
-    number: '04',
-    title: 'Turning Effect of Forces',
-    icon: <RotateCcw size={40} />,
-    color: 'from-[#f59e0b] to-[#fbbf24]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
-    borderGlow: 'hover:border-brand-amber/30',
-    textColor: 'text-brand-amber',
-    topics: ['Moments', 'Couple', 'Equilibrium', 'Centre of Mass & Gravity'],
-  },
-  {
-    number: '05',
-    title: 'Forces and Matter',
-    icon: <Droplets size={40} />,
-    color: 'from-[#14b8a6] to-[#2dd4bf]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(20,184,166,0.2)]',
-    borderGlow: 'hover:border-brand-teal/30',
-    textColor: 'text-brand-teal',
-    topics: ['Elasticity', 'Pressure', 'Stress & Strain', 'Density', 'Buoyancy', 'Atmospheric Pressure'],
-  },
-  {
-    number: '06',
-    title: 'Gravitation',
-    icon: <Magnet size={40} />,
-    color: 'from-[#f43f5e] to-[#fb7185]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(244,63,94,0.2)]',
-    borderGlow: 'hover:border-brand-rose/30',
-    textColor: 'text-brand-rose',
-    topics: ['Newton\'s Law', 'Gravitational Field', 'Mass of Earth', 'Satellites', 'Weightlessness'],
-  },
-  {
-    number: '07',
-    title: 'Work and Energy',
-    icon: <Zap size={40} />,
-    color: 'from-[#7c3aed] to-[#06b6d4]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
-    borderGlow: 'hover:border-brand-purple/30',
-    textColor: 'text-brand-purple',
-    topics: ['Work Done', 'Kinetic Energy', 'Potential Energy', 'Power', 'Energy Conservation'],
-  },
-  {
-    number: '07',
-    title: 'Properties of Matter',
-    icon: <Droplets size={40} />,
-    color: 'from-[#7c3aed] to-[#06b6d4]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
-    borderGlow: 'hover:border-brand-purple/30',
-    textColor: 'text-brand-purple',
-    topics: ['States of Matter', 'Elasticity', 'Pressure', 'Surface Tension', 'Viscosity'],
-  },
-  {
-    number: '08',
-    title: 'Energy Sources and Transfer of Energy',
-    icon: <Zap size={40} />,
-    color: 'from-[#f59e0b] to-[#f43f5e]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
-    borderGlow: 'hover:border-brand-amber/30',
-    textColor: 'text-brand-amber',
-    topics: ['Forms of Energy', 'KE & PE', 'Energy Conversion', 'Power', 'Efficiency'],
-  },
-  {
-    number: '09',
-    title: 'Thermal Properties of Matter',
-    icon: <Thermometer size={40} />,
-    color: 'from-[#ec4899] to-[#f59e0b]',
-    bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
-    borderGlow: 'hover:border-brand-pink/30',
-    textColor: 'text-brand-pink',
-    topics: ['Temperature', 'Thermal Expansion', 'Specific Heat', 'Latent Heat', 'Boyle\'s Law'],
-  },
-];
-
 export default function ClassIXPage() {
+  const t = useT();
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const classIXUnits = [
+    {
+      number: '01',
+      titleKey: 'classIX.u1.title',
+      icon: <Ruler size={40} />,
+      color: 'from-[#7c3aed] to-[#a78bfa]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
+      borderGlow: 'hover:border-brand-purple/30',
+      textColor: 'text-brand-purple',
+      topicsKeys: ['classIX.u1.t1', 'classIX.u1.t2', 'classIX.u1.t3', 'classIX.u1.t4'],
+    },
+    {
+      number: '02',
+      titleKey: 'classIX.u2.title',
+      icon: <Move size={40} />,
+      color: 'from-[#06b6d4] to-[#22d3ee]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(6,182,212,0.2)]',
+      borderGlow: 'hover:border-brand-cyan/30',
+      textColor: 'text-brand-cyan',
+      topicsKeys: ['classIX.u2.t1', 'classIX.u2.t2', 'classIX.u2.t3', 'classIX.u2.t4', 'classIX.u2.t5'],
+    },
+    {
+      number: '03',
+      titleKey: 'classIX.u3.title',
+      icon: <Gauge size={40} />,
+      color: 'from-[#ec4899] to-[#f472b6]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
+      borderGlow: 'hover:border-brand-pink/30',
+      textColor: 'text-brand-pink',
+      topicsKeys: [],
+    },
+    {
+      number: '04',
+      titleKey: 'classIX.u4.title',
+      icon: <RotateCcw size={40} />,
+      color: 'from-[#f59e0b] to-[#fbbf24]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
+      borderGlow: 'hover:border-brand-amber/30',
+      textColor: 'text-brand-amber',
+      topicsKeys: [],
+    },
+    {
+      number: '05',
+      titleKey: 'classIX.u5.title',
+      icon: <Droplets size={40} />,
+      color: 'from-[#14b8a6] to-[#2dd4bf]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(20,184,166,0.2)]',
+      borderGlow: 'hover:border-brand-teal/30',
+      textColor: 'text-brand-teal',
+      topicsKeys: [],
+    },
+    {
+      number: '06',
+      titleKey: 'classIX.u6.title',
+      icon: <Magnet size={40} />,
+      color: 'from-[#f43f5e] to-[#fb7185]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(244,63,94,0.2)]',
+      borderGlow: 'hover:border-brand-rose/30',
+      textColor: 'text-brand-rose',
+      topicsKeys: [],
+    },
+    {
+      number: '07',
+      titleKey: 'classIX.u7.title',
+      icon: <Zap size={40} />,
+      color: 'from-[#7c3aed] to-[#06b6d4]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
+      borderGlow: 'hover:border-brand-purple/30',
+      textColor: 'text-brand-purple',
+      topicsKeys: [],
+    },
+    {
+      number: '08',
+      titleKey: 'classIX.u8.title',
+      icon: <Zap size={40} />,
+      color: 'from-[#f59e0b] to-[#f43f5e]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
+      borderGlow: 'hover:border-brand-amber/30',
+      textColor: 'text-brand-amber',
+      topicsKeys: [],
+    },
+    {
+      number: '09',
+      titleKey: 'classIX.u9.title',
+      icon: <Thermometer size={40} />,
+      color: 'from-[#ec4899] to-[#f59e0b]',
+      bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
+      borderGlow: 'hover:border-brand-pink/30',
+      textColor: 'text-brand-pink',
+      topicsKeys: [],
+    },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -163,14 +155,15 @@ export default function ClassIXPage() {
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-6 float-anim">
             <span className="w-2 h-2 rounded-full bg-brand-lime pulse-glow" />
-            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">Class IX Physics</span>
+            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{t('classIX.badge')}</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
-            Class <span className="gradient-text-cyan">IX</span>
+            {t('classIX.title')}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Explore all <strong className="text-white">10 Physics Units</strong> with detailed concepts, formulas, and practice problems.
-          </p>
+          <p 
+            className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t('classIX.subtitle') }} 
+          />
         </div>
       </section>
 
@@ -179,10 +172,10 @@ export default function ClassIXPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="ix-reveal text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
             <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-              Physics <span className="gradient-text">Units</span>
+              {t('classIX.sectionTitle')}
             </h2>
             <p className="text-gray-400 text-lg max-w-xl mx-auto">
-              Click on any unit to explore its content, formulas, and examples.
+              {t('classIX.sectionDesc')}
             </p>
           </div>
 
@@ -203,21 +196,23 @@ export default function ClassIXPage() {
                       {unit.icon}
                     </div>
                     <div>
-                      <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}>Unit {unit.number}</span>
-                      <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">{unit.title}</h3>
+                      <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}>{t('classIX.unitLabel')} {unit.number}</span>
+                      <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">
+                        {t(unit.titleKey)}
+                      </h3>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mt-4">
-                    {unit.topics.map((topic, idx) => (
+                    {unit.topicsKeys.map((topicKey, idx) => (
                       <span key={idx} className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5">
-                        {topic}
+                        {t(topicKey)}
                       </span>
                     ))}
                   </div>
 
                   <div className="mt-6 flex items-center gap-2">
-                    <span className={`${unit.textColor} font-semibold text-sm`}>Explore Unit</span>
+                    <span className={`${unit.textColor} font-semibold text-sm`}>{t('classIX.exploreBtn')}</span>
                     <svg className={`w-4 h-4 ${unit.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -234,9 +229,9 @@ export default function ClassIXPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="ix-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" style={{ opacity: 0, transform: 'translateY(60px)' }}>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan" />
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-3">More Content Coming Soon!</h3>
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-3">{t('classIX.comingSoon')}</h3>
             <p className="text-gray-400 text-lg max-w-xl mx-auto">
-              Detailed notes, formulas, solved examples, and practice problems for each unit will be added soon. Stay tuned!
+              {t('classIX.comingSoonDesc')}
             </p>
           </div>
         </div>

@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PhysicsBackground from '../components/PhysicsBackground';
 import { ArrowLeft, BookOpen } from 'lucide-react';
+import { useProgress } from '../hooks/useProgress';
 import Unit1Content from '../components/units/Unit1Content';
 import Unit2Content from '../components/units/Unit2Content';
 import Unit3Content from '../components/units/Unit3Content';
@@ -36,9 +37,28 @@ export default function UnitDetailPage() {
   const isClassX = location.pathname.includes('/class-x/');
   const backLink = isClassX ? '/class-x' : '/class-ix';
   const backLabel = isClassX ? 'Back to Class X' : 'Back to Class IX';
+  
+  const unitId = `class-${isClassX ? 'x' : 'ix'}-unit-${unitNumber}`;
+  const { getUnitProgress, markSectionComplete } = useProgress(unitId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Auto-mark sections as complete when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            const sectionId = entry.target.getAttribute('data-section-id');
+            if (sectionId) markSectionComplete(sectionId);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    
+    document.querySelectorAll('[data-section-id]').forEach(el => observer.observe(el));
+
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('.unit-detail-reveal').forEach((el, i) => {
         gsap.to(el, {
@@ -55,8 +75,12 @@ export default function UnitDetailPage() {
         });
       });
     }, sectionRef);
-    return () => ctx.revert();
-  }, [unitNumber]);
+
+    return () => {
+      observer.disconnect();
+      ctx.revert();
+    };
+  }, [unitNumber, markSectionComplete]);
 
   return (
     <div ref={sectionRef}>
@@ -81,6 +105,20 @@ export default function UnitDetailPage() {
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             {info.subtitle}
           </p>
+
+          {/* Progress Bar */}
+          <div className="mt-8 max-w-md mx-auto">
+            <div className="flex justify-between text-xs text-gray-400 mb-2">
+              <span>Your Progress</span>
+              <span className="text-brand-cyan font-bold">{getUnitProgress()}%</span>
+            </div>
+            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-brand-cyan to-brand-purple transition-all duration-500"
+                style={{ width: `${getUnitProgress()}%` }}
+              />
+            </div>
+          </div>
         </div>
       </section>
 

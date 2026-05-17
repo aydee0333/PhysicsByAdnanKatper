@@ -4,7 +4,7 @@ import { LANG_META, translate, type Lang } from './translations';
 interface LanguageContextValue {
   lang: Lang;
   setLang: (l: Lang) => void;
-  t: (key: string) => string;
+  t: (key: string, fallback?: string) => string;
   dir: 'ltr' | 'rtl';
 }
 
@@ -15,13 +15,21 @@ const STORAGE_KEY = 'pak_phy_lang';
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
     if (typeof window === 'undefined') return 'en';
-    const saved = window.localStorage.getItem(STORAGE_KEY) as Lang | null;
-    return saved && ['en', 'ur', 'sd'].includes(saved) ? saved : 'en';
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY) as Lang | null;
+      return saved && ['en', 'ur', 'sd'].includes(saved) ? saved : 'en';
+    } catch {
+      return 'en';
+    }
   });
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    try { window.localStorage.setItem(STORAGE_KEY, l); } catch { /* ignore */ }
+    try { 
+      window.localStorage.setItem(STORAGE_KEY, l); 
+    } catch { 
+      console.warn('Failed to save language preference');
+    }
   };
 
   const dir = LANG_META[lang].dir;
@@ -34,19 +42,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.body.style.fontFamily = LANG_META[lang].font;
   }, [lang, dir]);
 
+  // Memoize the context value to prevent unnecessary re-renders
   const value = useMemo<LanguageContextValue>(() => ({
     lang,
     setLang,
-    t: (key: string) => translate(lang, key),
+    t: (key: string, fallback?: string) => translate(lang, key, fallback),
     dir,
   }), [lang, dir]);
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLang(): LanguageContextValue {
   const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error('useLang must be used within <LanguageProvider>');
+  if (!ctx) {
+    throw new Error('useLang must be used within <LanguageProvider>');
+  }
   return ctx;
 }
 
