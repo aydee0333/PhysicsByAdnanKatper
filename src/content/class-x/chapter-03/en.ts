@@ -210,6 +210,20 @@ const chapter03En: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'Interactive Simulations',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'ReflectionSim',
+        },
+        {
+          type: 'interactive',
+          component: 'LensSimulation',
+        },
+      ],
+    },
+    {
       id: 'total-internal-reflection',
       title: 'Total Internal Reflection',
       blocks: [

@@ -208,6 +208,20 @@ const chapter03Sd: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٽريڪٽو سموليشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'ReflectionSim',
+        },
+        {
+          type: 'interactive',
+          component: 'LensSimulation',
+        },
+      ],
+    },
+    {
       id: 'total-internal-reflection',
       title: 'سڄي اندرڪني عڪاسي',
       blocks: [

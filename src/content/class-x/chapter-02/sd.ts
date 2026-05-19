@@ -120,6 +120,16 @@ const chapter02Sd: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٽريڪٽو سموليشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'SoundSimulation',
+        },
+      ],
+    },
+    {
       id: 'characteristics-of-sound',
       title: 'آواز جون خصوصيتون',
       blocks: [
@@ -212,8 +222,8 @@ const chapter02Sd: ChapterContent = {
         },
         {
           type: 'definition',
-          term: 'percussion جا الات',
-          definition: 'percussion جا الات ۾ آواز مارڻ يا هلائڻ کان پيدا ٿي ٿي. ڪمپن ڪندڙ جھلي يا جسم آواز پيدا ڪري ٿو. مثالين: ٻڌل، ڌولڪ، ڊرم، گهنٽيون.',
+          term: 'ضربي جا الات',
+          definition: 'ضربي جا الات ۾ آواز مارڻ يا هلائڻ کان پيدا ٿي ٿي. ڪمپن ڪندڙ جھلي يا جسم آواز پيدا ڪري ٿو. مثالين: ٻڌل، ڌولڪ، ڊرم، گهنٽيون.',
         },
       ],
     },

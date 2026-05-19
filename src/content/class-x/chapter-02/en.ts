@@ -120,6 +120,16 @@ const chapter02En: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'Interactive Simulations',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'SoundSimulation',
+        },
+      ],
+    },
+    {
       id: 'characteristics-of-sound',
       title: 'Characteristics of Sound',
       blocks: [

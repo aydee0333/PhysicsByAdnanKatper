@@ -120,6 +120,16 @@ const chapter02Ur: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٹرایکٹو سمولیشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'SoundSimulation',
+        },
+      ],
+    },
+    {
       id: 'characteristics-of-sound',
       title: 'آواز کی خصوصیات',
       blocks: [
@@ -212,8 +222,8 @@ const chapter02Ur: ChapterContent = {
         },
         {
           type: 'definition',
-          term: 'percussion کے آلات',
-          definition: 'percussion کے آلات میں آواز مارنے یا ہلانے سے پیدا ہوتی ہے۔ کمپن والی جھلی یا جسم آواز پیدا کرتا ہے۔ مثالیں: طبلہ، دھولک، ڈرم، گھنٹیاں۔',
+          term: 'ضربی کے آلات',
+          definition: 'ضربی کے آلات میں آواز مارنے یا ہلانے سے پیدا ہوتی ہے۔ کمپن والی جھلی یا جسم آواز پیدا کرتا ہے۔ مثالیں: طبلہ، دھولک، ڈرم، گھنٹیاں۔',
         },
       ],
     },
