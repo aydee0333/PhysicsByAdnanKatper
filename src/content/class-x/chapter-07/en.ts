@@ -279,6 +279,16 @@ const chapter07En: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'Interactive Simulations',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'LogicGatesSim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'Chapter Exercises',
       blocks: [

@@ -253,6 +253,16 @@ const chapter08Sd: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٽريڪٽو سموليشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'RadioactivitySim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'چيپٽر س۾ه',
       blocks: [
@@ -335,7 +345,7 @@ const chapter08Sd: ChapterContent = {
             {
               id: 'q10',
               question: 'شعاع جو پتو لڳائڻ لاءِ استعمال ٿيندڙ آلو آهي:',
-              options: ['اميٽر', 'вольٽ ميٽر', 'گائيگر مولر ڪاؤنٽر', 'ٿرماميٽر'],
+              options: ['اميٽر', 'وولٽ ميٽر', 'گائيگر مولر ڪاؤنٽر', 'ٿرماميٽر'],
               correctIndex: 2,
             },
           ],

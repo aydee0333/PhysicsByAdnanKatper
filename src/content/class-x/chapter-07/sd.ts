@@ -279,6 +279,16 @@ const chapter07Sd: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٽريڪٽو سموليشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'LogicGatesSim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'چيپٽر س۾ه',
       blocks: [

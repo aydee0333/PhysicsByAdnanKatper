@@ -279,6 +279,16 @@ const chapter07Ur: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٹرایکٹو سمولیشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'LogicGatesSim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'چیپٹر مشقیں',
       blocks: [

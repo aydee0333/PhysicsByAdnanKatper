@@ -253,6 +253,16 @@ const chapter08En: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'Interactive Simulations',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'RadioactivitySim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'Chapter Exercises',
       blocks: [
@@ -264,7 +274,7 @@ const chapter08En: ChapterContent = {
             { number: 3, question: 'Define half-life. The half-life of Iodine-131 is 8 days. How much of a 64g sample remains after 32 days?', answer: 'Half-life is the time for half the nuclei to decay. Number of half-lives = 32/8 = 4. Remaining = 64 × (1/2)⁴ = 64 × 1/16 = 4g.' },
             { number: 4, question: 'Explain the difference between nuclear fission and nuclear fusion.', answer: 'Fission splits heavy nuclei into lighter ones (used in nuclear reactors). Fusion joins light nuclei into heavier ones (occurs in the Sun). Both release large amounts of energy.' },
             { number: 5, question: 'What is meant by a chain reaction? Why is critical mass important?', answer: 'A chain reaction is a self-sustaining reaction where products trigger further reactions. Critical mass is the minimum mass needed to sustain the chain reaction. Below critical mass, too many neutrons escape.' },
-            { number: 6, question: 'State Einstein's mass-energy equation and explain its significance.', answer: 'E = mc² shows that a small mass (m) can be converted into a huge amount of energy (E) because c² is very large. This explains the enormous energy released in nuclear reactions.' },
+            { number: 6, question: "State Einstein's mass-energy equation and explain its significance.", answer: 'E = mc² shows that a small mass (m) can be converted into a huge amount of energy (E) because c² is very large. This explains the enormous energy released in nuclear reactions.' },
             { number: 7, question: 'Describe three uses of radioactivity in medicine.', answer: '1) Radiotherapy using Cobalt-60 to treat cancer. 2) Radioactive tracers to diagnose diseases. 3) Sterilization of medical equipment using gamma rays.' },
             { number: 8, question: 'What safety measures should be followed when handling radioactive materials?', answer: 'Follow three principles: Time (minimize exposure), Distance (stay far from source), Shielding (use lead/concrete barriers). Also wear protective clothing and use Geiger counters to monitor radiation levels.' },
           ],

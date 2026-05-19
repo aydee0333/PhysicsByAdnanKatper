@@ -253,6 +253,16 @@ const chapter08Ur: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'انٹرایکٹو سمولیشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'RadioactivitySim',
+        },
+      ],
+    },
+    {
       id: 'exercises',
       title: 'چیپٹر مشقیں',
       blocks: [
@@ -335,7 +345,7 @@ const chapter08Ur: ChapterContent = {
             {
               id: 'q10',
               question: 'شعاع کا پتہ لگانے کے لیے استعمال ہونے والا آلہ ہے:',
-              options: ['ایمیٹر', 'вольٹ میٹر', 'گائگر مولر کاؤنٹر', 'تھرمامیٹر'],
+              options: ['ایمیٹر', 'وولٹ میٹر', 'گائگر مولر کاؤنٹر', 'تھرمامیٹر'],
               correctIndex: 2,
             },
           ],
