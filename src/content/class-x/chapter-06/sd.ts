@@ -135,7 +135,7 @@ const chapter06Sd: ChapterContent = {
         {
           type: 'definition',
           term: 'برق مقناطيسي انڊڪشن',
-          definition: 'مقناطيسي ميدان بدل ڪندي ڳوڙهين ۾ القائي EMF (вольٽيج) پيدا ڪرڻ جو عمل. مائڪل فريڊي 1831 ۾ دريافت ڪيو.',
+          definition: 'مقناطيسي ميدان بدل ڪندي ڳوڙهين ۾ القائي EMF (وولٽيج) پيدا ڪرڻ جو عمل. مائڪل فريڊي 1831 ۾ دريافت ڪيو.',
         },
         {
           type: 'definition',
@@ -230,6 +230,16 @@ const chapter06Sd: ChapterContent = {
           type: 'definition',
           term: 'ٽرانسفارمر ۾ توانائي جو نقصان',
           definition: 'حقيقي ٽرانسفارمر 100% ڪارگر ناهن. توانائي جو نقصان هو ٿو: (1) ڪنڊلن جي گرم ٿيڻ سان (ڪوپر لاس)، (2) ڪور ۾ ايڊي ڪرنٽ سان، (3) مقناطيسي فلڪس جي مڪمل جڙ نه ٿيڻ سان، (4) لوهي جي ڪور ۾ هسٽيرسس سان.',
+        },
+      ],
+    },
+    {
+      id: 'interactive-simulations',
+      title: 'انٽريڪٽو سموليشنز',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'ElectromagnetSimulation',
         },
       ],
     },

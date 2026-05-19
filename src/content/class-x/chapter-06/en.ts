@@ -234,6 +234,16 @@ const chapter06En: ChapterContent = {
       ],
     },
     {
+      id: 'interactive-simulations',
+      title: 'Interactive Simulations',
+      blocks: [
+        {
+          type: 'interactive',
+          component: 'ElectromagnetSimulation',
+        },
+      ],
+    },
+    {
       id: 'numerical-examples',
       title: 'Solved Numericals',
       blocks: [
