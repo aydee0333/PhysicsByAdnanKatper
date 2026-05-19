@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Atom, Ruler, Check, RotateCcw } from 'lucide-react';
 import { useT } from '../../i18n/LanguageContext';
-import UnitQuiz from '../UnitQuiz';
+import { QuizEngine } from '../quiz';
 
 export default function Unit1Content() {
   const t = useT();
@@ -27,7 +27,7 @@ export default function Unit1Content() {
     setMatchSelectedQ(qId); setMatchResult(null);
     if (matchSelectedU !== null) {
       const unit = unitsList.find(u => u.id === matchSelectedU);
-      const isCorrect = unit && unit.pairId === pairId;
+      const isCorrect = !!(unit && unit.pairId === pairId);
       setMatchResult({ correct: isCorrect, pairId });
       if (isCorrect) setMatchedPairs([...matchedPairs, pairId]);
       setTimeout(() => { setMatchSelectedQ(null); setMatchSelectedU(null); setMatchResult(null); }, 1200);
@@ -39,7 +39,7 @@ export default function Unit1Content() {
     setMatchSelectedU(uId); setMatchResult(null);
     if (matchSelectedQ !== null) {
       const qty = quantitiesList.find(q => q.id === matchSelectedQ);
-      const isCorrect = qty && qty.pairId === pairId;
+      const isCorrect = !!(qty && qty.pairId === pairId);
       setMatchResult({ correct: isCorrect, pairId });
       if (isCorrect) setMatchedPairs([...matchedPairs, pairId]);
       setTimeout(() => { setMatchSelectedQ(null); setMatchSelectedU(null); setMatchResult(null); }, 1200);
@@ -79,7 +79,7 @@ export default function Unit1Content() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead><tr className="border-b border-white/10 text-brand-cyan">
-              <th className="py-3 text-left">{t('unit1.table.quantity')}</th><th className="py-3 text-left">{t('unit1.table.unit')}</th><th className="py-3 text-left">{t('unit1.table.symbol')}</th>
+              <th className="py-3 text-start">{t('unit1.table.quantity')}</th><th className="py-3 text-start">{t('unit1.table.unit')}</th><th className="py-3 text-start">{t('unit1.table.symbol')}</th>
             </tr></thead>
             <tbody>
               {[
@@ -161,7 +161,7 @@ export default function Unit1Content() {
           <div>
             <p className="font-bold text-brand-cyan mb-3">{t('unit1.match.physicalQuantities')}</p>
             {quantitiesList.map(q => (
-              <button key={q.id} onClick={() => handleQuantityClick(q.id, q.pairId)} disabled={matchedPairs.includes(q.pairId)} className={`w-full p-4 mb-2 rounded-xl text-left flex justify-between border-2 transition-all ${matchedPairs.includes(q.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : matchResult?.pairId === q.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' : matchSelectedQ === q.id ? 'bg-brand-cyan/20 border-brand-cyan' : 'glass-card border-white/10'}`}>
+              <button key={q.id} onClick={() => handleQuantityClick(q.id, q.pairId)} disabled={matchedPairs.includes(q.pairId)} className={`w-full p-4 mb-2 rounded-xl text-start flex justify-between border-2 transition-all ${matchedPairs.includes(q.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : matchResult?.pairId === q.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' : matchSelectedQ === q.id ? 'bg-brand-cyan/20 border-brand-cyan' : 'glass-card border-white/10'}`}>
                 {t(quantityKeys[q.id])}{matchedPairs.includes(q.pairId) && <Check size={18} />}
               </button>
             ))}
@@ -169,7 +169,7 @@ export default function Unit1Content() {
           <div>
             <p className="font-bold text-brand-amber mb-3">{t('unit1.match.siUnitsShuffled')}</p>
             {unitsList.map(u => (
-              <button key={u.id} onClick={() => handleUnitClick(u.id, u.pairId)} disabled={matchedPairs.includes(u.pairId)} className={`w-full p-4 mb-2 rounded-xl text-left flex justify-between border-2 transition-all ${matchedPairs.includes(u.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : matchResult?.pairId === u.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' : matchSelectedU === u.id ? 'bg-brand-amber/20 border-brand-amber' : 'glass-card border-white/10'}`}>
+              <button key={u.id} onClick={() => handleUnitClick(u.id, u.pairId)} disabled={matchedPairs.includes(u.pairId)} className={`w-full p-4 mb-2 rounded-xl text-start flex justify-between border-2 transition-all ${matchedPairs.includes(u.pairId) ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : matchResult?.pairId === u.pairId && !matchResult.correct ? 'bg-red-500/20 border-red-500 text-red-400' : matchSelectedU === u.id ? 'bg-brand-amber/20 border-brand-amber' : 'glass-card border-white/10'}`}>
                 {t(unitKeys[u.id])}{matchedPairs.includes(u.pairId) && <Check size={18} />}
               </button>
             ))}
@@ -178,17 +178,40 @@ export default function Unit1Content() {
         <button onClick={resetGame} className="mt-6 text-sm text-gray-400 hover:text-white flex items-center gap-2 mx-auto"><RotateCcw size={16} /> Reset Game</button>
       </div>
 
-      {/* MCQ Quiz */}
-      <UnitQuiz
-        unitId="class-ix-unit-1"
-        questions={[
-          { id: 'q1', question: t('unit1.quiz.q1'), options: [t('unit1.quiz.q1.opt1'), t('unit1.quiz.q1.opt2'), t('unit1.quiz.q1.opt3'), t('unit1.quiz.q1.opt4')], correctIndex: 1 },
-          { id: 'q2', question: t('unit1.quiz.q2'), options: [t('unit1.quiz.q2.opt1'), t('unit1.quiz.q2.opt2'), t('unit1.quiz.q2.opt3'), t('unit1.quiz.q2.opt4')], correctIndex: 2 },
-          { id: 'q3', question: t('unit1.quiz.q3'), options: [t('unit1.quiz.q3.opt1'), t('unit1.quiz.q3.opt2'), t('unit1.quiz.q3.opt3'), t('unit1.quiz.q3.opt4')], correctIndex: 1 },
-          { id: 'q4', question: t('unit1.quiz.q4'), options: [t('unit1.quiz.q4.opt1'), t('unit1.quiz.q4.opt2'), t('unit1.quiz.q4.opt3'), t('unit1.quiz.q4.opt4')], correctIndex: 3 },
-          { id: 'q5', question: t('unit1.quiz.q5'), options: [t('unit1.quiz.q5.opt1'), t('unit1.quiz.q5.opt2'), t('unit1.quiz.q5.opt3'), t('unit1.quiz.q5.opt4')], correctIndex: 2 },
-        ]}
-        onComplete={(score, total) => console.log(`Quiz completed: ${score}/${total}`)}
+      {/* Quiz Section */}
+      <QuizEngine
+        config={{
+          unitId: 'class-ix-unit-1',
+          quizKey: 'unit1-quiz',
+          title: t('unit1.quizSection'),
+          questions: [
+            // MCQ Questions
+            { id: 'mcq1', type: 'mcq', question: t('unit1.quiz.q1'), options: [t('unit1.quiz.q1.opt1'), t('unit1.quiz.q1.opt2'), t('unit1.quiz.q1.opt3'), t('unit1.quiz.q1.opt4')], correctIndex: 1, explanation: t('unit1.quiz.q1.exp') },
+            { id: 'mcq2', type: 'mcq', question: t('unit1.quiz.q2'), options: [t('unit1.quiz.q2.opt1'), t('unit1.quiz.q2.opt2'), t('unit1.quiz.q2.opt3'), t('unit1.quiz.q2.opt4')], correctIndex: 2, explanation: t('unit1.quiz.q2.exp') },
+            { id: 'mcq3', type: 'mcq', question: t('unit1.quiz.q3'), options: [t('unit1.quiz.q3.opt1'), t('unit1.quiz.q3.opt2'), t('unit1.quiz.q3.opt3'), t('unit1.quiz.q3.opt4')], correctIndex: 1, explanation: t('unit1.quiz.q3.exp') },
+            // True/False Questions
+            { id: 'tf1', type: 'trueFalse', question: t('unit1.tf.q1'), correctAnswer: false, explanation: t('unit1.tf.q1.exp') },
+            { id: 'tf2', type: 'trueFalse', question: t('unit1.tf.q2'), correctAnswer: true, explanation: t('unit1.tf.q2.exp') },
+            // Numerical Questions
+            { id: 'num1', type: 'numerical', question: t('unit1.num.q1'), correctAnswer: 2500, tolerance: 0, unit: 'mm', hint: t('unit1.num.q1.hint'), explanation: t('unit1.num.q1.exp') },
+            { id: 'num2', type: 'numerical', question: t('unit1.num.q2'), correctAnswer: 0.5, tolerance: 0.01, unit: 'kg', hint: t('unit1.num.q2.hint'), explanation: t('unit1.num.q2.exp') },
+            // Match Question
+            { id: 'match1', type: 'match', question: t('unit1.match.q1.title'), pairs: [
+              { left: t('unit1.match.q1.pair1.left'), right: t('unit1.match.q1.pair1.right') },
+              { left: t('unit1.match.q1.pair2.left'), right: t('unit1.match.q1.pair2.right') },
+              { left: t('unit1.match.q1.pair3.left'), right: t('unit1.match.q1.pair3.right') },
+              { left: t('unit1.match.q1.pair4.left'), right: t('unit1.match.q1.pair4.right') },
+              { left: t('unit1.match.q1.pair5.left'), right: t('unit1.match.q1.pair5.right') },
+            ], explanation: t('unit1.match.q1.exp') },
+            // Concept Test
+            { id: 'concept1', type: 'conceptTest', question: t('unit1.concept.q1.title'), scenario: t('unit1.concept.q1.scenario'), subQuestions: [
+              { id: 'c1s1', type: 'mcq', question: t('unit1.concept.q1.sub1'), options: [t('unit1.concept.q1.sub1.opt1'), t('unit1.concept.q1.sub1.opt2'), t('unit1.concept.q1.sub1.opt3'), t('unit1.concept.q1.sub1.opt4')], correctIndex: 1, explanation: t('unit1.concept.q1.sub1.exp') },
+              { id: 'c1s2', type: 'mcq', question: t('unit1.concept.q1.sub2'), options: [t('unit1.concept.q1.sub2.opt1'), t('unit1.concept.q1.sub2.opt2'), t('unit1.concept.q1.sub2.opt3'), t('unit1.concept.q1.sub2.opt4')], correctIndex: 1, explanation: t('unit1.concept.q1.sub2.exp') },
+              { id: 'c1s3', type: 'trueFalse', question: t('unit1.concept.q1.sub3'), correctAnswer: true, explanation: t('unit1.concept.q1.sub3.exp') },
+            ], explanation: t('unit1.concept.q1.exp') },
+          ],
+          onComplete: () => {},
+        }}
       />
     </div>
   );

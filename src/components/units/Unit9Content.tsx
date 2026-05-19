@@ -1,34 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Thermometer, Flame, Snowflake, Wind, Gauge } from 'lucide-react';
+import { useT } from '../../i18n/LanguageContext';
+import Section from '../Section';
+import UnitQuiz from '../UnitQuiz';
 
-function Section({ title, icon, children, color = 'brand-cyan' }: { title: string; icon: React.ReactNode; children: React.ReactNode; color?: string }) {
-  const colorClasses: Record<string, { bg: string; text: string }> = {
-    'brand-cyan': { bg: 'bg-[#06b6d4]/20', text: 'text-[#06b6d4]' },
-    'brand-purple': { bg: 'bg-[#7c3aed]/20', text: 'text-[#7c3aed]' },
-    'brand-pink': { bg: 'bg-[#ec4899]/20', text: 'text-[#ec4899]' },
-    'brand-amber': { bg: 'bg-[#f59e0b]/20', text: 'text-[#f59e0b]' },
-    'brand-rose': { bg: 'bg-[#f43f5e]/20', text: 'text-[#f43f5e]' },
-    'brand-lime': { bg: 'bg-[#84cc16]/20', text: 'text-[#84cc16]' },
-    'brand-teal': { bg: 'bg-[#14b8a6]/20', text: 'text-[#14b8a6]' },
-  };
-  const c = colorClasses[color] || colorClasses['brand-cyan'];
-  return (
-    <div className="unit-detail-reveal mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
-      <div className="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden">
-        <div className="flex items-center gap-4 mb-8">
-          <div className={`w-12 h-12 rounded-2xl ${c.bg} flex items-center justify-center ${c.text}`}>
-            {icon}
-          </div>
-          <h2 className="text-2xl md:text-3xl font-black text-white">{title}</h2>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-/* ─── 1. THERMOMETER ─── */
+/* ═══ 1. VIRTUAL THERMOMETER ═══ */
 function VirtualThermometer() {
+  const t = useT();
   const [celsius, setCelsius] = useState(20);
   const kelvin = celsius + 273;
   const fahrenheit = (celsius * 9 / 5) + 32;
@@ -43,514 +21,292 @@ function VirtualThermometer() {
   return (
     <div>
       <div className="mb-4">
-        <label className="text-gray-400 text-sm block mb-2">Temperature: {celsius}°C</label>
-        <input type="range" min="-50" max="150" value={celsius} onChange={e => setCelsius(Number(e.target.value))} className="w-full" style={{ accentColor: getColor() }} />
+        <label className="text-gray-400 text-sm block mb-2">{t('unit9.tempSlider').replace('{celsius}', String(celsius))}</label>
+        <input type="range" min="-50" max="150" value={celsius} onChange={e => setCelsius(Number(e.target.value))} className="w-full accent-brand-amber" />
       </div>
-
       <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4">
-        <div className="flex justify-center">
-          <div className="relative w-16">
-            {/* Thermometer tube */}
-            <div className="w-6 h-40 bg-white/5 rounded-full mx-auto relative overflow-hidden border border-white/10">
-              <div className="absolute bottom-0 left-0 right-0 rounded-b-full transition-all duration-300" style={{ height: `${Math.max(5, Math.min(100, (celsius + 50) / 200 * 100))}%`, backgroundColor: getColor() }} />
-            </div>
-            {/* Bulb */}
-            <div className="w-10 h-10 rounded-full mx-auto -mt-1 border-2 border-white/10" style={{ backgroundColor: getColor() }} />
+        <div className="flex items-center justify-center gap-8">
+          <div className="relative" style={{ width: 40, height: 200 }}>
+            <div className="absolute bottom-0 left-0 w-full rounded-b-full" style={{ height: `${((celsius + 50) / 200) * 100}%`, backgroundColor: getColor(), opacity: 0.6, transition: 'all 0.3s' }} />
+            <div className="absolute inset-0 border-2 border-white/20 rounded-t-full rounded-b-full" />
+            <div className="absolute -left-16 top-0 text-gray-400 text-xs">150°C</div>
+            <div className="absolute -left-12 top-1/2 text-gray-400 text-xs">50°C</div>
+            <div className="absolute -left-16 bottom-0 text-gray-400 text-xs">-50°C</div>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="formula-box rounded-xl p-4 text-center"><p className="text-gray-400 text-xs uppercase mb-1">{t('unit9.celsius')}</p><p className="text-2xl font-space font-bold" style={{ color: getColor() }}>{celsius}°C</p></div>
+            <div className="formula-box rounded-xl p-4 text-center"><p className="text-gray-400 text-xs uppercase mb-1">{t('unit9.kelvin')}</p><p className="text-2xl font-space font-bold text-brand-cyan">{kelvin} K</p></div>
+            <div className="formula-box rounded-xl p-4 text-center"><p className="text-gray-400 text-xs uppercase mb-1">{t('unit9.fahrenheit')}</p><p className="text-2xl font-space font-bold text-brand-pink">{fahrenheit.toFixed(1)}°F</p></div>
           </div>
         </div>
       </div>
-
-      <div className="grid sm:grid-cols-3 gap-3">
-        <div className="formula-box rounded-xl p-4 text-center">
-          <p className="text-gray-400 text-xs uppercase mb-1">Celsius</p>
-          <p className="text-2xl font-space font-bold" style={{ color: getColor() }}>{celsius}°C</p>
-        </div>
-        <div className="formula-box rounded-xl p-4 text-center">
-          <p className="text-gray-400 text-xs uppercase mb-1">Kelvin</p>
-          <p className="text-2xl font-space font-bold text-brand-pink">{kelvin} K</p>
-        </div>
-        <div className="formula-box rounded-xl p-4 text-center">
-          <p className="text-gray-400 text-xs uppercase mb-1">Fahrenheit</p>
-          <p className="text-2xl font-space font-bold text-brand-amber">{fahrenheit.toFixed(1)}°F</p>
-        </div>
-      </div>
-
-      <div className="formula-box rounded-2xl p-4 mt-4 text-center">
-        <p className="text-white font-space font-bold">K = °C + 273 | °F = (°C × 9/5) + 32</p>
-      </div>
+      <div className="formula-box rounded-xl p-4 text-center"><p className="text-sm font-space text-gray-300">{t('unit9.tempFormula')}</p></div>
     </div>
   );
 }
 
-/* ─── 2. THERMAL EXPANSION ─── */
+/* ═══ 2. THERMAL EXPANSION ═══ */
 function ThermalExpansionSim() {
-  const [temp, setTemp] = useState(0);
-  const alpha = 1.2e-5; // steel
+  const t = useT();
+  const [temp, setTemp] = useState(20);
+  const alpha = 1.2e-5;
   const L0 = 100;
-  const deltaL = alpha * L0 * temp;
-  const newL = L0 + deltaL;
+  const deltaT = temp - 20;
+  const newLen = L0 * (1 + alpha * deltaT * 1000);
 
   return (
     <div>
-      <div className="mb-4">
-        <label className="text-gray-400 text-sm block mb-2">Temperature: {temp}°C</label>
-        <input type="range" min="0" max="200" value={temp} onChange={e => setTemp(Number(e.target.value))} className="w-full accent-brand-amber" />
-      </div>
-
+      <div className="mb-4"><label className="text-gray-400 text-sm block mb-2">{t('unit9.tempSlider2').replace('{temp}', String(temp))}</label><input type="range" min="20" max="500" value={temp} onChange={e => setTemp(Number(e.target.value))} className="w-full accent-brand-amber" /></div>
       <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4">
-        <div className="flex items-center justify-center gap-4">
-          <div className="text-center">
-            <p className="text-gray-500 text-xs mb-1">Original</p>
-            <div className="h-4 bg-brand-cyan/30 rounded" style={{ width: 100 }} />
-            <p className="text-brand-cyan text-xs mt-1">{L0} cm</p>
-          </div>
+        <div className="flex items-center gap-4 mb-4">
+          <div className="flex-1"><p className="text-gray-400 text-xs mb-1">{t('unit9.original')}</p><div className="h-4 bg-brand-cyan/30 rounded" style={{ width: '100%' }} /><p className="text-brand-cyan text-xs mt-1">{L0} cm</p></div>
           <span className="text-gray-500">→</span>
-          <div className="text-center">
-            <p className="text-gray-500 text-xs mb-1">After Heating</p>
-            <div className="h-4 bg-brand-rose/30 rounded transition-all" style={{ width: newL }} />
-            <p className="text-brand-rose text-xs mt-1">{newL.toFixed(2)} cm</p>
-          </div>
+          <div className="flex-1"><p className="text-gray-400 text-xs mb-1">{t('unit9.afterHeating')}</p><div className="h-4 bg-brand-amber/30 rounded" style={{ width: `${(newLen / L0) * 100}%`, maxWidth: '100%' }} /><p className="text-brand-amber text-xs mt-1">{newLen.toFixed(2)} cm</p></div>
         </div>
       </div>
-
-      <div className="formula-box rounded-2xl p-5 text-center">
-        <p className="text-xl font-space font-bold text-white">ΔL = αL₀ΔT = {deltaL.toFixed(3)} cm</p>
-        <p className="text-gray-400 text-sm mt-2">New Length = {newL.toFixed(2)} cm</p>
-      </div>
-
-      <div className="grid sm:grid-cols-3 gap-3 mt-4">
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-cyan text-xs font-bold">🌉 Bridges</p>
-          <p className="text-gray-400 text-xs">Expansion joints allow movement</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-pink text-xs font-bold">🫙 Metal Lids</p>
-          <p className="text-gray-400 text-xs">Loosen when heated</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-amber text-xs font-bold">🎈 Balloon</p>
-          <p className="text-gray-400 text-xs">Expands in hot water</p>
-        </div>
+      <div className="formula-box rounded-xl p-4 text-center mb-4"><p className="text-gray-400 text-xs uppercase mb-1">{t('unit9.newLength').replace('{length}', newLen.toFixed(2))}</p><p className="text-xl font-space font-bold text-brand-amber">ΔL = {alpha} × {L0} × {deltaT} = {(alpha * L0 * deltaT * 1000).toFixed(3)} cm</p></div>
+      <div className="grid sm:grid-cols-3 gap-3">
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-sm">{t('unit9.bridges')}</p><p className="text-gray-400 text-xs">{t('unit9.bridgesDesc')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-pink font-bold text-sm">{t('unit9.metalLids')}</p><p className="text-gray-400 text-xs">{t('unit9.metalLidsDesc')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-amber font-bold text-sm">{t('unit9.balloon')}</p><p className="text-gray-400 text-xs">{t('unit9.balloonDesc')}</p></div>
       </div>
     </div>
   );
 }
 
-/* ─── 3. SPECIFIC HEAT ─── */
+/* ═══ 3. SPECIFIC HEAT ═══ */
 function SpecificHeatSim() {
-  const [material, setMaterial] = useState<'water' | 'iron' | 'sand'>('water');
+  const t = useT();
   const [mass, setMass] = useState(1);
-  const [deltaT, setDeltaT] = useState(50);
-
-  const materials: Record<string, { name: string; c: number; color: string }> = {
-    water: { name: 'Water', c: 4186, color: 'text-brand-cyan' },
-    iron: { name: 'Iron', c: 450, color: 'text-brand-rose' },
-    sand: { name: 'Sand', c: 830, color: 'text-brand-amber' },
+  const [deltaT, setDeltaT] = useState(10);
+  const [material, setMaterial] = useState('water');
+  const materials: Record<string, { c: number; color: string }> = {
+    water: { c: 4186, color: 'text-brand-cyan' },
+    iron: { c: 450, color: 'text-brand-rose' },
+    sand: { c: 830, color: 'text-brand-amber' },
   };
-
-  const m = materials[material];
-  const Q = mass * m.c * deltaT;
+  const c = materials[material].c;
+  const Q = mass * c * deltaT;
 
   return (
     <div>
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div><label className="text-gray-400 text-sm block mb-2">{t('unit9.massSlider').replace('{mass}', String(mass))}</label><input type="range" min="0.1" max="10" step="0.1" value={mass} onChange={e => setMass(Number(e.target.value))} className="w-full accent-brand-rose" /></div>
+        <div><label className="text-gray-400 text-sm block mb-2">{t('unit9.deltaTSlider').replace('{deltaT}', String(deltaT))}</label><input type="range" min="1" max="100" value={deltaT} onChange={e => setDeltaT(Number(e.target.value))} className="w-full accent-brand-amber" /></div>
+      </div>
       <div className="flex gap-3 mb-4">
-        {(['water', 'iron', 'sand'] as const).map(mat => (
-          <button key={mat} onClick={() => setMaterial(mat)} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${material === mat ? 'bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30' : 'glass-card text-gray-400'}`}>
-            {mat === 'water' ? '💧' : mat === 'iron' ? '⚙️' : '🏖️'} {materials[mat].name}
-          </button>
-        ))}
+        <button onClick={() => setMaterial('water')} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${material === 'water' ? 'bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30' : 'glass-card text-gray-400'}`}>{t('unit9.water')}</button>
+        <button onClick={() => setMaterial('iron')} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${material === 'iron' ? 'bg-brand-rose/20 text-brand-rose border border-brand-rose/30' : 'glass-card text-gray-400'}`}>{t('unit9.iron')}</button>
+        <button onClick={() => setMaterial('sand')} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${material === 'sand' ? 'bg-brand-amber/20 text-brand-amber border border-brand-amber/30' : 'glass-card text-gray-400'}`}>{t('unit9.sand')}</button>
       </div>
-
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <div>
-          <label className="text-gray-400 text-sm block mb-2">Mass (kg): {mass}</label>
-          <input type="range" min="0.1" max="10" step="0.1" value={mass} onChange={e => setMass(Number(e.target.value))} className="w-full accent-brand-cyan" />
-        </div>
-        <div>
-          <label className="text-gray-400 text-sm block mb-2">Temperature Change (°C): {deltaT}</label>
-          <input type="range" min="1" max="100" value={deltaT} onChange={e => setDeltaT(Number(e.target.value))} className="w-full accent-brand-pink" />
-        </div>
-      </div>
-
-      <div className="formula-box rounded-2xl p-6 text-center">
+      <div className="formula-box rounded-2xl p-6 text-center mb-4">
         <p className="text-gray-400 text-xs uppercase mb-2">Q = mcΔT</p>
-        <p className="text-3xl font-space font-bold text-white">Q = {mass} × {m.c} × {deltaT} = <span className={m.color}>{(Q / 1000).toFixed(1)} kJ</span></p>
+        <p className="text-3xl font-space font-bold text-brand-rose">Q = {mass} × {c} × {deltaT} = <span className="text-brand-cyan">{Q.toFixed(0)} J</span></p>
       </div>
-
-      <div className="glass-card rounded-xl p-4 mt-4">
-        <p className="text-gray-300 text-sm"><strong className={m.color}>{m.name}</strong> specific heat: <strong className="text-white">{m.c} J/kg°C</strong></p>
-        <p className="text-gray-400 text-xs mt-1">{material === 'water' ? 'High c → heats slowly, good coolant' : 'Low c → heats quickly'}</p>
+      <div className="glass-card rounded-xl p-4 mb-4"><p className="text-gray-300 text-sm" dangerouslySetInnerHTML={{ __html: t('unit9.specificHeatNote').replace('{color}', materials[material].color).replace('{material}', material).replace('{c}', String(c)) }}></p></div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-sm">{t('unit9.highCNote')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-rose font-bold text-sm">{t('unit9.lowCNote')}</p></div>
       </div>
     </div>
   );
 }
 
-/* ─── 4. LATENT HEAT ─── */
-function LatentHeatSim() {
-  const [state, setState] = useState<'ice' | 'water' | 'steam'>('ice');
-  const [temp, setTemp] = useState(-20);
-
-  useEffect(() => {
-    if (state === 'ice') setTemp(-20);
-    else if (state === 'water') setTemp(50);
-    else setTemp(120);
-  }, [state]);
+/* ═══ 4. ICE MELTING SIM ═══ */
+function IceMeltingSim() {
+  const t = useT();
+  const [heat, setHeat] = useState(0);
+  const maxHeat = 500;
+  const phase = heat < 100 ? 'ice' : heat < 200 ? 'melting' : heat < 350 ? 'water' : heat < 400 ? 'boiling' : 'steam';
+  const temp = phase === 'ice' ? -20 + heat * 0.4 : phase === 'melting' ? 0 : phase === 'water' ? (heat - 200) * 0.67 : phase === 'boiling' ? 100 : 100 + (heat - 400) * 0.5;
 
   return (
     <div>
-      <div className="flex gap-3 mb-4">
-        {(['ice', 'water', 'steam'] as const).map(s => (
-          <button key={s} onClick={() => setState(s)} className={`flex-1 py-2 rounded-xl text-sm font-semibold capitalize ${state === s ? s === 'ice' ? 'bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30' : s === 'water' ? 'bg-brand-amber/20 text-brand-amber border border-brand-amber/30' : 'bg-brand-rose/20 text-brand-rose border border-brand-rose/30' : 'glass-card text-gray-400'}`}>
-            {s}
-          </button>
-        ))}
-      </div>
-
+      <div className="mb-4"><label className="text-gray-400 text-sm block mb-2">Heat Energy: {heat} kJ</label><input type="range" min="0" max={maxHeat} value={heat} onChange={e => setHeat(Number(e.target.value))} className="w-full accent-brand-rose" /></div>
       <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4">
-        <div className="flex justify-center">
-          <div className="w-32 h-40 relative">
-            {/* Container */}
-            <div className="absolute inset-0 border-2 border-white/10 rounded-lg overflow-hidden">
-              {state === 'ice' && <div className="absolute bottom-0 left-0 right-0 h-3/4 bg-brand-cyan/20 flex items-center justify-center"><span className="text-brand-cyan text-2xl">🧊</span></div>}
-              {state === 'water' && <div className="absolute bottom-0 left-0 right-0 h-3/4 bg-brand-amber/20 flex items-center justify-center"><span className="text-brand-amber text-2xl">💧</span></div>}
-              {state === 'steam' && <div className="absolute bottom-0 left-0 right-0 h-full bg-brand-rose/10 flex items-center justify-center"><span className="text-brand-rose text-2xl">💨</span></div>}
-            </div>
-            {/* Temp */}
-            <div className="absolute -right-16 top-1/2 -translate-y-1/2">
-              <p className="text-white font-bold">{temp}°C</p>
-            </div>
-          </div>
+        <div className="text-center mb-4">
+          <div className="text-6xl mb-2">{phase === 'ice' ? '🧊' : phase === 'melting' ? '💧' : phase === 'water' ? '💧' : phase === 'boiling' ? '♨️' : '☁️'}</div>
+          <p className="text-white font-bold text-lg capitalize">{phase === 'ice' ? t('unit9.ice') : phase === 'melting' ? t('unit9.melting') : phase === 'water' ? t('unit9.liquidWater') : phase === 'boiling' ? t('unit9.evaporationProcess') : t('unit9.steam')}</p>
+          <p className="text-brand-cyan font-space text-2xl font-bold">{temp.toFixed(1)}°C</p>
         </div>
+        <div className="w-full bg-white/10 rounded-full h-3"><div className="h-full rounded-full bg-brand-rose transition-all" style={{ width: `${(heat / maxHeat) * 100}%` }} /></div>
+        <div className="flex justify-between text-gray-500 text-xs mt-1"><span>0 kJ</span><span>{maxHeat} kJ</span></div>
       </div>
-
-      <div className="grid sm:grid-cols-2 gap-3">
-        <div className="formula-box rounded-xl p-4">
-          <p className="text-gray-400 text-xs uppercase mb-1">Latent Heat of Fusion</p>
-          <p className="text-xl font-space font-bold text-brand-cyan">L_f = 334 kJ/kg</p>
-          <p className="text-gray-400 text-xs">Ice → Water at 0°C</p>
-        </div>
-        <div className="formula-box rounded-xl p-4">
-          <p className="text-gray-400 text-xs uppercase mb-1">Latent Heat of Vaporization</p>
-          <p className="text-xl font-space font-bold text-brand-rose">L_v = 2260 kJ/kg</p>
-          <p className="text-gray-400 text-xs">Water → Steam at 100°C</p>
-        </div>
-      </div>
-
-      <div className="glass-card rounded-xl p-4 mt-4">
-        <p className="text-gray-300 text-sm"><strong className="text-brand-lime">Key Point:</strong> During melting or boiling, energy goes into breaking bonds between molecules — <strong className="text-white">temperature does not change</strong> during the phase change!</p>
-      </div>
+      <div className="glass-card rounded-xl p-4"><p className="text-gray-300 text-sm" dangerouslySetInnerHTML={{ __html: t('unit9.latentHeatKeyPoint') }} ></p></div>
     </div>
   );
 }
 
-/* ─── 5. CHANGE OF STATE ─── */
-function ChangeOfStateSim() {
-  const [process, setProcess] = useState<'melting' | 'freezing' | 'evaporation' | 'condensation'>('melting');
-
-  const processes = {
-    melting: { from: 'Solid 🧊', to: 'Liquid 💧', temp: '0°C', desc: 'Ice turns into water' },
-    freezing: { from: 'Liquid 💧', to: 'Solid 🧊', temp: '0°C', desc: 'Water turns into ice' },
-    evaporation: { from: 'Liquid 💧', to: 'Gas 💨', temp: '100°C', desc: 'Water turns into steam' },
-    condensation: { from: 'Gas 💨', to: 'Liquid 💧', temp: '100°C', desc: 'Steam turns into water' },
-  };
-
-  const p = processes[process];
-
+/* ═══ 5. WATER CYCLE ═══ */
+function WaterCycleDiagram() {
+  const t = useT();
   return (
-    <div>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {(['melting', 'freezing', 'evaporation', 'condensation'] as const).map(proc => (
-          <button key={proc} onClick={() => setProcess(proc)} className={`px-4 py-2 rounded-xl text-sm font-semibold capitalize ${process === proc ? 'bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30' : 'glass-card text-gray-400'}`}>
-            {proc}
-          </button>
-        ))}
-      </div>
-
-      <div className="glass-card rounded-2xl p-6 mb-4">
-        <div className="flex items-center justify-center gap-4">
-          <div className="text-center">
-            <p className="text-3xl">{p.from.split(' ')[1]}</p>
-            <p className="text-gray-400 text-sm">{p.from.split(' ')[0]}</p>
-          </div>
-          <div className="text-brand-cyan text-2xl">→</div>
-          <div className="text-center">
-            <p className="text-3xl">{p.to.split(' ')[1]}</p>
-            <p className="text-gray-400 text-sm">{p.to.split(' ')[0]}</p>
-          </div>
-        </div>
-        <div className="text-center mt-4">
-          <p className="text-brand-amber font-bold">{p.desc}</p>
-          <p className="text-gray-400 text-sm">at {p.temp}</p>
-        </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-3">
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-cyan text-xs font-bold">🧊 Sublimation</p>
-          <p className="text-gray-400 text-xs">Solid → Gas directly (dry ice, iodine)</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-pink text-xs font-bold">💨 Deposition</p>
-          <p className="text-gray-400 text-xs">Gas → Solid directly (frost)</p>
-        </div>
-      </div>
+    <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6">
+      <svg width="100%" height="300" viewBox="0 0 500 300">
+        <rect x="50" y="200" width="400" height="80" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.3)" strokeWidth="1" />
+        <rect x="50" y="200" width="400" height="20" fill="rgba(6,182,212,0.2)" />
+        <text x="250" y="250" textAnchor="middle" fill="#06b6d4" fontSize="14" fontWeight="bold">{t('unit9.waterLabel')}</text>
+        <polygon points="250,40 200,200 300,200" fill="rgba(124,58,237,0.2)" stroke="rgba(124,58,237,0.3)" strokeWidth="1" />
+        <text x="250" y="140" textAnchor="middle" fill="#7c3aed" fontSize="12" fontWeight="bold">{t('unit9.iceLabel')}</text>
+        <circle cx="250" cy="30" r="15" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+        <text x="250" y="35" textAnchor="middle" fill="#fff" fontSize="10" fontWeight="bold">{t('unit9.steamLabel')}</text>
+        <path d="M 240 200 Q 200 170 245 45" fill="none" stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow9)" />
+        <text x="200" y="120" fill="#f59e0b" fontSize="10">{t('unit9.melting')}</text>
+        <path d="M 260 45 Q 300 170 260 200" fill="none" stroke="#06b6d4" strokeWidth="2" markerEnd="url(#arrow9)" />
+        <text x="310" y="120" fill="#06b6d4" fontSize="10">{t('unit9.condensation')}</text>
+        <path d="M 100 200 Q 80 150 120 100" fill="none" stroke="#84cc16" strokeWidth="2" markerEnd="url(#arrow9)" />
+        <text x="60" y="150" fill="#84cc16" fontSize="10">{t('unit9.evaporationProcess')}</text>
+        <path d="M 380 100 Q 420 150 400 200" fill="none" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrow9)" />
+        <text x="400" y="150" fill="#ec4899" fontSize="10">{t('unit9.freezing')}</text>
+        <defs><marker id="arrow9" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M 0 8 L 4 0 L 8 8" fill="currentColor" /></marker></defs>
+      </svg>
     </div>
   );
 }
 
-/* ─── 6. EVAPORATION ─── */
-function EvaporationSim() {
+/* ═══ 6. EVAPORATION FACTORS ═══ */
+function WetClothSim() {
+  const t = useT();
   const [temp, setTemp] = useState(25);
   const [wind, setWind] = useState(0);
-  const rate = (temp / 50) * (1 + wind / 10);
+  const rate = (temp / 50) * 0.5 + (wind / 100) * 0.5;
+  const rateLabel = rate > 0.7 ? t('unit9.fast') : rate > 0.3 ? t('unit9.medium') : t('unit9.slow');
 
   return (
     <div>
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <div>
-          <label className="text-gray-400 text-sm block mb-2">Temperature: {temp}°C</label>
-          <input type="range" min="0" max="50" value={temp} onChange={e => setTemp(Number(e.target.value))} className="w-full accent-brand-amber" />
-        </div>
-        <div>
-          <label className="text-gray-400 text-sm block mb-2">Wind Speed: {wind}</label>
-          <input type="range" min="0" max="10" value={wind} onChange={e => setWind(Number(e.target.value))} className="w-full accent-brand-cyan" />
-        </div>
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div><label className="text-gray-400 text-sm block mb-2">{t('unit9.tempSlider3').replace('{temp}', String(temp))}</label><input type="range" min="0" max="50" value={temp} onChange={e => setTemp(Number(e.target.value))} className="w-full accent-brand-amber" /></div>
+        <div><label className="text-gray-400 text-sm block mb-2">{t('unit9.windSpeed').replace('{wind}', String(wind))}</label><input type="range" min="0" max="100" value={wind} onChange={e => setWind(Number(e.target.value))} className="w-full accent-brand-cyan" /></div>
       </div>
-
-      <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4">
-        <div className="flex justify-center">
-          <div className="w-24 h-32 relative">
-            {/* Cloth */}
-            <div className="absolute top-0 left-0 right-0 h-20 bg-brand-cyan/20 rounded border border-brand-cyan/30 flex items-center justify-center">
-              <span className="text-brand-cyan text-xs">Wet Cloth</span>
-            </div>
-            {/* Evaporating particles */}
-            {Array.from({ length: Math.floor(rate * 5) }).map((_, i) => (
-              <div key={i} className="absolute w-1 h-1 bg-brand-cyan rounded-full animate-pulse" style={{ left: `${20 + Math.random() * 60}%`, top: `${10 + Math.random() * 30}%` }} />
-            ))}
-          </div>
-        </div>
+      <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4 text-center">
+        <div className="text-6xl mb-2">👕</div>
+        <p className="text-white font-bold mb-2">{t('unit9.wetCloth')}</p>
+        <div className="w-full bg-white/10 rounded-full h-4 mb-2"><div className="h-full rounded-full bg-brand-cyan transition-all" style={{ width: `${(1 - rate) * 100}%` }} /></div>
+        <p className="text-gray-400 text-sm">{t('unit9.evapRate').replace('{rate}', rateLabel)}</p>
       </div>
-
-      <div className={`rounded-xl p-4 text-center ${rate > 1.5 ? 'bg-brand-rose/15 border border-brand-rose/30' : rate > 0.8 ? 'bg-brand-amber/15 border border-brand-amber/30' : 'bg-brand-lime/15 border border-brand-lime/30'}`}>
-        <p className={`text-lg font-bold ${rate > 1.5 ? 'text-brand-rose' : rate > 0.8 ? 'text-brand-amber' : 'text-brand-lime'}`}>
-          Evaporation Rate: {rate > 1.5 ? 'Fast 💨' : rate > 0.8 ? 'Medium 🌬️' : 'Slow 🐢'}
-        </p>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-3 mt-4">
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-cyan text-xs font-bold">👕 Clothes Drying</p>
-          <p className="text-gray-400 text-xs">Water evaporates from fabric</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-pink text-xs font-bold">💦 Sweating</p>
-          <p className="text-gray-400 text-xs">Evaporation cools the body</p>
-        </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-sm">{t('unit9.clothesDrying')}</p><p className="text-gray-400 text-xs">{t('unit9.clothesDryingDesc')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-pink font-bold text-sm">{t('unit9.sweating')}</p><p className="text-gray-400 text-xs">{t('unit9.sweatingDesc')}</p></div>
       </div>
     </div>
   );
 }
 
-/* ─── 7. BOYLE'S LAW ─── */
+/* ═══ 7. BOYLE'S LAW ═══ */
 function BoylesLawSim() {
-  const [volume, setVolume] = useState(100);
-  const P1 = 1;
-  const V1 = 100;
-  const P2 = (P1 * V1) / volume;
+  const t = useT();
+  const [volume, setVolume] = useState(50);
+  const P1V1 = 50 * 100;
+  const pressure = P1V1 / volume;
 
   return (
     <div>
-      <div className="mb-4">
-        <label className="text-gray-400 text-sm block mb-2">Volume: {volume} mL</label>
-        <input type="range" min="20" max="200" value={volume} onChange={e => setVolume(Number(e.target.value))} className="w-full accent-brand-cyan" />
-      </div>
-
+      <div className="mb-4"><label className="text-gray-400 text-sm block mb-2">{t('unit9.volumeSlider').replace('{volume}', String(volume))}</label><input type="range" min="10" max="100" value={volume} onChange={e => setVolume(Number(e.target.value))} className="w-full accent-brand-purple" /></div>
       <div className="bg-brand-dark/60 rounded-2xl border border-white/5 p-6 mb-4">
-        <div className="flex justify-center">
-          <div className="relative" style={{ width: 200, height: 120 }}>
-            {/* Syringe */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-16 bg-white/5 rounded border border-white/10">
-              {/* Plunger */}
-              <div className="absolute top-0 bottom-0 w-2 bg-brand-cyan/50 transition-all" style={{ left: `${(volume / 200) * 100}%` }} />
-              {/* Gas particles */}
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="absolute w-2 h-2 bg-brand-amber rounded-full" style={{ left: `${10 + Math.random() * ((volume / 200) * 80)}%`, top: `${20 + Math.random() * 60}%` }} />
-              ))}
-            </div>
-            {/* Plunger handle */}
-            <div className="absolute top-1/2 -translate-y-1/2 w-1 h-20 bg-brand-cyan/30 transition-all" style={{ left: `${(volume / 200) * 100}%` }} />
+        <div className="flex items-center justify-center gap-4">
+          <div className="text-center">
+            <div className="w-16 bg-brand-purple/30 rounded border-2 border-brand-purple mx-auto" style={{ height: `${volume * 1.5}px`, maxHeight: 150 }} />
+            <p className="text-brand-purple text-sm mt-2">{volume} mL</p>
+          </div>
+          <div className="text-gray-500 text-2xl">⇌</div>
+          <div className="text-center">
+            <div className="w-16 bg-brand-cyan/30 rounded border-2 border-brand-cyan mx-auto" style={{ height: Math.min(150, 150 * (50 / volume)) }} />
+            <p className="text-brand-cyan text-sm mt-2">{pressure.toFixed(0)} Pa</p>
           </div>
         </div>
       </div>
-
-      <div className="formula-box rounded-2xl p-5 text-center">
-        <p className="text-gray-400 text-xs uppercase mb-2">P₁V₁ = P₂V₂ (Boyle's Law)</p>
-        <p className="text-2xl font-space font-bold text-white">P₂ = ({P1} × {V1}) / {volume} = <span className="text-brand-cyan">{P2.toFixed(2)} atm</span></p>
-      </div>
-
-      <div className="grid sm:grid-cols-3 gap-3 mt-4">
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-cyan text-xs font-bold">💉 Syringe</p>
-          <p className="text-gray-400 text-xs">Push plunger → pressure increases</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-pink text-xs font-bold">🎈 Balloon</p>
-          <p className="text-gray-400 text-xs">Squeeze → pressure increases</p>
-        </div>
-        <div className="glass-card rounded-xl p-3">
-          <p className="text-brand-amber text-xs font-bold">🤿 Scuba Tank</p>
-          <p className="text-gray-400 text-xs">High pressure inside</p>
-        </div>
+      <div className="formula-box rounded-xl p-4 text-center mb-4"><p className="text-gray-400 text-xs uppercase mb-1">P₁V₁ = P₂V₂</p><p className="text-xl font-space font-bold text-white">50 × 100 = {volume} × <span className="text-brand-cyan">{pressure.toFixed(0)}</span></p></div>
+      <div className="grid sm:grid-cols-3 gap-3">
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-purple font-bold text-sm">{t('unit9.syringe')}</p><p className="text-gray-400 text-xs">{t('unit9.syringDesc')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-pink font-bold text-sm">{t('unit9.balloonExample')}</p><p className="text-gray-400 text-xs">{t('unit9.balloonDesc2')}</p></div>
+        <div className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-sm">{t('unit9.scubaTank')}</p><p className="text-gray-400 text-xs">{t('unit9.scubaTankDesc')}</p></div>
       </div>
     </div>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MAIN UNIT 9 CONTENT
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ MAIN UNIT 9 CONTENT ═══ */
 export default function Unit9Content() {
+  const t = useT();
   return (
     <div>
-      {/* 1. TEMPERATURE */}
-      <Section title="Temperature" icon={<Thermometer size={24} />} color="brand-cyan">
-        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6">
-          <p className="text-xl md:text-2xl text-white leading-relaxed">
-            <strong className="text-brand-cyan">Temperature</strong> is a measure of <strong>hotness or coldness</strong>. It's the average kinetic energy of particles.
-          </p>
+      <Section title={t('unit9.temperature')} icon={<Thermometer size={24} />} color="brand-cyan">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.temperatureDef') }} ></p></div>
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          <div className="glass-card rounded-xl p-4"><p className="text-brand-rose font-bold mb-1">{t('unit9.heatTitle')}</p><p className="text-gray-400 text-sm" dangerouslySetInnerHTML={{ __html: t('unit9.heatDesc') }} ></p></div>
+          <div className="glass-card rounded-xl p-4"><p className="text-brand-cyan font-bold mb-1">{t('unit9.tempTitle')}</p><p className="text-gray-400 text-sm" dangerouslySetInnerHTML={{ __html: t('unit9.tempDesc') }} ></p></div>
         </div>
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <div className="glass-card rounded-2xl p-5">
-            <h4 className="text-brand-amber font-bold text-lg mb-2">🔥 Heat</h4>
-            <p className="text-gray-300 text-sm">Energy transfer between objects. Unit: <strong className="text-white">Joules (J)</strong>.</p>
-          </div>
-          <div className="glass-card rounded-2xl p-5">
-            <h4 className="text-brand-cyan font-bold text-lg mb-2">🌡️ Temperature</h4>
-            <p className="text-gray-300 text-sm">Degree of hotness. Unit: <strong className="text-white">°C or K</strong>.</p>
-          </div>
-        </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Virtual Thermometer</h4>
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.thermometerSim')}</h4>
         <VirtualThermometer />
       </Section>
 
-      {/* 2. THERMAL EXPANSION */}
-      <Section title="Thermal Expansion" icon={<Flame size={24} />} color="brand-amber">
-        <div className="definition-highlight rounded-2xl p-6 mb-6">
-          <p className="text-xl text-white leading-relaxed">
-            <strong className="text-brand-amber">Thermal expansion</strong> is the increase in size when heated. Particles move more and take up more space.
-          </p>
-        </div>
-        <div className="formula-box rounded-2xl p-5 text-center mb-6">
-          <p className="text-2xl font-space font-bold text-white">ΔL = <span className="text-brand-cyan">α</span>L₀<span className="text-brand-pink">ΔT</span></p>
-          <p className="text-gray-400 text-sm mt-2">α = coefficient of linear expansion</p>
-        </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Heating Metal Rod</h4>
+      <Section title={t('unit9.thermalExpansion')} icon={<Flame size={24} />} color="brand-amber">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.expansionDef') }} ></p></div>
+        <div className="formula-box rounded-2xl p-5 text-center mb-6"><p className="text-2xl font-space font-bold text-white">{t('unit9.expansionFormula')}</p><p className="text-gray-400 text-sm mt-2">{t('unit9.alphaNote')}</p></div>
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.metalRodSim')}</h4>
         <ThermalExpansionSim />
       </Section>
 
-      {/* 3. SPECIFIC HEAT */}
-      <Section title="Specific Heat Capacity" icon={<Flame size={24} />} color="brand-rose">
-        <div className="definition-highlight rounded-2xl p-6 mb-6">
-          <p className="text-xl text-white leading-relaxed">
-            <strong className="text-brand-rose">Specific heat capacity</strong> is the heat required to raise the temperature of <strong>1 kg by 1°C</strong>.
-          </p>
-        </div>
-        <div className="formula-box rounded-2xl p-6 text-center mb-6">
-          <p className="text-3xl font-space font-black text-white">Q = <span className="text-brand-cyan">m</span><span className="text-brand-pink">c</span><span className="text-brand-amber">ΔT</span></p>
-        </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Heat Different Materials</h4>
+      <Section title={t('unit9.specificHeat')} icon={<Flame size={24} />} color="brand-rose">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.specificHeatDef') }} ></p></div>
+        <div className="formula-box rounded-2xl p-5 text-center mb-6"><p className="text-2xl font-space font-bold text-white">{t('unit9.specificHeatFormula')}</p></div>
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.heatMaterials')}</h4>
         <SpecificHeatSim />
       </Section>
 
-      {/* 4. LATENT HEAT */}
-      <Section title="Latent Heat" icon={<Snowflake size={24} />} color="brand-teal">
-        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6">
-          <p className="text-xl md:text-2xl text-white leading-relaxed">
-            <strong className="text-brand-teal">Latent heat</strong> is heat absorbed/released during <strong>change of state</strong> WITHOUT temperature change.
-          </p>
+      <Section title={t('unit9.latentHeat')} icon={<Snowflake size={24} />} color="brand-teal">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.latentHeatDef') }} ></p></div>
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="formula-box rounded-2xl p-5 text-center"><p className="text-gray-400 text-sm mb-2">{t('unit9.fusionTitle')}</p><p className="text-xl font-space font-bold text-brand-cyan">{t('unit9.fusionFormula')}</p><p className="text-gray-400 text-xs mt-1">{t('unit9.fusionNote')}</p></div>
+          <div className="formula-box rounded-2xl p-5 text-center"><p className="text-gray-400 text-sm mb-2">{t('unit9.vaporizationTitle')}</p><p className="text-xl font-space font-bold text-brand-amber">{t('unit9.vaporizationFormula')}</p><p className="text-gray-400 text-xs mt-1">{t('unit9.vaporizationNote')}</p></div>
         </div>
-        <div className="grid sm:grid-cols-2 gap-3 mb-6">
-          <div className="formula-box rounded-xl p-4">
-            <p className="text-gray-400 text-xs uppercase mb-1">Fusion (Solid → Liquid)</p>
-            <p className="text-xl font-space font-bold text-brand-cyan">Q = mL_f</p>
-            <p className="text-gray-400 text-xs">L_f (ice) = 334 kJ/kg</p>
-          </div>
-          <div className="formula-box rounded-xl p-4">
-            <p className="text-gray-400 text-xs uppercase mb-1">Vaporization (Liquid → Gas)</p>
-            <p className="text-xl font-space font-bold text-brand-rose">Q = mL_v</p>
-            <p className="text-gray-400 text-xs">L_v (water) = 2260 kJ/kg</p>
-          </div>
-        </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Ice Melting & Water Boiling</h4>
-        <LatentHeatSim />
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.iceWaterSim')}</h4>
+        <IceMeltingSim />
       </Section>
 
-      {/* 5. CHANGE OF STATE */}
-      <Section title="Change of State" icon={<Wind size={24} />} color="brand-purple">
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Water Cycle Diagram</h4>
-        <ChangeOfStateSim />
+      <Section title={t('unit9.changeOfState')} icon={<Snowflake size={24} />} color="brand-purple">
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.waterCycleSim')}</h4>
+        <WaterCycleDiagram />
+        <div className="grid sm:grid-cols-2 gap-3 mt-6">
+          <div className="glass-card rounded-xl p-4"><p className="text-brand-cyan font-bold mb-1">{t('unit9.sublimation')}</p><p className="text-gray-400 text-sm">{t('unit9.sublimationDesc')}</p></div>
+          <div className="glass-card rounded-xl p-4"><p className="text-brand-pink font-bold mb-1">{t('unit9.deposition')}</p><p className="text-gray-400 text-sm">{t('unit9.depositionDesc')}</p></div>
+        </div>
       </Section>
 
-      {/* 6. EVAPORATION */}
-      <Section title="Evaporation" icon={<Wind size={24} />} color="brand-lime">
-        <div className="definition-highlight rounded-2xl p-6 mb-6">
-          <p className="text-xl text-white leading-relaxed">
-            <strong className="text-brand-lime">Evaporation</strong> is change from liquid to gas at <strong>any temperature</strong> (surface phenomenon).
-          </p>
-        </div>
+      <Section title={t('unit9.evaporation')} icon={<Wind size={24} />} color="brand-lime">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.evaporationDef') }} ></p></div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          {[
-            { factor: 'Temperature', effect: 'Higher → Faster' },
-            { factor: 'Surface Area', effect: 'Larger → Faster' },
-            { factor: 'Humidity', effect: 'Lower → Faster' },
-            { factor: 'Wind', effect: 'More → Faster' },
-          ].map(f => (
-            <div key={f.factor} className="glass-card rounded-xl p-3">
-              <p className="text-brand-cyan text-xs font-bold">{f.factor}</p>
-              <p className="text-gray-400 text-xs">{f.effect}</p>
-            </div>
-          ))}
+          <div className="glass-card rounded-xl p-3"><p className="text-brand-amber font-bold text-xs">{t('unit9.factorTemperature')}</p><p className="text-gray-400 text-xs">{t('unit9.factorTempEffect')}</p></div>
+          <div className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-xs">{t('unit9.factorSurfaceArea')}</p><p className="text-gray-400 text-xs">{t('unit9.factorSurfaceEffect')}</p></div>
+          <div className="glass-card rounded-xl p-3"><p className="text-brand-pink font-bold text-xs">{t('unit9.factorHumidity')}</p><p className="text-gray-400 text-xs">{t('unit9.factorHumidityEffect')}</p></div>
+          <div className="glass-card rounded-xl p-3"><p className="text-brand-lime font-bold text-xs">{t('unit9.factorWind')}</p><p className="text-gray-400 text-xs">{t('unit9.factorWindEffect')}</p></div>
         </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Wet Cloth Drying</h4>
-        <EvaporationSim />
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.wetClothSim')}</h4>
+        <WetClothSim />
       </Section>
 
-      {/* 7. BOYLE'S LAW */}
-      <Section title="Boyle's Law" icon={<Gauge size={24} />} color="brand-pink">
-        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6">
-          <p className="text-xl md:text-2xl text-white leading-relaxed">
-            At <strong>constant temperature</strong>, pressure of a gas is <strong>inversely proportional</strong> to its volume.
-          </p>
-        </div>
-        <div className="formula-box rounded-2xl p-6 text-center mb-6">
-          <p className="text-3xl font-space font-black text-white">P ∝ 1/V</p>
-          <p className="text-brand-pink font-space font-bold mt-2">P₁V₁ = P₂V₂ = constant</p>
-        </div>
-        <h4 className="text-lg font-bold text-white mb-4">🎮 Syringe Simulation</h4>
+      <Section title={t('unit9.boylesLaw')} icon={<Gauge size={24} />} color="brand-purple">
+        <div className="definition-highlight rounded-2xl p-6 md:p-8 mb-6"><p className="text-xl md:text-2xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: t('unit9.boylesLawDef') }} ></p></div>
+        <div className="formula-box rounded-2xl p-5 text-center mb-6"><p className="text-2xl font-space font-bold text-white">{t('unit9.boylesFormula')}</p><p className="text-brand-purple font-space font-bold mt-2">{t('unit9.boylesFormula2')}</p></div>
+        <h4 className="text-lg font-bold text-white mb-4">{t('unit9.syringeSim')}</h4>
         <BoylesLawSim />
       </Section>
 
-      {/* Quick Summary */}
+      <UnitQuiz unitId="unit9" questions={[
+        { question: t('unit9.quiz.q1'), options: [t('unit9.quiz.q1.opt1'), t('unit9.quiz.q1.opt2'), t('unit9.quiz.q1.opt3'), t('unit9.quiz.q1.opt4')], correctIndex: 2 },
+        { question: t('unit9.quiz.q2'), options: [t('unit9.quiz.q2.opt1'), t('unit9.quiz.q2.opt2'), t('unit9.quiz.q2.opt3'), t('unit9.quiz.q2.opt4')], correctIndex: 1 },
+        { question: t('unit9.quiz.q3'), options: [t('unit9.quiz.q3.opt1'), t('unit9.quiz.q3.opt2'), t('unit9.quiz.q3.opt3'), t('unit9.quiz.q3.opt4')], correctIndex: 1 },
+        { question: t('unit9.quiz.q4'), options: [t('unit9.quiz.q4.opt1'), t('unit9.quiz.q4.opt2'), t('unit9.quiz.q4.opt3'), t('unit9.quiz.q4.opt4')], correctIndex: 1 },
+        { question: t('unit9.quiz.q5'), options: [t('unit9.quiz.q5.opt1'), t('unit9.quiz.q5.opt2'), t('unit9.quiz.q5.opt3'), t('unit9.quiz.q5.opt4')], correctIndex: 2 },
+      ]} />
+
       <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
-        <h3 className="text-2xl md:text-3xl font-black text-white mb-6">📝 Unit 9 Quick Summary</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-brand-cyan font-bold text-sm mb-1">Temperature</p>
-            <p className="text-gray-400 text-xs">K = °C + 273. Measure of hotness.</p>
-          </div>
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-brand-amber font-bold text-sm mb-1">Thermal Expansion</p>
-            <p className="text-gray-400 text-xs">ΔL = αL₀ΔT. Objects expand when heated.</p>
-          </div>
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-brand-rose font-bold text-sm mb-1">Specific Heat</p>
-            <p className="text-gray-400 text-xs">Q = mcΔT. Water has high c.</p>
-          </div>
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-brand-pink font-bold text-sm mb-1">Boyle's Law</p>
-            <p className="text-gray-400 text-xs">P₁V₁ = P₂V₂. P ∝ 1/V at constant T.</p>
-          </div>
+        <h3 className="text-2xl md:text-3xl font-black text-white mb-6">{t('unit9.summary')}</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-start">
+          <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-cyan font-bold text-sm mb-1">{t('unit9.sumTemperature')}</p><p className="text-gray-400 text-xs">{t('unit9.sumTemperatureDesc')}</p></div>
+          <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-amber font-bold text-sm mb-1">{t('unit9.sumExpansion')}</p><p className="text-gray-400 text-xs">{t('unit9.sumExpansionDesc')}</p></div>
+          <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-rose font-bold text-sm mb-1">{t('unit9.sumSpecificHeat')}</p><p className="text-gray-400 text-xs">{t('unit9.sumSpecificHeatDesc')}</p></div>
+          <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-purple font-bold text-sm mb-1">{t('unit9.sumBoylesLaw')}</p><p className="text-gray-400 text-xs">{t('unit9.sumBoylesLawDesc')}</p></div>
         </div>
       </div>
     </div>

@@ -410,7 +410,7 @@ function MatchQuestionView({
                 onClick={() => handleLeftClick(leftIdx)}
                 disabled={submitted}
                 className={cn(
-                  'w-full p-3 rounded-xl text-left text-sm font-medium transition-all min-h-[44px] flex items-center',
+                  'w-full p-3 rounded-xl text-start text-sm font-medium transition-all min-h-[44px] flex items-center',
                   submitted
                     ? isConnected
                       ? isConnectionCorrect(leftIdx)
@@ -464,7 +464,7 @@ function MatchQuestionView({
                 onClick={() => handleRightClick(displayIdx)}
                 disabled={submitted || !isSelectedForConnection}
                 className={cn(
-                  'w-full p-3 rounded-xl text-left text-sm font-medium transition-all min-h-[44px] flex items-center',
+                  'w-full p-3 rounded-xl text-start text-sm font-medium transition-all min-h-[44px] flex items-center',
                   submitted
                     ? isConnected
                       ? Object.entries(connections).some(

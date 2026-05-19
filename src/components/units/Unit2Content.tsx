@@ -5,39 +5,7 @@ import {
   CircleDot
 } from 'lucide-react';
 import { useT } from '../../i18n/LanguageContext';
-
-/* ─────────── SECTION WRAPPER ─────────── */
-function Section({ title, icon, children, color = 'brand-cyan' }: { title: string; icon: React.ReactNode; children: React.ReactNode; color?: string }) {
-  const colorClasses: Record<string, { bg: string; text: string }> = {
-    'brand-cyan': { bg: 'bg-[#06b6d4]/20', text: 'text-[#06b6d4]' },
-    'brand-purple': { bg: 'bg-[#7c3aed]/20', text: 'text-[#7c3aed]' },
-    'brand-pink': { bg: 'bg-[#ec4899]/20', text: 'text-[#ec4899]' },
-    'brand-amber': { bg: 'bg-[#f59e0b]/20', text: 'text-[#f59e0b]' },
-    'brand-rose': { bg: 'bg-[#f43f5e]/20', text: 'text-[#f43f5e]' },
-    'brand-lime': { bg: 'bg-[#84cc16]/20', text: 'text-[#84cc16]' },
-    'brand-teal': { bg: 'bg-[#14b8a6]/20', text: 'text-[#14b8a6]' },
-  };
-  const c = colorClasses[color] || colorClasses['brand-cyan'];
-  const sectionId = title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-');
-  
-  return (
-    <div 
-      className="unit-detail-reveal mb-16" 
-      style={{ opacity: 0, transform: 'translateY(60px)' }}
-      data-section-id={sectionId}
-    >
-      <div className="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden">
-        <div className="flex items-center gap-4 mb-8">
-          <div className={`w-12 h-12 rounded-2xl ${c.bg} flex items-center justify-center ${c.text}`}>
-            {icon}
-          </div>
-          <h2 className="text-2xl md:text-3xl font-black text-white">{title}</h2>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
+import Section from '../Section';
 
 /* ─── MOTION TYPES CANVAS ANIMATION ─── */
 function MotionTypesAnimation() {
@@ -113,7 +81,7 @@ function MotionTypesAnimation() {
           { key: 'rotatory' as const, label: t('unit2.rotatory'), icon: <RotateCcw size={20} />, color: 'brand-purple' },
           { key: 'vibratory' as const, label: t('unit2.vibratory'), icon: <Move size={20} />, color: 'brand-rose' },
         ].map((m) => (
-          <button key={m.key} onClick={() => setMode(m.key)} className={`p-3 rounded-2xl text-left transition-all ${mode === m.key ? `bg-${m.color}/15 border border-${m.color}/40` : 'glass-card hover:bg-white/5'}`}>
+          <button key={m.key} onClick={() => setMode(m.key)} className={`p-3 rounded-2xl text-start transition-all ${mode === m.key ? `bg-${m.color}/15 border border-${m.color}/40` : 'glass-card hover:bg-white/5'}`}>
             <div className={`text-${m.color} mb-1`}>{m.icon}</div>
             <p className="text-white font-bold text-sm">{m.label}</p>
           </button>
@@ -488,7 +456,7 @@ export default function Unit2Content() {
 
       <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
         <h3 className="text-2xl md:text-3xl font-black text-white mb-6">{t('unit2.summary')}</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-start">
           <div className="bg-white/5 rounded-xl p-4">
             <p className="text-brand-cyan font-bold text-sm mb-1">{t('unit2.sumDist')}</p>
             <p className="text-gray-400 text-xs">{t('unit2.sumDistDesc')}</p>

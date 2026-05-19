@@ -1,19 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
   Atom, Eye, EyeOff, Lock, User, ArrowRight, Loader2,
-  Sparkles, Phone, MapPin, ShieldCheck,
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import { useLang } from '../i18n/LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import { LANG_META } from '../i18n/translations';
 
 const TEACHER_PHOTO_URL =
   'https://uploads.onecompiler.io/44hsxfpta/44kc9pfyq/1776198454345-019d8dad-17fc-7ce8-ad7d-29c365362acc.png';
 
 function LoginBackground() {
-  const particles = Array.from({ length: 28 }, (_, i) => ({
+  const particles = useMemo(() => Array.from({ length: 28 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -21,7 +19,7 @@ function LoginBackground() {
     delay: Math.random() * 6,
     dur: 8 + Math.random() * 8,
     color: ['#a78bfa', '#ec4899', '#06b6d4', '#f59e0b', '#14b8a6'][i % 5],
-  }));
+  })), []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -81,14 +79,14 @@ function Typewriter({ phrases }: { phrases: string[] }) {
   return (
     <span>
       {text}
-      <span className="inline-block w-[2px] h-[1em] bg-brand-cyan align-middle ml-1 animate-pulse" />
+      <span className="inline-block w-[2px] h-[1em] bg-brand-cyan align-middle ms-1 animate-pulse" />
     </span>
   );
 }
 
 export default function LoginPage() {
   const { loggedIn, login } = useAuth();
-  const { t, lang, dir } = useLang();
+  const { t, dir } = useLang();
   const navigate = useNavigate();
   const location = useLocation();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -96,7 +94,7 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPwd, setShowPwd] = useState(false);
-  const [remember, setRemember] = useState(true);
+  const [remember] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [imgFailed, setImgFailed] = useState(false);
@@ -150,7 +148,7 @@ export default function LoginPage() {
       <main className="relative z-10 px-6 pb-12">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
           {/* Left side - Teacher info */}
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-start">
             <div className="relative w-52 h-52 mx-auto lg:mx-0 mb-8">
               {!imgFailed ? (
                 <img

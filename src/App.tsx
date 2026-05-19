@@ -6,6 +6,7 @@ import ClassIXPage from './pages/ClassIXPage';
 import ClassXPage from './pages/ClassXPage';
 import UnitDetailPage from './pages/UnitDetailPage';
 import LoginPage from './pages/LoginPage';
+import NotFoundPage from './pages/NotFoundPage';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { LanguageProvider } from './i18n/LanguageContext';
@@ -25,6 +26,7 @@ function Shell() {
           <Route path="/class-x" element={<ProtectedRoute><ClassXPage /></ProtectedRoute>} />
           <Route path="/class-ix/unit/:unitNumber" element={<ProtectedRoute><UnitDetailPage /></ProtectedRoute>} />
           <Route path="/class-x/unit/:unitNumber" element={<ProtectedRoute><UnitDetailPage /></ProtectedRoute>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       {!isLogin && <Footer />}

@@ -1,12 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from '../utils/gsap';
 import PhysicsBackground from '../components/PhysicsBackground';
 import { BookOpen, FlaskConical, Atom, ChevronRight, Star, Award, Users, Phone, MapPin } from 'lucide-react';
 import { useT } from '../i18n/LanguageContext';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const t = useT();
@@ -63,9 +60,9 @@ export default function HomePage() {
           {/* School info pill */}
           <div className="hero-badge mt-16 inline-flex items-center gap-4 school-badge px-6 py-4 rounded-2xl">
             <div className="w-14 h-14 rounded-xl overflow-hidden float-anim shadow-lg">
-              <img src="https://uploads.onecompiler.io/44hsxfpta/44jd2aw6x/Adobe%20Express%20-%20file.png" alt="School Logo" className="w-full h-full object-cover" />
+              <img src="https://uploads.onecompiler.io/44hsxfpta/44jd2aw6x/Adobe%20Express%20-%20file.png" alt="School Logo" className="w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
-            <div className="text-left">
+            <div className="text-start">
               <p className="text-sm md:text-base text-brand-amber font-bold">{t('home.schoolName')}</p>
               <p className="text-xs text-gray-400">{t('home.schoolLoc')}</p>
             </div>
@@ -105,6 +102,8 @@ export default function HomePage() {
                         src="https://uploads.onecompiler.io/44hsxfpta/44kc9pfyq/1776198454345-019d8dad-17fc-7ce8-ad7d-29c365362acc.png"
                         alt="Adnan Katper - Physics Teacher"
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent" />
                     </div>

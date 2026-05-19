@@ -53,7 +53,7 @@ export default function LanguageSwitcher({ variant = 'default', align = 'right' 
               <button
                 key={l}
                 onClick={() => { setLang(l); setOpen(false); }}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                className={`w-full flex items-center gap-3 px-4 py-3 text-start transition-colors ${
                   active ? 'bg-brand-purple/20 text-white' : 'text-gray-300 hover:bg-white/5'
                 }`}
               >
