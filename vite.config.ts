@@ -10,23 +10,35 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 //
-// `base: './'` makes all asset URLs relative — so the same single-file build
-// works whether opened from file:// (offline), GitHub Pages (sub-path), Netlify,
-// Vercel, or any custom domain.
-export default defineConfig({
-  base: './',
-  plugins: [react(), tailwindcss(), viteSingleFile()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
+// Two build modes:
+//   `vite build`                → multi-file build with code splitting (web deployment)
+//   `vite build --mode singlefile` → single HTML file for offline use
+//
+// `base: './'` makes all asset URLs relative — works from file://, GitHub Pages,
+// Netlify, Vercel, or any custom domain.
+export default defineConfig(({ mode }) => {
+  const isSingleFile = mode === "singlefile";
+
+  return {
+    base: "./",
+    plugins: [
+      react(),
+      tailwindcss(),
+      ...(isSingleFile ? [viteSingleFile()] : []),
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
     },
-  },
-  build: {
-    // Single-file output — easier to share & works offline
-    assetsInlineLimit: 100000000,
-    cssCodeSplit: false,
-    rollupOptions: {
-      output: { inlineDynamicImports: true },
+    build: {
+      assetsInlineLimit: isSingleFile ? 100000000 : 4096,
+      cssCodeSplit: !isSingleFile,
+      rollupOptions: {
+        output: {
+          inlineDynamicImports: isSingleFile,
+        },
+      },
     },
-  },
+  };
 });
