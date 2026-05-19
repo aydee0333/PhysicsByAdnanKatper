@@ -8,6 +8,21 @@ const CHAPTERS: ChapterRegistry = {
     ur: () => import('./class-ix/chapter-01/ur').then(m => m.default),
     sd: () => import('./class-ix/chapter-01/sd').then(m => m.default),
   },
+  'class-ix/chapter-05': {
+    en: () => import('./class-ix/chapter-05/en').then(m => m.default),
+    ur: () => import('./class-ix/chapter-05/ur').then(m => m.default),
+    sd: () => import('./class-ix/chapter-05/sd').then(m => m.default),
+  },
+  'class-ix/chapter-06': {
+    en: () => import('./class-ix/chapter-06/en').then(m => m.default),
+    ur: () => import('./class-ix/chapter-06/ur').then(m => m.default),
+    sd: () => import('./class-ix/chapter-06/sd').then(m => m.default),
+  },
+  'class-ix/chapter-07': {
+    en: () => import('./class-ix/chapter-07/en').then(m => m.default),
+    ur: () => import('./class-ix/chapter-07/ur').then(m => m.default),
+    sd: () => import('./class-ix/chapter-07/sd').then(m => m.default),
+  },
   'class-x/chapter-01': {
     en: () => import('./class-x/chapter-01/en').then(m => m.default),
     ur: () => import('./class-x/chapter-01/ur').then(m => m.default),
@@ -47,6 +62,11 @@ const CHAPTERS: ChapterRegistry = {
     en: () => import('./class-x/chapter-08/en').then(m => m.default),
     ur: () => import('./class-x/chapter-08/ur').then(m => m.default),
     sd: () => import('./class-x/chapter-08/sd').then(m => m.default),
+  },
+  'class-x/chapter-09': {
+    en: () => import('./class-x/chapter-09/en').then(m => m.default),
+    ur: () => import('./class-x/chapter-09/ur').then(m => m.default),
+    sd: () => import('./class-x/chapter-09/sd').then(m => m.default),
   },
 };
 
