@@ -3,6 +3,8 @@
 @theme {
   --font-poppins: 'Poppins', sans-serif;
   --font-space: 'Space Grotesk', sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+  --font-sindhi: 'Noto Sans Arabic', 'Scheherazade New', 'Arial', sans-serif;
   --color-brand-dark: #0a0a1a;
   --color-brand-navy: #0f0f2e;
   --color-brand-purple: #7c3aed;
@@ -15,8 +17,11 @@
   --color-brand-orange: #f97316;
 }
 
+/* ─────────── Base ─────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -24,35 +29,72 @@ body {
   background: #0a0a1a;
   color: #e2e8f0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+/* ─────────── Scrollbar ─────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a1a; }
+::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+
+/* ─────────── Typography ─────────── */
+/* Improve readability for long text blocks */
+.text-content {
+  line-height: 1.8;
+  letter-spacing: 0.01em;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a1a;
+.text-content p {
+  margin-bottom: 1em;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #7c3aed;
-  border-radius: 3px;
+.text-content p:last-child {
+  margin-bottom: 0;
 }
 
+.text-content strong {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* ─────────── Glass Cards ─────────── */
 .glass-card {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: backdrop-filter;
   border: 1px solid rgba(255,255,255,0.06);
 }
 
 .glass-card-strong {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  will-change: backdrop-filter;
   border: 1px solid rgba(255,255,255,0.1);
 }
 
+/* Reduce blur on mobile (weaker GPUs) */
+@media (max-width: 768px) {
+  .glass-card,
+  .glass-card-strong {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Disable blur entirely for reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .glass-card-strong {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255,255,255,0.12);
+  }
+}
+
+/* ─────────── Gradient Text ─────────── */
 .gradient-text {
   background: linear-gradient(135deg, #a78bfa, #ec4899, #06b6d4);
   -webkit-background-clip: text;
@@ -81,6 +123,7 @@ body {
   background-clip: text;
 }
 
+/* ─────────── Glow Effects ─────────── */
 .glow-purple { box-shadow: 0 0 40px rgba(124,58,237,0.25); }
 .glow-cyan { box-shadow: 0 0 40px rgba(6,182,212,0.25); }
 .glow-pink { box-shadow: 0 0 40px rgba(236,72,153,0.25); }
@@ -88,6 +131,7 @@ body {
 .glow-teal { box-shadow: 0 0 40px rgba(20,184,166,0.25); }
 .glow-rose { box-shadow: 0 0 40px rgba(244,63,94,0.25); }
 
+/* ─────────── Nav Link ─────────── */
 .nav-link {
   position: relative;
   transition: all 0.3s ease;
@@ -109,28 +153,25 @@ body {
 .nav-link:hover::after { width: 100%; }
 .nav-link:hover { color: #a78bfa; }
 
+/* ─────────── Unit Card ─────────── */
 .unit-card {
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .unit-card:hover {
-  transform: translateY(-12px) scale(1.03);
+  transform: translateY(-8px) scale(1.02);
 }
 
+/* ─────────── Animations ─────────── */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-15px) rotate(1deg); }
-  66% { transform: translateY(-8px) rotate(-1deg); }
+  33% { transform: translateY(-12px) rotate(0.5deg); }
+  66% { transform: translateY(-6px) rotate(-0.5deg); }
 }
 
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.4; transform: scale(1); }
   50% { opacity: 0.8; transform: scale(1.1); }
-}
-
-@keyframes orbit-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 @keyframes blob-morph {
@@ -140,20 +181,9 @@ body {
   75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
 }
 
-@keyframes shimmer {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
 @keyframes spin-gradient {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-@keyframes wave {
-  0%, 100% { d: path("M0,50 Q250,0 500,50 T1000,50 V100 H0 Z"); }
-  50% { d: path("M0,50 Q250,100 500,50 T1000,50 V100 H0 Z"); }
 }
 
 @keyframes particle-float {
@@ -163,16 +193,48 @@ body {
   75% { transform: translateY(-25px) translateX(15px); opacity: 0.7; }
 }
 
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
 .float-anim { animation: float 6s ease-in-out infinite; }
 .float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
 .float-anim-delay2 { animation: float 6s ease-in-out 4s infinite; }
 .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.shake { animation: shake 0.4s ease-in-out; }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .float-anim,
+  .float-anim-delay,
+  .float-anim-delay2,
+  .pulse-glow {
+    animation: none;
+  }
+
+  .unit-card:hover {
+    transform: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 .blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.25;
+  opacity: 0.2;
   animation: blob-morph 15s ease-in-out infinite;
 }
 
@@ -183,11 +245,12 @@ body {
   background-size: 60px 60px;
 }
 
+/* ─────────── Buttons ─────────── */
 .btn-primary {
   background: linear-gradient(135deg, #7c3aed, #ec4899);
   position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-primary::before {
@@ -211,7 +274,7 @@ body {
   background: linear-gradient(135deg, #06b6d4, #7c3aed);
   position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-class::before {
@@ -227,10 +290,11 @@ body {
 
 .btn-class:hover::before { left: 100%; }
 .btn-class:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-3px) scale(1.01);
   box-shadow: 0 15px 50px rgba(6,182,212,0.4);
 }
 
+/* ─────────── Teacher Photo ─────────── */
 .teacher-photo-ring {
   position: relative;
 }
@@ -245,28 +309,31 @@ body {
   z-index: -1;
 }
 
+/* ─────────── Quote ─────────── */
 .quote-mark {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 8rem;
+  font-size: 6rem;
   line-height: 1;
   opacity: 0.1;
   position: absolute;
-  top: -20px;
+  top: -10px;
   left: 10px;
   color: #a78bfa;
 }
 
+/* ─────────── Section Reveal ─────────── */
 .section-reveal {
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(40px);
 }
 
 .section-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
+/* ─────────── Physics Particles ─────────── */
 .physics-particle {
   position: absolute;
   border-radius: 50%;
@@ -280,37 +347,61 @@ body {
   animation: draw-line 3s ease forwards;
 }
 
-@keyframes draw-line {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-5px); }
-  40% { transform: translateX(5px); }
-  60% { transform: translateX(-5px); }
-  80% { transform: translateX(5px); }
-}
-
-.shake {
-  animation: shake 0.4s ease-in-out;
-}
-
+/* ─────────── Unit Number ─────────── */
 .unit-number {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 900;
-  font-size: 6rem;
+  font-size: 5rem;
   line-height: 1;
-  opacity: 0.06;
+  opacity: 0.05;
   position: absolute;
   top: 8px;
   right: 16px;
+  pointer-events: none;
 }
+
+/* ─────────── Quiz animations ─────────── */
+@keyframes correct-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(132, 204, 22, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(132, 204, 22, 0.2); }
+}
+
+.quiz-correct { animation: correct-pulse 0.6s ease; }
+.quiz-incorrect { animation: shake 0.4s ease-in-out; }
 
 /* ─────────── i18n / RTL helpers ─────────── */
 html[dir="rtl"] body {
-  /* Body font is set dynamically by LanguageContext, but keep tabular numbers latin */
   font-feature-settings: "kern", "liga";
+}
+
+/* Urdu typography - larger size, more line height for Nastaliq script */
+html[lang="ur"] body {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+  line-height: 2;
+  word-spacing: 0.05em;
+}
+
+html[lang="ur"] h1,
+html[lang="ur"] h2,
+html[lang="ur"] h3,
+html[lang="ur"] h4 {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+  line-height: 1.6;
+}
+
+/* Sindhi typography - using Noto Sans Sindhi for proper Sindhi character rendering */
+html[lang="sd"] body {
+  font-family: 'Noto Sans Sindhi', 'Noto Naskh Arabic', 'Noto Sans Arabic', serif;
+  line-height: 1.9;
+  word-spacing: 0.03em;
+}
+
+html[lang="sd"] h1,
+html[lang="sd"] h2,
+html[lang="sd"] h3,
+html[lang="sd"] h4 {
+  font-family: 'Noto Sans Sindhi', 'Noto Naskh Arabic', 'Noto Sans Arabic', serif;
+  line-height: 1.5;
 }
 
 /* Keep numbers, code, and forms in Latin even in RTL languages */
@@ -329,4 +420,90 @@ html[dir="rtl"] .rtl-flip {
 /* Make the scroll indicator and orbit animations honour RTL */
 html[dir="rtl"] .nav-link::after {
   background: linear-gradient(270deg, #a78bfa, #ec4899);
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Larger text on small screens for RTL languages */
+  html[dir="rtl"] .text-sm { font-size: 0.9rem; }
+  html[dir="rtl"] .text-xs { font-size: 0.8rem; }
+}
+
+/* ─────────── School Badge ─────────── */
+.school-badge {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: backdrop-filter;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ─────────── RTL Layout Utilities ─────────── */
+/* Logical property helpers for RTL-aware spacing */
+.rtl-ms-auto { margin-inline-start: auto; }
+.rtl-me-auto { margin-inline-end: auto; }
+.rtl-ps-2 { padding-inline-start: 0.5rem; }
+.rtl-pe-2 { padding-inline-end: 0.5rem; }
+.rtl-ps-4 { padding-inline-start: 1rem; }
+.rtl-pe-4 { padding-inline-end: 1rem; }
+
+/* RTL-aware text alignment */
+html[dir="rtl"] .rtl-text-start { text-align: right; }
+html[dir="rtl"] .rtl-text-end { text-align: left; }
+html[dir="ltr"] .rtl-text-start { text-align: left; }
+html[dir="ltr"] .rtl-text-end { text-align: right; }
+
+/* RTL-aware flex direction */
+html[dir="rtl"] .rtl-flex-row { flex-direction: row-reverse; }
+html[dir="rtl"] .rtl-flex-row-normal { flex-direction: row; }
+
+/* RTL-aware border */
+html[dir="rtl"] .rtl-border-start {
+  border-left: none;
+  border-right: 3px solid #7c3aed;
+}
+html[dir="ltr"] .rtl-border-start {
+  border-left: 3px solid #7c3aed;
+  border-right: none;
+}
+
+/* Better RTL list styling */
+html[dir="rtl"] ul, html[dir="rtl"] ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* RTL-aware positioning for icons */
+html[dir="rtl"] .rtl-icon-start {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+html[dir="ltr"] .rtl-icon-start {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* Improved RTL quote block */
+html[dir="rtl"] blockquote {
+  border-left: none;
+  border-right: 4px solid #7c3aed;
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+/* Ensure proper rendering of mixed content (numbers in RTL text) */
+html[dir="rtl"] .mixed-content {
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
+/* RTL-aware scrollbar */
+html[dir="rtl"] ::-webkit-scrollbar {
+  direction: rtl;
 }
