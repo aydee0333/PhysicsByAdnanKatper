@@ -17,6 +17,21 @@ export const classIXChapters: ChapterMeta[] = [
     },
   },
   {
+    id: 'chapter-04',
+    classId: 'class-ix',
+    number: 4,
+    title: {
+      en: 'Turning Effect of Forces',
+      ur: 'قوت کا گردشی اثر',
+      sd: 'قوت جو گردشي اثر',
+    },
+    subtitle: {
+      en: 'Torque, equilibrium, and rotational mechanics',
+      ur: 'ٹارک، توازن اور گردشی میکانکس',
+      sd: 'ٽارڪ، توازن ۽ گردشي ميڪانيڪس',
+    },
+  },
+  {
     id: 'chapter-05',
     classId: 'class-ix',
     number: 5,
@@ -59,6 +74,36 @@ export const classIXChapters: ChapterMeta[] = [
       en: 'States of matter, elasticity, pressure in liquids, surface tension, and viscosity',
       ur: 'مادے کی حالتیں، لچک، سیالوں میں دباؤ، سطحی کشیدگی اور وسکوسٹی',
       sd: 'مادي جون حالتون، لچڪ، سيالن ۾ دبائو، سطحي ڪشش ۽ وسڪوسيٽي',
+    },
+  },
+  {
+    id: 'chapter-08',
+    classId: 'class-ix',
+    number: 8,
+    title: {
+      en: 'Work and Energy',
+      ur: 'کام اور توانائی',
+      sd: 'ڪم ۽ توانائي',
+    },
+    subtitle: {
+      en: 'Work, energy types, conservation, power, and efficiency',
+      ur: 'کام، توانائی کی اقسام، تحفظ، طاقت اور کارکردگی',
+      sd: 'ڪم، توانائي جا قسم، تحفظ، طاقت ۽ ڪارڪردگي',
+    },
+  },
+  {
+    id: 'chapter-09',
+    classId: 'class-ix',
+    number: 9,
+    title: {
+      en: 'Thermal Properties of Matter',
+      ur: 'مادے کی حرارتی خصوصیات',
+      sd: 'مادي جي ٿرمل خاصيتون',
+    },
+    subtitle: {
+      en: 'Temperature, heat, expansion, and gas laws',
+      ur: 'درجہ حرارت، حرارت، توسیع اور گیسوں کے قوانین',
+      sd: 'درجہ حرارت، گرمي، توسیع ۽ گيسن جا قانون',
     },
   },
 ];

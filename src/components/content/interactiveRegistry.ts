@@ -62,6 +62,19 @@ import SurfaceTensionSim from '../simulations/SurfaceTensionSim';
 import ViscositySim from '../simulations/ViscositySim';
 import HookeLawExp from '../simulations/HookeLawExp';
 import BernoulliSim from '../simulations/BernoulliSim';
+import ThreeDProjectileSim from '../simulations/ThreeDProjectileSim';
+import PhysicsSandbox from '../simulations/PhysicsSandbox';
+import CircuitBuilderSim from '../simulations/CircuitBuilderSim';
+import WaveInterferenceSim from '../simulations/WaveInterferenceSim';
+import OpticsRayTracer from '../simulations/OpticsRayTracer';
+import CenterOfMassFinder from '../simulations/CenterOfMassFinder';
+import EquilibriumPuzzle from '../simulations/EquilibriumPuzzle';
+import MomentArmSim from '../simulations/MomentArmSim';
+import PrincipleOfMomentsSim from '../simulations/PrincipleOfMomentsSim';
+import SeeSawSim from '../simulations/SeeSawSim';
+import ForceCombineSim from '../simulations/ForceCombineSim';
+import BlockStabilitySim from '../simulations/BlockStabilitySim';
+import BalancedBeamSim from '../simulations/BalancedBeamSim';
 
 // Registry of interactive components that can be referenced from content files.
 export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string, unknown>>> = {
@@ -128,4 +141,17 @@ export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string,
   ViscositySim,
   HookeLawExp,
   BernoulliSim,
+  ThreeDProjectileSim,
+  PhysicsSandbox,
+  CircuitBuilderSim,
+  WaveInterferenceSim,
+  OpticsRayTracer,
+  CenterOfMassFinder,
+  EquilibriumPuzzle,
+  MomentArmSim,
+  PrincipleOfMomentsSim,
+  SeeSawSim,
+  ForceCombineSim,
+  BlockStabilitySim,
+  BalancedBeamSim,
 };
