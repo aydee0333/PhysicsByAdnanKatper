@@ -297,6 +297,459 @@ function WeightlessnessSim() {
 }
 
 /* ═══ MAIN UNIT 6 CONTENT ═══ */
+/* ─── GRAVITATIONAL FIELD LINES ─── */
+function GravitationalFieldLinesSim() {
+  const [clickPos, setClickPos] = useState<[number, number] | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const fallRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+
+    const cx = w / 2, cy = h / 2, earthR = 40;
+
+    const draw = () => {
+      animRef.current = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, w, h);
+
+      // Field lines (radial, pointing inward)
+      const numLines = 24;
+      for (let i = 0; i < numLines; i++) {
+        const angle = (i / numLines) * Math.PI * 2;
+        const innerR = earthR + 5;
+        const outerR = 180;
+        const x1 = cx + Math.cos(angle) * innerR;
+        const y1 = cy + Math.sin(angle) * innerR;
+        const x2 = cx + Math.cos(angle) * outerR;
+        const y2 = cy + Math.sin(angle) * outerR;
+
+        const grad = ctx.createLinearGradient(x2, y2, x1, y1);
+        grad.addColorStop(0, 'rgba(124,58,237,0.1)');
+        grad.addColorStop(1, 'rgba(124,58,237,0.6)');
+        ctx.strokeStyle = grad; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x1, y1); ctx.stroke();
+
+        // Arrow pointing inward
+        const arrowR = innerR + 8;
+        const ax = cx + Math.cos(angle) * arrowR;
+        const ay = cy + Math.sin(angle) * arrowR;
+        ctx.fillStyle = 'rgba(124,58,237,0.7)';
+        ctx.beginPath(); ctx.moveTo(ax, ay);
+        ctx.lineTo(ax - 5 * Math.cos(angle - 0.5), ay - 5 * Math.sin(angle - 0.5));
+        ctx.lineTo(ax - 5 * Math.cos(angle + 0.5), ay - 5 * Math.sin(angle + 0.5));
+        ctx.closePath(); ctx.fill();
+      }
+
+      // Earth
+      const earthGrad = ctx.createRadialGradient(cx - 10, cy - 10, 5, cx, cy, earthR);
+      earthGrad.addColorStop(0, '#3b82f6'); earthGrad.addColorStop(1, '#1e3a5f');
+      ctx.fillStyle = earthGrad; ctx.beginPath(); ctx.arc(cx, cy, earthR, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(59,130,246,0.5)'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 11px Poppins'; ctx.textAlign = 'center';
+      ctx.fillText('Earth', cx, cy + 4);
+
+      // Clicked point and falling mass
+      if (clickPos) {
+        const [px, py] = clickPos;
+        const dist = Math.sqrt((px - cx) ** 2 + (py - cy) ** 2);
+        if (dist > earthR + 10) {
+          // g value at this point
+          const g = 9.8 * (earthR / dist) ** 2;
+
+          // Show g value
+          ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 11px Poppins'; ctx.textAlign = 'left';
+          ctx.fillText(`g = ${g.toFixed(2)} m/s²`, px + 12, py - 5);
+
+          // Dot at click position
+          ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill();
+
+          // Animated falling mass
+          fallRef.current += 0.008;
+          if (fallRef.current > 1) fallRef.current = 1;
+          const t = fallRef.current;
+          const massX = px + (cx - px) * t * t;
+          const massY = py + (cy - py) * t * t;
+          ctx.fillStyle = '#f43f5e'; ctx.beginPath(); ctx.arc(massX, massY, 6, 0, Math.PI * 2); ctx.fill();
+
+          // Trail
+          ctx.strokeStyle = 'rgba(244,63,94,0.3)'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(massX, massY); ctx.stroke();
+        }
+      }
+
+      // Color gradient ring
+      ctx.strokeStyle = 'rgba(124,58,237,0.15)'; ctx.lineWidth = 8;
+      ctx.beginPath(); ctx.arc(cx, cy, 120, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(124,58,237,0.3)'; ctx.lineWidth = 8;
+      ctx.beginPath(); ctx.arc(cx, cy, 80, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(124,58,237,0.5)'; ctx.lineWidth = 8;
+      ctx.beginPath(); ctx.arc(cx, cy, earthR + 20, 0, Math.PI * 2); ctx.stroke();
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animRef.current);
+  }, [clickPos]);
+
+  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    setClickPos([x, y]);
+    fallRef.current = 0;
+  };
+
+  return (
+    <div>
+      <div className="bg-brand-dark/60 rounded-2xl overflow-hidden border border-white/5 mb-4">
+        <canvas ref={canvasRef} width={400} height={400} onClick={handleClick} className="w-full cursor-crosshair" style={{ maxWidth: 400, margin: '0 auto', display: 'block' }} />
+      </div>
+      <div className="glass-card rounded-xl p-4">
+        <p className="text-gray-300 text-sm">Click anywhere to place a test mass. Watch it fall along the field line. Field is <strong className="text-brand-purple">stronger near Earth</strong> (brighter lines).</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── ORBIT SHAPE VISUALIZER ─── */
+function OrbitShapeVisualizer() {
+  const [launchSpeed, setLaunchSpeed] = useState(50);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const angleRef = useRef(0);
+
+  const orbitalSpeed = 30;
+  const escapeSpeed = 42;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+
+    const cx = w / 2, cy = h / 2, earthR = 35;
+    const launchAngle = -Math.PI / 4;
+
+    const draw = () => {
+      animRef.current = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, w, h);
+
+      // Earth
+      const earthGrad = ctx.createRadialGradient(cx - 8, cy - 8, 3, cx, cy, earthR);
+      earthGrad.addColorStop(0, '#3b82f6'); earthGrad.addColorStop(1, '#1e3a5f');
+      ctx.fillStyle = earthGrad; ctx.beginPath(); ctx.arc(cx, cy, earthR, 0, Math.PI * 2); ctx.fill();
+
+      // Launch point (mountain)
+      const mX = cx + earthR * Math.cos(launchAngle);
+      const mY = cy + earthR * Math.sin(launchAngle);
+      ctx.fillStyle = 'rgba(132,204,22,0.5)';
+      ctx.beginPath(); ctx.moveTo(mX, mY); ctx.lineTo(mX - 10, mY + 15); ctx.lineTo(mX + 10, mY + 15); ctx.closePath(); ctx.fill();
+
+      // Trajectory based on speed
+      const speed = launchSpeed;
+      const ratio = speed / orbitalSpeed;
+
+      ctx.strokeStyle = 'rgba(245,158,11,0.6)'; ctx.lineWidth = 1.5;
+      ctx.beginPath();
+
+      if (ratio < 0.8) {
+        // Sub-orbital: ellipse intersecting Earth
+        for (let a = 0; a < Math.PI * 2; a += 0.02) {
+          const r = 60 * (1 - 0.5 * Math.cos(a)) * ratio;
+          const x = cx + Math.cos(a + launchAngle) * r;
+          const y = cy + Math.sin(a + launchAngle) * r;
+          a === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          if (Math.sqrt((x - cx) ** 2 + (y - cy) ** 2) < earthR) break;
+        }
+      } else if (ratio < 1.1) {
+        // Circular orbit
+        const orbitR = 80;
+        for (let a = 0; a < Math.PI * 2; a += 0.02) {
+          const x = cx + Math.cos(a) * orbitR;
+          const y = cy + Math.sin(a) * orbitR;
+          a === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+      } else if (ratio < escapeSpeed / orbitalSpeed) {
+        // Elliptical orbit
+        const a = 80 * ratio * 0.7;
+        const b = a * 0.6;
+        for (let t = 0; t < Math.PI * 2; t += 0.02) {
+          const x = cx + a * Math.cos(t) * Math.cos(0.3) - b * Math.sin(t) * Math.sin(0.3);
+          const y = cy + a * Math.cos(t) * Math.sin(0.3) + b * Math.sin(t) * Math.cos(0.3);
+          t === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+      } else {
+        // Hyperbolic escape
+        for (let t = -2; t < 2; t += 0.02) {
+          const r = 60 / (1 + 0.5 * Math.cosh(t));
+          const x = cx + r * Math.cosh(t) * 0.8;
+          const y = cy + r * Math.sinh(t) * 0.5;
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      // Animated object on trajectory
+      angleRef.current += 0.015;
+      const a = angleRef.current;
+      let objX = 0, objY = 0;
+
+      if (ratio < 0.8) {
+        const r = 60 * (1 - 0.5 * Math.cos(a)) * ratio;
+        objX = cx + Math.cos(a + launchAngle) * r;
+        objY = cy + Math.sin(a + launchAngle) * r;
+      } else if (ratio < 1.1) {
+        objX = cx + Math.cos(a) * 80;
+        objY = cy + Math.sin(a) * 80;
+      } else if (ratio < escapeSpeed / orbitalSpeed) {
+        const ea = 80 * ratio * 0.7, eb = ea * 0.6;
+        objX = cx + ea * Math.cos(a) * Math.cos(0.3) - eb * Math.sin(a) * Math.sin(0.3);
+        objY = cy + ea * Math.cos(a) * Math.sin(0.3) + eb * Math.sin(a) * Math.cos(0.3);
+      } else {
+        const t = (a % 4) - 2;
+        const r = 60 / (1 + 0.5 * Math.cosh(t));
+        objX = cx + r * Math.cosh(t) * 0.8;
+        objY = cy + r * Math.sinh(t) * 0.5;
+      }
+
+      ctx.fillStyle = '#f43f5e'; ctx.beginPath(); ctx.arc(objX, objY, 5, 0, Math.PI * 2); ctx.fill();
+
+      // Trajectory type label
+      let label = 'Sub-orbital';
+      let color = '#f43f5e';
+      if (ratio >= 1.1 && ratio < escapeSpeed / orbitalSpeed) { label = 'Elliptical Orbit'; color = '#f59e0b'; }
+      else if (ratio >= 0.8 && ratio < 1.1) { label = 'Circular Orbit'; color = '#84cc16'; }
+      else if (ratio >= escapeSpeed / orbitalSpeed) { label = 'Escape Trajectory'; color = '#ec4899'; }
+
+      ctx.fillStyle = color; ctx.font = 'bold 14px Poppins'; ctx.textAlign = 'center';
+      ctx.fillText(label, w / 2, 25);
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animRef.current);
+  }, [launchSpeed]);
+
+  return (
+    <div>
+      <div className="mb-4">
+        <label className="text-gray-400 text-xs block mb-1">Launch Speed: {launchSpeed} km/s</label>
+        <input type="range" min={10} max={60} step={1} value={launchSpeed} onChange={e => setLaunchSpeed(Number(e.target.value))} className="w-full accent-brand-lime" />
+      </div>
+      <div className="flex gap-3 mb-4 text-xs">
+        <span className="text-gray-500">Orbital: ~{orbitalSpeed} km/s</span>
+        <span className="text-gray-500">Escape: ~{escapeSpeed} km/s</span>
+      </div>
+      <div className="bg-brand-dark/60 rounded-2xl overflow-hidden border border-white/5 mb-4">
+        <canvas ref={canvasRef} width={400} height={400} className="w-full" style={{ maxWidth: 400, margin: '0 auto', display: 'block' }} />
+      </div>
+      <div className="glass-card rounded-xl p-4">
+        <p className="text-gray-300 text-sm">Adjust launch speed to see different orbital shapes: sub-orbital, circular, elliptical, or escape trajectory.</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── INTERACTIVE g vs DEPTH GRAPH ─── */
+function GVsDepthGraph() {
+  const [depth, setDepth] = useState(0);
+  const g0 = 9.8;
+  const R = 6371;
+  const gDepth = g0 * (1 - depth / R);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const graphX = 60, graphY = 30, graphW = 300, graphH = 200;
+
+    // Graph background
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.fillRect(graphX, graphY, graphW, graphH);
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(graphX, graphY, graphW, graphH);
+
+    // Grid
+    for (let i = 1; i < 5; i++) {
+      const x = graphX + (i / 5) * graphW;
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+      ctx.beginPath(); ctx.moveTo(x, graphY); ctx.lineTo(x, graphY + graphH); ctx.stroke();
+      const y = graphY + (i / 5) * graphH;
+      ctx.beginPath(); ctx.moveTo(graphX, y); ctx.lineTo(graphX + graphW, y); ctx.stroke();
+    }
+
+    // Axes labels
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '11px Poppins';
+    ctx.textAlign = 'center';
+    ctx.fillText('Depth (km)', graphX + graphW / 2, graphY + graphH + 25);
+    ctx.save();
+    ctx.translate(18, graphY + graphH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('g (m/s²)', 0, 0);
+    ctx.restore();
+
+    // Y-axis ticks
+    ctx.textAlign = 'right';
+    ctx.font = '10px Poppins';
+    for (let i = 0; i <= 4; i++) {
+      const val = (i / 4) * g0;
+      const y = graphY + graphH - (i / 4) * graphH;
+      ctx.fillStyle = '#64748b';
+      ctx.fillText(val.toFixed(1), graphX - 8, y + 3);
+    }
+
+    // X-axis ticks
+    ctx.textAlign = 'center';
+    for (let i = 0; i <= 4; i++) {
+      const val = (i / 4) * R;
+      const x = graphX + (i / 4) * graphW;
+      ctx.fillStyle = '#64748b';
+      ctx.fillText(Math.round(val).toLocaleString(), x, graphY + graphH + 12);
+    }
+
+    // Altitude curve (dashed, for comparison)
+    ctx.strokeStyle = 'rgba(124,58,237,0.3)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    for (let ax = 0; ax <= graphW; ax += 2) {
+      const h_val = (ax / graphW) * R * 3;
+      const gAlt = g0 * Math.pow(R / (R + h_val), 2);
+      const px = graphX + ax;
+      const py = graphY + graphH - (gAlt / g0) * graphH;
+      ax === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Depth curve (solid)
+    ctx.strokeStyle = '#f43f5e';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let ax = 0; ax <= graphW; ax += 2) {
+      const d = (ax / graphW) * R;
+      const gD = g0 * (1 - d / R);
+      const px = graphX + ax;
+      const py = graphY + graphH - (gD / g0) * graphH;
+      ax === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // Current point
+    const cx = graphX + (depth / R) * graphW;
+    const cy = graphY + graphH - (gDepth / g0) * graphH;
+    ctx.fillStyle = '#f43f5e';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(244,63,94,0.3)';
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Crosshair lines
+    ctx.strokeStyle = 'rgba(244,63,94,0.3)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(cx, graphY); ctx.lineTo(cx, graphY + graphH); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(graphX, cy); ctx.lineTo(graphX + graphW, cy); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Earth cross-section
+    const earthCx = 440, earthCy = 130, earthR = 65;
+    // Outer circle (surface)
+    ctx.strokeStyle = 'rgba(59,130,246,0.5)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(earthCx, earthCy, earthR, 0, Math.PI * 2);
+    ctx.stroke();
+    // Fill depth zone
+    const depthR = earthR * (1 - depth / R);
+    if (depth > 0) {
+      ctx.fillStyle = 'rgba(244,63,94,0.15)';
+      ctx.beginPath();
+      ctx.arc(earthCx, earthCy, depthR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#f43f5e';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(earthCx, earthCy, depthR, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    // Center dot
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.arc(earthCx, earthCy, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // Depth line
+    if (depth > 0) {
+      ctx.strokeStyle = '#f43f5e';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(earthCx, earthCy);
+      ctx.lineTo(earthCx, earthCy - earthR);
+      ctx.stroke();
+      // Depth arrow
+      ctx.fillStyle = '#f43f5e';
+      ctx.font = 'bold 10px Poppins';
+      ctx.textAlign = 'left';
+      ctx.fillText(`d = ${depth} km`, earthCx + 5, earthCy - earthR / 2);
+    }
+    // Labels
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '10px Poppins';
+    ctx.textAlign = 'center';
+    ctx.fillText('Surface', earthCx, earthCy - earthR - 8);
+    ctx.fillText('Center', earthCx, earthCy + 12);
+
+    // Legend
+    ctx.fillStyle = '#f43f5e';
+    ctx.font = '10px Poppins';
+    ctx.textAlign = 'left';
+    ctx.fillText('— g vs Depth', graphX, graphY + graphH + 40);
+    ctx.fillStyle = 'rgba(124,58,237,0.5)';
+    ctx.fillText('- - g vs Altitude', graphX + 120, graphY + graphH + 40);
+  }, [depth, g0, R, gDepth]);
+
+  return (
+    <div>
+      <div className="mb-4">
+        <label className="text-gray-400 text-sm block mb-2">Depth: {depth} km (Earth radius = {R} km)</label>
+        <input type="range" min={0} max={R} step={50} value={depth} onChange={e => setDepth(Number(e.target.value))} className="w-full accent-rose-500" />
+      </div>
+      <div className="bg-brand-dark/60 rounded-2xl overflow-hidden border border-white/5 mb-4">
+        <canvas ref={canvasRef} width={500} height={280} className="w-full" style={{ maxWidth: 500, margin: '0 auto', display: 'block' }} />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="formula-box rounded-xl p-3 text-center">
+          <p className="text-gray-400 text-xs uppercase">g at {depth} km depth</p>
+          <p className="text-xl font-space font-bold text-brand-rose">{gDepth.toFixed(2)} m/s²</p>
+        </div>
+        <div className="formula-box rounded-xl p-3 text-center">
+          <p className="text-gray-400 text-xs uppercase">Formula</p>
+          <p className="text-sm font-space font-bold text-white">g = g₀(1 − d/R)</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Unit6Content() {
   const t = useT();
   return (
@@ -312,6 +765,9 @@ export default function Unit6Content() {
         <div className="formula-box rounded-2xl p-5 text-center mb-6"><p className="text-2xl font-space font-bold text-white" dangerouslySetInnerHTML={{ __html: t('unit6.gravFieldFormula') }} /><p className="text-gray-400 text-sm mt-2">{t('unit6.onEarth')}</p></div>
         <h4 className="text-lg font-bold text-white mb-4">{t('unit6.weightPlanetsTitle')}</h4>
         <PlanetWeightCalc />
+        <h4 className="text-lg font-bold text-white mb-4 mt-8">Gravitational Field Lines</h4>
+        <p className="text-gray-400 text-sm mb-4">Click to place a test mass and watch it fall along the gravitational field line.</p>
+        <GravitationalFieldLinesSim />
       </Section>
 
       <Section title={t('unit6.massOfEarth')} icon={<Scale size={24} />} color="brand-pink">
@@ -327,6 +783,9 @@ export default function Unit6Content() {
         </div>
         <h4 className="text-lg font-bold text-white mb-4">{t('unit6.gGraphTitle')}</h4>
         <GVariationGraph />
+        <h4 className="text-lg font-bold text-white mb-4 mt-8">Interactive g vs Depth</h4>
+        <p className="text-gray-400 text-sm mb-4">Drag along the curve to see how g changes below Earth's surface. Compare with altitude variation.</p>
+        <GVsDepthGraph />
       </Section>
 
       <Section title={t('unit6.orbitalMotion')} icon={<Orbit size={24} />} color="brand-lime">
@@ -334,6 +793,9 @@ export default function Unit6Content() {
         <div className="formula-box rounded-2xl p-5 text-center mb-6"><p className="text-xl font-space font-bold text-white">{t('unit6.orbitalFormula')}</p><p className="text-gray-400 text-sm mt-2">{t('unit6.orbitalDesc')}</p></div>
         <h4 className="text-lg font-bold text-white mb-4">{t('unit6.satelliteSimTitle')}</h4>
         <SatelliteOrbitSim />
+        <h4 className="text-lg font-bold text-white mb-4 mt-8">Orbit Shape Visualizer</h4>
+        <p className="text-gray-400 text-sm mb-4">Adjust launch speed to see circular, elliptical, and escape trajectories.</p>
+        <OrbitShapeVisualizer />
       </Section>
 
       <Section title={t('unit6.artificialSatellites')} icon={<Rocket size={24} />} color="brand-rose">
