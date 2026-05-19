@@ -1,62 +1,106 @@
-import { useParams, Link, useLocation } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useParams, useLocation, Link } from 'react-router-dom';
+import React, { Suspense, useEffect, useRef } from 'react';
+import { gsap } from '../utils/gsap';
 import PhysicsBackground from '../components/PhysicsBackground';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { BookOpen, AlertTriangle } from 'lucide-react';
 import { useProgress } from '../hooks/useProgress';
-import Unit1Content from '../components/units/Unit1Content';
-import Unit2Content from '../components/units/Unit2Content';
-import Unit3Content from '../components/units/Unit3Content';
-import Unit4Content from '../components/units/Unit4Content';
-import Unit5Content from '../components/units/Unit5Content';
-import Unit6Content from '../components/units/Unit6Content';
-import Unit7Content from '../components/units/Unit7Content';
-import Unit8Content from '../components/units/Unit8Content';
-import Unit9Content from '../components/units/Unit9Content';
+import { useT } from '../i18n/LanguageContext';
+import UnitSidebar from '../components/UnitSidebar';
+import { Breadcrumb, ProgressBar } from '../components/ui';
 
-gsap.registerPlugin(ScrollTrigger);
+const lazyUnitComponents: Record<string, React.LazyExoticComponent<React.ComponentType>> = {
+  '01': React.lazy(() => import('../components/units/Unit1Content')),
+  '02': React.lazy(() => import('../components/units/Unit2Content')),
+  '03': React.lazy(() => import('../components/units/Unit3Content')),
+  '04': React.lazy(() => import('../components/units/Unit4Content')),
+  '05': React.lazy(() => import('../components/units/Unit5Content')),
+  '06': React.lazy(() => import('../components/units/Unit6Content')),
+  '07': React.lazy(() => import('../components/units/Unit7Content')),
+  '08': React.lazy(() => import('../components/units/Unit8Content')),
+  '09': React.lazy(() => import('../components/units/Unit9Content')),
+};
 
-const unitInfo: Record<string, { title: string; subtitle: string }> = {
-  '01': { title: 'Physical Quantities and Measurement', subtitle: 'What is Physics, Quantities, Units, and Measurement' },
-  '02': { title: 'Kinematics', subtitle: 'Motion, Speed, Velocity, and Acceleration' },
-  '03': { title: 'Dynamics', subtitle: 'Forces and Laws of Motion' },
-  '04': { title: 'Turning Effect of Forces', subtitle: 'Moments, Couple, and Equilibrium' },
-  '05': { title: 'Forces and Matter', subtitle: 'Elasticity, Pressure, Density, and Buoyancy' },
-  '06': { title: 'Gravitation', subtitle: 'Gravity, Satellites, and Weightlessness' },
-  '07': { title: 'Properties of Matter', subtitle: 'States of Matter, Elasticity, Pressure, and Viscosity' },
-  '08': { title: 'Energy Sources and Transfer of Energy', subtitle: 'Forms of Energy, Conversion, Power, and Efficiency' },
-  '09': { title: 'Thermal Properties of Matter', subtitle: 'Temperature, Expansion, Specific Heat, and Boyle\'s Law' },
+// Content system imports
+import { useChapter } from '../content/useChapter';
+import { hasChapter } from '../content/index';
+import { formatChapterId } from '../content/helpers';
+import ChapterRenderer from '../components/content/ChapterRenderer';
+
+/** Sidebar section definitions per unit */
+const unitSections: Record<string, { id: string; label: string }[]> = {
+  '01': [
+    { id: 'what-is-physics', label: 'What is Physics' },
+    { id: 'physical-quantities', label: 'Physical Quantities' },
+    { id: 'si-units', label: 'SI Units' },
+    { id: 'measuring-tools', label: 'Measuring Tools' },
+    { id: 'significant-figures', label: 'Significant Figures' },
+    { id: 'matching-game', label: 'Matching Game' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '02': [
+    { id: 'rest-motion', label: 'Rest and Motion' },
+    { id: 'types-of-motion', label: 'Types of Motion' },
+    { id: 'distance-displacement', label: 'Distance & Displacement' },
+    { id: 'speed-velocity', label: 'Speed & Velocity' },
+    { id: 'acceleration', label: 'Acceleration' },
+    { id: 'graphs', label: 'Motion Graphs' },
+    { id: 'equations', label: 'Equations of Motion' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '03': [
+    { id: 'force', label: 'Force' },
+    { id: 'newton-laws', label: "Newton's Laws" },
+    { id: 'friction', label: 'Friction' },
+    { id: 'inertia', label: 'Inertia' },
+    { id: 'mass-weight', label: 'Mass & Weight' },
+    { id: 'momentum', label: 'Momentum' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
 };
 
 export default function UnitDetailPage() {
   const { unitNumber } = useParams<{ unitNumber: string }>();
   const location = useLocation();
   const sectionRef = useRef<HTMLDivElement>(null);
-  const info = unitInfo[unitNumber || '01'] || { title: 'Unknown Unit', subtitle: '' };
+  const t = useT();
   const isClassX = location.pathname.includes('/class-x/');
   const backLink = isClassX ? '/class-x' : '/class-ix';
-  const backLabel = isClassX ? 'Back to Class X' : 'Back to Class IX';
-  
+  const classLabel = isClassX ? t('nav.classX') : t('nav.classIX');
+  const isValidUnit = unitNumber && /^(0[1-9]|[1-9][0-9])$/.test(unitNumber) && Number(unitNumber) >= 1 && Number(unitNumber) <= 9;
+  const unitNum = isValidUnit ? unitNumber! : '01';
+  const unitTitle = t(`unitDetail.${unitNum}.title`);
+  const unitSubtitle = t(`unitDetail.${unitNum}.subtitle`);
+
   const unitId = `class-${isClassX ? 'x' : 'ix'}-unit-${unitNumber}`;
   const { getUnitProgress, markSectionComplete } = useProgress(unitId);
+  const sections = unitSections[unitNumber || '01'] || [];
+
+  // Content system: check if this chapter has new content-driven data
+  const classId = isClassX ? 'class-x' : 'class-ix';
+  const chapterId = formatChapterId(unitNumber || '01');
+  const useNewContent = hasChapter(classId, chapterId);
+  const { chapter, loading: chapterLoading, error: chapterError } = useChapter(classId, chapterId);
+
+  // Use a ref for markSectionComplete to avoid re-running the effect on every progress change
+  const markSectionCompleteRef = useRef(markSectionComplete);
+  markSectionCompleteRef.current = markSectionComplete;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     // Auto-mark sections as complete when visible
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
             const sectionId = entry.target.getAttribute('data-section-id');
-            if (sectionId) markSectionComplete(sectionId);
+            if (sectionId) markSectionCompleteRef.current(sectionId);
           }
         });
       },
       { threshold: 0.5 }
     );
-    
+
     document.querySelectorAll('[data-section-id]').forEach(el => observer.observe(el));
 
     const ctx = gsap.context(() => {
@@ -80,64 +124,109 @@ export default function UnitDetailPage() {
       observer.disconnect();
       ctx.revert();
     };
-  }, [unitNumber, markSectionComplete]);
+  }, [unitNumber]);
+
+  if (!isValidUnit) {
+    return (
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <PhysicsBackground />
+        <div className="relative z-10 text-center px-6 max-w-lg mx-auto">
+          <div className="glass-card-strong rounded-3xl p-10 md:p-14">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-6">
+              <AlertTriangle size={32} className="text-red-400" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-3">{t('unitDetail.comingSoon')}</h1>
+            <p className="text-lg text-gray-400 mb-8">{t('unitDetail.comingSoonDesc')}</p>
+            <Link
+              to={backLink}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-cyan/20 text-brand-cyan font-semibold hover:bg-brand-cyan/30 transition-colors"
+            >
+              <BookOpen size={18} />
+              {t('nav.home')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={sectionRef}>
       {/* Hero Banner */}
-      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden pt-24 pb-12">
+      <section className="relative min-h-[35vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-20 pb-8">
         <PhysicsBackground />
         <div className="blob w-72 h-72 bg-brand-purple top-0 -left-10" style={{ animationDelay: '0s' }} />
         <div className="blob w-56 h-56 bg-brand-cyan bottom-0 -right-10" style={{ animationDelay: '5s' }} />
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <Link to={backLink} className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-cyan transition-colors mb-6 text-sm">
-            <ArrowLeft size={16} />
-            <span>{backLabel}</span>
-          </Link>
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-6">
+          {/* Breadcrumb */}
+          <Breadcrumb
+            items={[
+              { label: t('nav.home'), to: '/' },
+              { label: classLabel, to: backLink },
+              { label: `${t('classIX.unitLabel')} ${unitNumber}` },
+            ]}
+            className="justify-center mb-5"
+          />
+
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card mb-4">
             <BookOpen size={14} className="text-brand-cyan" />
-            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{isClassX ? 'Class X' : 'Class IX'} Physics — Unit {unitNumber}</span>
+            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{classLabel} — {t('classIX.unitLabel')} {unitNumber}</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
-            {info.title}
+
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-3 leading-tight">
+            {unitTitle}
           </h1>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            {info.subtitle}
+          <p className="text-base md:text-xl text-gray-400 max-w-2xl mx-auto">
+            {unitSubtitle}
           </p>
 
           {/* Progress Bar */}
-          <div className="mt-8 max-w-md mx-auto">
-            <div className="flex justify-between text-xs text-gray-400 mb-2">
-              <span>Your Progress</span>
-              <span className="text-brand-cyan font-bold">{getUnitProgress()}%</span>
-            </div>
-            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-brand-cyan to-brand-purple transition-all duration-500"
-                style={{ width: `${getUnitProgress()}%` }}
-              />
-            </div>
+          <div className="mt-6 max-w-sm mx-auto">
+            <ProgressBar
+              value={getUnitProgress()}
+              label={t('unitDetail.yourProgress')}
+              size="md"
+            />
           </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="relative py-12 md:py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          {unitNumber === '01' && <Unit1Content />}
-          {unitNumber === '02' && <Unit2Content />}
-          {unitNumber === '03' && <Unit3Content />}
-          {unitNumber === '04' && <Unit4Content />}
-          {unitNumber === '05' && <Unit5Content />}
-          {unitNumber === '06' && <Unit6Content />}
-          {unitNumber === '07' && <Unit7Content />}
-          {unitNumber === '08' && <Unit8Content />}
-          {unitNumber === '09' && <Unit9Content />}
-          {unitNumber !== '01' && unitNumber !== '02' && unitNumber !== '03' && unitNumber !== '04' && unitNumber !== '05' && unitNumber !== '06' && unitNumber !== '07' && unitNumber !== '08' && unitNumber !== '09' && (
-            <div className="unit-detail-reveal glass-card-strong rounded-3xl p-12 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
-              <h2 className="text-3xl font-black text-white mb-4">Content Coming Soon</h2>
-              <p className="text-gray-400 text-lg">This unit content is being prepared. Check back soon!</p>
+      {/* Content with sidebar */}
+      <section className="relative py-10 md:py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          {sections.length > 0 && (
+            <UnitSidebar sections={sections} unitId={unitId} />
+          )}
+
+          {/* New content-driven rendering (takes priority) */}
+          {useNewContent && chapter && !chapterLoading && (
+            <ChapterRenderer chapter={chapter} unitId={unitId} />
+          )}
+          {useNewContent && chapterLoading && (
+            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+              <p className="text-gray-400 text-lg">Loading chapter content...</p>
+            </div>
+          )}
+          {useNewContent && !chapterLoading && !chapter && (
+            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+              <p className="text-red-400 text-lg">{chapterError || 'Failed to load chapter content.'}</p>
+            </div>
+          )}
+          {/* Legacy component rendering (fallback for unmigrated units) */}
+          {!useNewContent && unitNumber && lazyUnitComponents[unitNumber] && (
+            <Suspense fallback={
+              <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+                <p className="text-gray-400 text-lg">Loading...</p>
+              </div>
+            }>
+              {React.createElement(lazyUnitComponents[unitNumber])}
+            </Suspense>
+          )}
+          {!useNewContent && unitNumber && !lazyUnitComponents[unitNumber] && (
+            <div className="unit-detail-reveal glass-card-strong rounded-3xl p-10 md:p-12 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-3">{t('unitDetail.comingSoon')}</h2>
+              <p className="text-gray-400 text-base md:text-lg">{t('unitDetail.comingSoonDesc')}</p>
             </div>
           )}
         </div>
