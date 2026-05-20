@@ -328,7 +328,7 @@ export default function PhysicsSandbox() {
           />
           Velocity arrows
         </label>
-        <span className="text-xs text-gray-500 ml-auto">Click empty space to add · Drag balls to move</span>
+        <span className="text-xs text-gray-500 ms-auto">Click empty space to add · Drag balls to move</span>
       </div>
 
       <FormulaVisualizer

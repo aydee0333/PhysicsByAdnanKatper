@@ -181,13 +181,13 @@ export default function LoginPage() {
               <div>
                 <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('login.username')}</label>
                 <div className="relative mt-2">
-                  <User className="absolute left-4 top-4 text-gray-500" size={18} />
+                  <User className="absolute start-4 top-4 text-gray-500" size={18} />
                   <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder={t('login.usernamePh')}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 ps-12 pe-4 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
                     required
                   />
                 </div>
@@ -196,16 +196,16 @@ export default function LoginPage() {
               <div>
                 <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('login.password')}</label>
                 <div className="relative mt-2">
-                  <Lock className="absolute left-4 top-4 text-gray-500" size={18} />
+                  <Lock className="absolute start-4 top-4 text-gray-500" size={18} />
                   <input
                     type={showPwd ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t('login.passwordPh')}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-12 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 ps-12 pe-12 text-white placeholder-gray-500 focus:border-brand-cyan focus:outline-none"
                     required
                   />
-                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-4 top-4 text-gray-400" aria-label={t('login.show')}>
+                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute end-4 top-4 text-gray-400" aria-label={t('login.show')}>
                     {showPwd ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>

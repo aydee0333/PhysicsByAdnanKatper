@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { List, X, Check, ChevronUp } from 'lucide-react';
 import { useProgress } from '../hooks/useProgress';
+import { useT } from '../i18n/LanguageContext';
 import { cn } from '../utils/cn';
 
 interface Section {
@@ -14,6 +15,7 @@ interface UnitSidebarProps {
 }
 
 export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
+  const t = useT();
   const [activeSection, setActiveSection] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const { isSectionComplete, getUnitProgress } = useProgress(unitId);
@@ -60,7 +62,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
       <aside className="hidden xl:block fixed right-[max(1rem,calc((100vw-80rem)/2+1rem))] top-24 w-56 z-30">
         <div className="glass-card rounded-2xl p-4 border border-white/5">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Contents</span>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('common.contents')}</span>
             <span className="text-xs font-bold text-brand-cyan tabular-nums">{progress}%</span>
           </div>
 
@@ -72,7 +74,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
             />
           </div>
 
-          <nav className="space-y-0.5" aria-label="Unit sections">
+          <nav className="space-y-0.5" aria-label={t('common.unitSections')}>
             {sections.map(({ id, label }) => {
               const complete = isSectionComplete(id);
               const active = activeSection === id;
@@ -108,12 +110,12 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
       </aside>
 
       {/* Mobile floating button + bottom sheet */}
-      <div className="xl:hidden fixed bottom-6 right-4 z-40 flex flex-col items-end gap-3">
+      <div className="xl:hidden fixed bottom-6 end-4 z-40 flex flex-col items-end gap-3">
         {/* Scroll to top */}
         <button
           onClick={scrollToTop}
           className="w-10 h-10 rounded-full glass-card-strong border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg"
-          aria-label="Scroll to top"
+          aria-label={t('common.scrollToTop')}
         >
           <ChevronUp size={18} />
         </button>
@@ -127,7 +129,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
               ? 'bg-brand-cyan text-white'
               : 'bg-gradient-to-br from-brand-purple to-brand-pink text-white'
           )}
-          aria-label={isOpen ? 'Close table of contents' : 'Open table of contents'}
+          aria-label={isOpen ? t('common.closeToc') : t('common.openToc')}
           aria-expanded={isOpen}
         >
           {isOpen ? <X size={20} /> : <List size={20} />}
@@ -159,7 +161,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
 
           {/* Header */}
           <div className="flex items-center justify-between px-5 pb-3">
-            <h3 className="text-sm font-bold text-white">Contents</h3>
+            <h3 className="text-sm font-bold text-white">{t('common.contents')}</h3>
             <span className="text-xs text-brand-cyan font-bold">{progress}%</span>
           </div>
 
@@ -174,7 +176,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
           </div>
 
           {/* Section list */}
-          <nav className="overflow-y-auto max-h-[50vh] px-4 pb-8 space-y-1" aria-label="Unit sections">
+          <nav className="overflow-y-auto max-h-[50vh] px-4 pb-8 space-y-1" aria-label={t('common.unitSections')}>
             {sections.map(({ id, label }) => {
               const complete = isSectionComplete(id);
               const active = activeSection === id;

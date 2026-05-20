@@ -385,7 +385,7 @@ export default function ThreeDProjectileSim() {
           <div key={v.label} className="bg-white/5 rounded-lg px-2 py-1.5 text-center">
             <div className="text-[10px] text-gray-500">{v.label}</div>
             <div className="text-sm font-mono" style={{ color: v.color }}>
-              {v.value}<span className="text-[10px] text-gray-600 ml-0.5">{v.unit}</span>
+              {v.value}<span className="text-[10px] text-gray-600 ms-0.5">{v.unit}</span>
             </div>
           </div>
         ))}
@@ -393,11 +393,11 @@ export default function ThreeDProjectileSim() {
 
       {/* Legend */}
       <div className="flex items-center gap-4 text-[11px] text-gray-500">
-        <span><span className="inline-block w-3 h-3 rounded-full bg-[#ff4444] mr-1 align-middle" />Vx</span>
-        <span><span className="inline-block w-3 h-3 rounded-full bg-[#44ff44] mr-1 align-middle" />Vy</span>
-        <span><span className="inline-block w-3 h-3 rounded-full bg-[#4488ff] mr-1 align-middle" />Vz</span>
-        <span><span className="inline-block w-3 h-0.5 bg-[#06b6d4] mr-1 align-middle" />Trail</span>
-        <span><span className="inline-block w-3 h-0.5 bg-[#444444] mr-1 align-middle border-dashed border-t border-gray-500" />Predicted</span>
+        <span><span className="inline-block w-3 h-3 rounded-full bg-[#ff4444] me-1 align-middle" />Vx</span>
+        <span><span className="inline-block w-3 h-3 rounded-full bg-[#44ff44] me-1 align-middle" />Vy</span>
+        <span><span className="inline-block w-3 h-3 rounded-full bg-[#4488ff] me-1 align-middle" />Vz</span>
+        <span><span className="inline-block w-3 h-0.5 bg-[#06b6d4] me-1 align-middle" />Trail</span>
+        <span><span className="inline-block w-3 h-0.5 bg-[#444444] me-1 align-middle border-dashed border-t border-gray-500" />Predicted</span>
       </div>
     </div>
   );

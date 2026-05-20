@@ -1,5 +1,6 @@
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { useT } from '../../i18n/LanguageContext';
 import type { SliderConfig } from '../../simulation/types';
 
 interface SimulationControlsProps {
@@ -26,6 +27,7 @@ export default function SimulationControls({
   sliders,
   className,
 }: SimulationControlsProps) {
+  const t = useT();
   return (
     <div className={cn('mt-3 space-y-3', className)}>
       {/* Main controls row */}
@@ -34,7 +36,7 @@ export default function SimulationControls({
         <button
           onClick={isRunning ? onPause : onPlay}
           className="flex items-center justify-center w-11 h-11 rounded-xl bg-brand-cyan/20 text-brand-cyan hover:bg-brand-cyan/30 transition-colors"
-          aria-label={isRunning ? 'Pause' : 'Play'}
+          aria-label={isRunning ? t('common.pause') : t('common.play')}
         >
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
         </button>
@@ -43,14 +45,14 @@ export default function SimulationControls({
         <button
           onClick={onReset}
           className="flex items-center justify-center w-11 h-11 rounded-xl bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
-          aria-label="Reset"
+          aria-label={t('common.reset')}
         >
           <RotateCcw size={18} />
         </button>
 
         {/* Speed selector */}
         <div className="flex items-center gap-1 ms-2">
-          <span className="text-xs text-gray-500 me-1">Speed</span>
+          <span className="text-xs text-gray-500 me-1">{t('common.speed')}</span>
           {SPEED_OPTIONS.map((s) => (
             <button
               key={s}
@@ -102,7 +104,7 @@ function SliderControl({ label, min, max, step, value, onChange, unit, color }: 
           }}
         />
       </div>
-      <span className="text-xs text-white font-mono w-16 text-right">
+      <span className="text-xs text-white font-mono w-16 text-end">
         {Number.isInteger(step) ? value : value.toFixed(1)}
         {unit && <span className="text-gray-500 ms-0.5">{unit}</span>}
       </span>
