@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe, Check } from 'lucide-react';
-import { useLang } from '../i18n/LanguageContext';
+import { useLang, useT } from '../i18n/LanguageContext';
 import { LANG_META, type Lang } from '../i18n/translations';
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 
 export default function LanguageSwitcher({ variant = 'default', align = 'right' }: Props) {
   const { lang, setLang } = useLang();
+  const t = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,7 @@ export default function LanguageSwitcher({ variant = 'default', align = 'right' 
       <button
         onClick={() => setOpen((o) => !o)}
         className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white text-sm font-medium transition-all"
-        aria-label="Change language"
+        aria-label={t('common.changeLang')}
       >
         <Globe size={16} className="text-brand-cyan" />
         {variant === 'default' && (

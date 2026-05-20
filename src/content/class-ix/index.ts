@@ -17,6 +17,36 @@ export const classIXChapters: ChapterMeta[] = [
     },
   },
   {
+    id: 'chapter-02',
+    classId: 'class-ix',
+    number: 2,
+    title: {
+      en: 'Kinematics',
+      ur: 'حرکیات',
+      sd: 'حرڪيات',
+    },
+    subtitle: {
+      en: 'Study of motion — distance, displacement, speed, velocity, and acceleration',
+      ur: 'حرکت کا مطالعہ — فاصلہ، جابائی، رفتار، سمت رفتار اور اسراع',
+      sd: 'حرڪت جو مطالعو — فاصلي، جابجائي، رفتار، سمت رفتار۽ اسراع',
+    },
+  },
+  {
+    id: 'chapter-03',
+    classId: 'class-ix',
+    number: 3,
+    title: {
+      en: 'Dynamics',
+      ur: 'حرکیات (ڈائنامیکس)',
+      sd: 'ڊائناميڪس',
+    },
+    subtitle: {
+      en: 'Force, Newton\'s laws, friction, inertia, mass, weight, and momentum',
+      ur: 'قوت، نیوٹن کے قوانین، مالش، جمود، کمیت، وزن اور مومینٹم',
+      sd: 'قوت، نيوٽن جا قانون، رگڙ، سڪر، مادو، وزن۽ مومينٽم',
+    },
+  },
+  {
     id: 'chapter-04',
     classId: 'class-ix',
     number: 4,

@@ -5,6 +5,14 @@ const chapter04En: ChapterContent = {
   classId: 'class-x',
   title: 'Electrostatics',
   subtitle: 'Electric Charge, Coulomb\'s Law, and Electric Fields',
+  objectives: [
+    'Describe the properties of electric charge and explain conservation of charge',
+    'Distinguish between conductors, insulators, and semiconductors',
+    'State Coulomb\'s law and solve problems involving electrostatic force',
+    'Define electric field and explain the properties of electric field lines',
+    'Explain electric potential and potential difference',
+    'Describe capacitance and solve problems using C = Q/V',
+  ],
   sections: [
     {
       id: 'electric-charge',
@@ -365,6 +373,7 @@ const chapter04En: ChapterContent = {
           questions: [
             {
               id: 'q1',
+              type: 'mcq',
               question: 'The SI unit of electric charge is:',
               options: ['Ampere', 'Volt', 'Coulomb', 'Farad'],
               correctIndex: 2,
@@ -372,6 +381,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q2',
+              type: 'mcq',
               question: 'When a glass rod is rubbed with silk cloth:',
               options: ['Both become positive', 'Both become negative', 'Glass becomes positive, silk becomes negative', 'Glass becomes negative, silk becomes positive'],
               correctIndex: 2,
@@ -379,6 +389,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q3',
+              type: 'mcq',
               question: 'Coulomb\'s law is valid for:',
               options: ['Only positive charges', 'Only negative charges', 'Point charges only', 'All types of charges'],
               correctIndex: 2,
@@ -386,6 +397,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q4',
+              type: 'mcq',
               question: 'The value of Coulomb\'s constant k is:',
               options: ['9 x 10^6 Nm²/C²', '9 x 10^9 Nm²/C²', '9 x 10^12 Nm²/C²', '9 x 10^3 Nm²/C²'],
               correctIndex: 1,
@@ -393,6 +405,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q5',
+              type: 'mcq',
               question: 'Electric field lines:',
               options: ['Start from negative charges', 'Start from positive charges', 'Can cross each other', 'Are always curved'],
               correctIndex: 1,
@@ -400,6 +413,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q6',
+              type: 'mcq',
               question: 'The SI unit of electric potential is:',
               options: ['Newton', 'Joule', 'Volt', 'Watt'],
               correctIndex: 2,
@@ -407,6 +421,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q7',
+              type: 'mcq',
               question: 'Capacitance is measured in:',
               options: ['Coulombs', 'Volts', 'Amperes', 'Farads'],
               correctIndex: 3,
@@ -414,6 +429,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q8',
+              type: 'mcq',
               question: 'Which of the following is a good conductor?',
               options: ['Rubber', 'Glass', 'Copper', 'Plastic'],
               correctIndex: 2,
@@ -421,6 +437,7 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q9',
+              type: 'mcq',
               question: 'If the distance between two charges is doubled, the force becomes:',
               options: ['Double', 'Half', 'One-fourth', 'Four times'],
               correctIndex: 2,
@@ -428,10 +445,35 @@ const chapter04En: ChapterContent = {
             },
             {
               id: 'q10',
+              type: 'mcq',
               question: 'An electrostatic precipitator is used to:',
               options: ['Generate electricity', 'Remove dust from factory chimneys', 'Store electric charge', 'Measure electric current'],
               correctIndex: 1,
               explanation: 'An electrostatic precipitator uses electrostatic charges to remove smoke and dust particles from factory emissions, reducing air pollution.',
+            },
+            {
+              id: 'slo1',
+              type: 'mcq',
+              question: 'The force between two point charges is inversely proportional to:',
+              options: ['Distance', 'Square of distance', 'Cube of distance', 'Square root of distance'],
+              correctIndex: 1,
+              explanation: 'From Coulomb\'s law, F ∝ 1/r². The electrostatic force is inversely proportional to the square of the distance between charges.',
+            },
+            {
+              id: 'slo2',
+              type: 'mcq',
+              question: 'Electric potential is a:',
+              options: ['Vector quantity', 'Scalar quantity', 'Neither scalar nor vector', 'Tensor quantity'],
+              correctIndex: 1,
+              explanation: 'Electric potential is a scalar quantity because it has magnitude only, with no direction associated with it.',
+            },
+            {
+              id: 'slo3',
+              type: 'mcq',
+              question: 'A capacitor stores 200 μC of charge at 50 V. Its capacitance is:',
+              options: ['4 μF', '10 μF', '0.25 μF', '10000 μF'],
+              correctIndex: 0,
+              explanation: 'C = Q/V = (200 × 10⁻⁶) / 50 = 4 × 10⁻⁶ F = 4 μF.',
             },
           ],
         },

@@ -5,6 +5,14 @@ const chapter06En: ChapterContent = {
   classId: 'class-ix',
   title: 'Gravitation',
   subtitle: "Newton's law, gravitational field, satellites, and weightlessness",
+  objectives: [
+    "State Newton's law of universal gravitation and write its mathematical form F = GMm/r²",
+    'Define gravitational field strength and explain how g varies with altitude and depth',
+    'Calculate the mass of Earth using g = GM/R²',
+    'Explain orbital motion and derive the orbital velocity formula v = √(GM/r)',
+    'Distinguish between mass and weight; describe the difference on Earth and Moon',
+    'Explain the concept of weightlessness and artificial satellites',
+  ],
   sections: [
     {
       id: 'newtons-law',
@@ -78,11 +86,13 @@ const chapter06En: ChapterContent = {
         {
           type: 'quiz',
           questions: [
-            { id: 'q1', question: 'Gravitational force is:', options: ['Always attractive', 'Always repulsive', 'Sometimes attractive', 'Zero in space'], correctIndex: 0 },
-            { id: 'q2', question: 'On Earth, g = 9.8 m/s². On Moon, g ≈:', options: ['9.8 m/s²', '1.6 m/s²', '0 m/s²', '24.8 m/s²'], correctIndex: 1 },
-            { id: 'q3', question: 'Orbital velocity at 200 km altitude is approximately:', options: ['3 km/s', '7.8 km/s', '11.2 km/s', '15 km/s'], correctIndex: 1 },
-            { id: 'q4', question: 'At the center of Earth, g =', options: ['9.8 m/s²', '4.9 m/s²', '0 m/s²', '19.6 m/s²'], correctIndex: 2 },
-            { id: 'q5', question: 'Astronauts feel weightless because:', options: ['No gravity in space', 'They are in free fall', 'Space station is too heavy', 'They wear special suits'], correctIndex: 1 },
+            { id: 'q1', type: 'mcq', question: 'Gravitational force is:', options: ['Always attractive', 'Always repulsive', 'Sometimes attractive', 'Zero in space'], correctIndex: 0, explanation: 'Gravitational force is always attractive — masses attract each other, never repel.' },
+            { id: 'q2', type: 'mcq', question: 'On Earth, g = 9.8 m/s². On Moon, g ≈:', options: ['9.8 m/s²', '1.6 m/s²', '0 m/s²', '24.8 m/s²'], correctIndex: 1, explanation: 'The Moon has about 1/6th the mass and 1/4th the radius of Earth, giving g ≈ 1.6 m/s² on its surface.' },
+            { id: 'q3', type: 'mcq', question: 'Orbital velocity at 200 km altitude is approximately:', options: ['3 km/s', '7.8 km/s', '11.2 km/s', '15 km/s'], correctIndex: 1, explanation: 'At ~200 km altitude (low Earth orbit), orbital velocity is approximately 7.8 km/s.' },
+            { id: 'q4', type: 'mcq', question: 'At the center of Earth, g =', options: ['9.8 m/s²', '4.9 m/s²', '0 m/s²', '19.6 m/s²'], correctIndex: 2, explanation: 'At Earth\'s centre, gravitational forces from all directions cancel out, so g = 0.' },
+            { id: 'q5', type: 'mcq', question: 'Astronauts feel weightless because:', options: ['No gravity in space', 'They are in free fall', 'Space station is too heavy', 'They wear special suits'], correctIndex: 1, explanation: 'Astronauts feel weightless because they and their spacecraft are both in free fall around Earth — gravity still acts but there\'s no normal reaction force.' },
+            { id: 'slo1', type: 'mcq', question: "Newton's law of universal gravitation gives F = GMm/r². If the distance between two masses is doubled, the gravitational force becomes:", options: ['Double', 'Half', 'One quarter', 'Four times'], correctIndex: 2, explanation: 'Since F ∝ 1/r², doubling the distance makes the force (1/2)² = 1/4 of the original.' },
+            { id: 'slo2', type: 'mcq', question: 'The orbital velocity of a satellite depends on:', options: ['Mass of satellite only', 'Mass of planet and orbital radius', 'Only the radius', 'Only the planet mass'], correctIndex: 1, explanation: 'From v = √(GM/r), orbital velocity depends on the mass of the central body (M) and the orbital radius (r), not on the satellite\'s mass.' },
           ],
         },
       ],

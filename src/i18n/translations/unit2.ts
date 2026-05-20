@@ -1,4 +1,3 @@
-import { type Lang } from './index';
 type Dict = Record<string, string>;
 
 export const unit2En: Dict = {
@@ -67,6 +66,19 @@ export const unit2En: Dict = {
   'unit2.sumAccDesc': 'a = (v-u)/t. Rate of change of velocity.',
   'unit2.sumGraphs': 'Graphs',
   'unit2.sumGraphsDesc': 'Distance-Time slope = speed.',
+
+  // Interactive section subtitles
+  'unit2.h4MotionAnim': 'Motion Animation',
+  'unit2.h4DistExamples': 'Distance vs Displacement Examples',
+  'unit2.h4SpeedComparison': 'Speed Comparison',
+  'unit2.h4UniformExplainer': 'Uniform Motion Explainer',
+  'unit2.h4VectorTool': 'Vector Representation Tool',
+  'unit2.h4GraphPlotter': 'Graph Plotter',
+
+  // Scenario notes
+  'unit2.scenario1.note': 'The boy walks east, then returns partway — distance is longer than displacement.',
+  'unit2.scenario2.note': 'After a full circle, the starting and ending points are the same — displacement is zero.',
+  'unit2.scenario3.note': 'Running to the boundary and back returns to the start — displacement is zero.',
 };
 
 export const unit2Ur: Dict = {
@@ -126,6 +138,19 @@ export const unit2Ur: Dict = {
   'unit2.sumAccDesc': 'a = (v-u)/t۔ سمت رفتار میں تبدیلی کی شرح۔',
   'unit2.sumGraphs': 'گراف',
   'unit2.sumGraphsDesc': 'فاصلہ-وقت کی ڈھلوان = رفتار۔',
+
+  // Interactive section subtitles
+  'unit2.h4MotionAnim': 'حرکت کی اینیمیشن',
+  'unit2.h4DistExamples': 'فاصلہ بمقابلہ جابجائی کی مثالیں',
+  'unit2.h4SpeedComparison': 'رفتار کا موازنہ',
+  'unit2.h4UniformExplainer': 'یکساں حرکت کی وضاحت',
+  'unit2.h4VectorTool': 'ویکٹر کی نمائندگی کا آلہ',
+  'unit2.h4GraphPlotter': 'گراف پلوٹر',
+
+  // Scenario notes
+  'unit2.scenario1.note': 'لڑکا مشرق کی طرف چلتا ہے، پھر واپس آتا ہے — فاصلہ جابائی سے زیادہ ہے۔',
+  'unit2.scenario2.note': 'مکمل چکر کے بعد شروع اور اختتامی نقطہ ایک ہیں — جابائی صفر ہے۔',
+  'unit2.scenario3.note': 'باﺅنڈری تک دوڑ کر واپس آنا — جابائی صفر ہے۔',
 };
 
 export const unit2Sd: Dict = {
@@ -185,4 +210,17 @@ export const unit2Sd: Dict = {
   'unit2.sumAccDesc': 'a = (v-u)/t. سمت رفتار ۾ تبديلي جي شرح.',
   'unit2.sumGraphs': 'گراف',
   'unit2.sumGraphsDesc': 'فاصلو-وقت جي ڍلوان = رفتار.',
+
+  // Interactive section subtitles
+  'unit2.h4MotionAnim': 'حرڪت جي اينيميشن',
+  'unit2.h4DistExamples': 'فاصلو بمقابله جابجائي جا مثالي',
+  'unit2.h4SpeedComparison': 'رفتار جو موازنو',
+  'unit2.h4UniformExplainer': 'هڪ جهڙي حرڪت جي ڌڌ',
+  'unit2.h4VectorTool': 'ويڪٽر جي نمائندگي جو سازو',
+  'unit2.h4GraphPlotter': 'گراف پلاٽر',
+
+  // Scenario notes
+  'unit2.scenario1.note': 'ڇوڪرو مشرقي طرف هلدو آهي، پوءِ ٻيهر وڃي ٿو — فاصلو جابجائي کان وڌيڪ آهي.',
+  'unit2.scenario2.note': 'مڪمل چڪر پوءِ شروع ۽ اختتامي نقطو هڪ جيڙو — جابجائي صفر آهي.',
+  'unit2.scenario3.note': 'باونڊري تي ڊوڙ ڌائي ٻيهر اچڻ — جابجائي صفر آهي.',
 };

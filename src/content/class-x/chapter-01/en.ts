@@ -162,6 +162,10 @@ const chapter01En: ChapterContent = {
           type: 'interactive',
           component: 'WaveBehaviorsSim',
         },
+        {
+          type: 'interactive',
+          component: 'WaveInRopeSim',
+        },
       ],
     },
     {

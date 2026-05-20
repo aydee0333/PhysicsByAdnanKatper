@@ -1,13 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from '../utils/gsap';
 import PhysicsBackground from '../components/PhysicsBackground';
 import { BookOpen, FlaskConical, Atom, ChevronRight, Star, Award, Users, Phone, MapPin } from 'lucide-react';
 import { useT } from '../i18n/LanguageContext';
+import { GSAP_REVEAL_STYLE, BLOB_DELAY_0S, BLOB_DELAY_5S, BLOB_DELAY_10S, BLOB_DELAY_2S, BLOB_DELAY_7S } from '../utils/styles';
 
 export default function HomePage() {
   const t = useT();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [schoolImgFailed, setSchoolImgFailed] = useState(false);
+  const [teacherImgFailed, setTeacherImgFailed] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -31,9 +34,9 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <PhysicsBackground />
-        <div className="blob w-96 h-96 bg-brand-purple top-20 -left-20" style={{ animationDelay: '0s' }} />
-        <div className="blob w-80 h-80 bg-brand-pink bottom-20 -right-20" style={{ animationDelay: '5s' }} />
-        <div className="blob w-64 h-64 bg-brand-cyan top-1/2 left-1/3" style={{ animationDelay: '10s' }} />
+        <div className="blob w-96 h-96 bg-brand-purple top-20 -left-20" style={BLOB_DELAY_0S} />
+        <div className="blob w-80 h-80 bg-brand-pink bottom-20 -right-20" style={BLOB_DELAY_5S} />
+        <div className="blob w-64 h-64 bg-brand-cyan top-1/2 left-1/3" style={BLOB_DELAY_10S} />
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-8 float-anim">
@@ -60,7 +63,11 @@ export default function HomePage() {
           {/* School info pill */}
           <div className="hero-badge mt-16 inline-flex items-center gap-4 school-badge px-6 py-4 rounded-2xl">
             <div className="w-14 h-14 rounded-xl overflow-hidden float-anim shadow-lg">
-              <img src="https://uploads.onecompiler.io/44hsxfpta/44jd2aw6x/Adobe%20Express%20-%20file.png" alt="School Logo" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+              {!schoolImgFailed ? (
+                <img src="/images/school-logo.png" alt="School Logo" className="w-full h-full object-cover" loading="lazy" decoding="async" onError={() => setSchoolImgFailed(true)} />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-amber to-brand-orange text-2xl font-black">G</div>
+              )}
             </div>
             <div className="text-start">
               <p className="text-sm md:text-base text-brand-amber font-bold">{t('home.schoolName')}</p>
@@ -81,7 +88,7 @@ export default function HomePage() {
       {/* About Teacher Section */}
       <section className="relative py-24 md:py-32 grid-bg">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="home-reveal text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+          <div className="home-reveal text-center mb-16" {...GSAP_REVEAL_STYLE}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-lime" />
               <span className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase">{t('home.aboutBadge')}</span>
@@ -91,20 +98,27 @@ export default function HomePage() {
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Photo side with quote */}
-            <div className="home-reveal relative flex justify-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <div className="home-reveal relative flex justify-center" {...GSAP_REVEAL_STYLE}>
               <div className="relative">
                 {/* Quote card */}
                 <div className="glass-card-strong rounded-3xl p-8 md:p-10 relative max-w-md">
                   <div className="quote-mark">"</div>
                   <div className="teacher-photo-ring mx-auto mb-6" style={{ width: 'fit-content' }}>
                     <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden bg-gradient-to-br from-brand-navy to-brand-dark border-4 border-white/10 relative">
-                      <img
-                        src="https://uploads.onecompiler.io/44hsxfpta/44kc9pfyq/1776198454345-019d8dad-17fc-7ce8-ad7d-29c365362acc.png"
-                        alt="Adnan Katper - Physics Teacher"
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
+                      {!teacherImgFailed ? (
+                        <img
+                          src="/images/teacher.png"
+                          alt="Adnan Katper - Physics Teacher"
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                          onError={() => setTeacherImgFailed(true)}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-purple to-brand-pink">
+                          <span className="text-5xl font-black">AK</span>
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent" />
                     </div>
                   </div>
@@ -133,7 +147,7 @@ export default function HomePage() {
             </div>
 
             {/* Info side */}
-            <div className="home-reveal" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <div className="home-reveal" {...GSAP_REVEAL_STYLE}>
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4" dangerouslySetInnerHTML={{ __html: t('home.dedicatedTitle') }} />
               <p className="text-brand-cyan font-medium text-xl mb-6">{t('home.dedicatedSub')}</p>
 
@@ -173,11 +187,11 @@ export default function HomePage() {
 
       {/* Class Selection Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
-        <div className="blob w-80 h-80 bg-brand-purple top-0 right-0" style={{ animationDelay: '2s' }} />
-        <div className="blob w-64 h-64 bg-brand-cyan bottom-0 left-0" style={{ animationDelay: '7s' }} />
+        <div className="blob w-80 h-80 bg-brand-purple top-0 right-0" style={BLOB_DELAY_2S} />
+        <div className="blob w-64 h-64 bg-brand-cyan bottom-0 left-0" style={BLOB_DELAY_7S} />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <div className="home-reveal text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+          <div className="home-reveal text-center mb-16" {...GSAP_REVEAL_STYLE}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-pink pulse-glow" />
               <span className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase">{t('home.chooseBadge')}</span>
@@ -188,7 +202,7 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Class IX Card */}
-            <Link to="/class-ix" className="home-reveal group" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <Link to="/class-ix" className="home-reveal group" {...GSAP_REVEAL_STYLE}>
               <div className="glass-card rounded-3xl p-10 md:p-12 text-center relative overflow-hidden transition-all duration-500 hover:border-brand-cyan/30 group-hover:shadow-[0_0_60px_rgba(6,182,212,0.15)]">
                 <div className="absolute top-4 right-4 text-8xl font-black font-space opacity-5 text-brand-cyan">{t('home.classIXBadge')}</div>
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-cyan to-brand-purple flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-500">
@@ -204,7 +218,7 @@ export default function HomePage() {
             </Link>
 
             {/* Class X Card */}
-            <Link to="/class-x" className="home-reveal group" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <Link to="/class-x" className="home-reveal group" {...GSAP_REVEAL_STYLE}>
               <div className="glass-card rounded-3xl p-10 md:p-12 text-center relative overflow-hidden transition-all duration-500 hover:border-brand-pink/30 group-hover:shadow-[0_0_60px_rgba(236,72,153,0.15)]">
                 <div className="absolute top-4 right-4 text-8xl font-black font-space opacity-5 text-brand-pink">{t('home.classXBadge')}</div>
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-pink to-brand-rose flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-500">
@@ -225,7 +239,7 @@ export default function HomePage() {
       {/* Contact Banner */}
       <section className="relative py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="home-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+          <div className="home-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" {...GSAP_REVEAL_STYLE}>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan" />
             <Atom size={48} className="text-brand-cyan mx-auto mb-4" />
             <h3 className="text-2xl md:text-3xl font-black text-white mb-3">{t('home.contactTitle')}</h3>

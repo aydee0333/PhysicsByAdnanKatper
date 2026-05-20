@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { RotateCcw, Check, X, ChevronRight, Trophy, AlertCircle } from 'lucide-react';
 import { useT } from '../i18n/LanguageContext';
 import { cn } from '../utils/cn';
@@ -24,6 +24,7 @@ export default function UnitQuiz({ questions, onComplete }: UnitQuizProps) {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const scoreRef = useRef(0);
   const t = useT();
 
   const handleAnswer = (index: number) => {
@@ -31,7 +32,8 @@ export default function UnitQuiz({ questions, onComplete }: UnitQuizProps) {
     setSelected(index);
     setShowResult(true);
     if (index === questions[current].correctIndex) {
-      setScore(s => s + 1);
+      scoreRef.current += 1;
+      setScore(scoreRef.current);
     }
   };
 
@@ -42,7 +44,7 @@ export default function UnitQuiz({ questions, onComplete }: UnitQuizProps) {
       setShowResult(false);
     } else {
       setFinished(true);
-      onComplete?.(score + (selected === questions[current].correctIndex ? 0 : 0), questions.length);
+      onComplete?.(scoreRef.current, questions.length);
     }
   };
 
@@ -51,6 +53,7 @@ export default function UnitQuiz({ questions, onComplete }: UnitQuizProps) {
     setSelected(null);
     setShowResult(false);
     setScore(0);
+    scoreRef.current = 0;
     setFinished(false);
   };
 

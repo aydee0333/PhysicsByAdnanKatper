@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import type { ChapterContent } from '../../content/types';
+import { GSAP_REVEAL_STYLE } from '../../utils/styles';
 import { useLang } from '../../i18n/LanguageContext';
 import BlockRenderer from './BlockRenderer';
 
@@ -24,7 +25,7 @@ export default memo(function ChapterRenderer({ chapter, unitId }: ChapterRendere
         <div
           data-section-id="objectives"
           className="unit-detail-reveal glass-card rounded-3xl p-8"
-          style={{ opacity: 0, transform: 'translateY(60px)' }}
+          {...GSAP_REVEAL_STYLE}
         >
           <h2 className="text-3xl font-black mb-6 text-brand-cyan">
             {SLO_TITLES[lang] ?? SLO_TITLES.en}
@@ -44,7 +45,7 @@ export default memo(function ChapterRenderer({ chapter, unitId }: ChapterRendere
           id={section.id}
           data-section-id={section.id}
           className="unit-detail-reveal glass-card rounded-3xl p-8"
-          style={{ opacity: 0, transform: 'translateY(60px)' }}
+          {...GSAP_REVEAL_STYLE}
         >
           <h2 className="text-3xl font-black mb-6">{section.title}</h2>
           <div className="space-y-6">

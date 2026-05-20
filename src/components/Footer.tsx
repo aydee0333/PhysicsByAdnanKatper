@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Atom, Phone, MapPin, School } from 'lucide-react';
 import { useT } from '../i18n/LanguageContext';
 
-export default function Footer() {
+export default memo(function Footer() {
   const t = useT();
 
   return (
@@ -76,4 +77,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+})

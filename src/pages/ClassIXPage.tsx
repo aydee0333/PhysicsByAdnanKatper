@@ -1,15 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from '../utils/gsap';
+import { GSAP_REVEAL_STYLE, BLOB_DELAY_0S, BLOB_DELAY_5S } from '../utils/styles';
 import PhysicsBackground from '../components/PhysicsBackground';
 import {
   Ruler, Move, Gauge, RotateCcw, Magnet,
   Zap, Droplets, Thermometer
 } from 'lucide-react';
 import { useT } from '../i18n/LanguageContext';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function ClassIXPage() {
   const t = useT();
@@ -21,6 +19,7 @@ export default function ClassIXPage() {
       titleKey: 'classIX.u1.title',
       icon: <Ruler size={40} />,
       color: 'from-[#7c3aed] to-[#a78bfa]',
+      colorHex: '#7c3aed',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
       borderGlow: 'hover:border-brand-purple/30',
       textColor: 'text-brand-purple',
@@ -31,6 +30,7 @@ export default function ClassIXPage() {
       titleKey: 'classIX.u2.title',
       icon: <Move size={40} />,
       color: 'from-[#06b6d4] to-[#22d3ee]',
+      colorHex: '#06b6d4',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(6,182,212,0.2)]',
       borderGlow: 'hover:border-brand-cyan/30',
       textColor: 'text-brand-cyan',
@@ -41,70 +41,77 @@ export default function ClassIXPage() {
       titleKey: 'classIX.u3.title',
       icon: <Gauge size={40} />,
       color: 'from-[#ec4899] to-[#f472b6]',
+      colorHex: '#ec4899',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
       borderGlow: 'hover:border-brand-pink/30',
       textColor: 'text-brand-pink',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u3.t1', 'classIX.u3.t2', 'classIX.u3.t3', 'classIX.u3.t4', 'classIX.u3.t5'],
     },
     {
       number: '04',
       titleKey: 'classIX.u4.title',
       icon: <RotateCcw size={40} />,
       color: 'from-[#f59e0b] to-[#fbbf24]',
+      colorHex: '#f59e0b',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
       borderGlow: 'hover:border-brand-amber/30',
       textColor: 'text-brand-amber',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u4.t1', 'classIX.u4.t2', 'classIX.u4.t3', 'classIX.u4.t4'],
     },
     {
       number: '05',
       titleKey: 'classIX.u5.title',
       icon: <Droplets size={40} />,
       color: 'from-[#14b8a6] to-[#2dd4bf]',
+      colorHex: '#14b8a6',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(20,184,166,0.2)]',
       borderGlow: 'hover:border-brand-teal/30',
       textColor: 'text-brand-teal',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u5.t1', 'classIX.u5.t2', 'classIX.u5.t3', 'classIX.u5.t4'],
     },
     {
       number: '06',
       titleKey: 'classIX.u6.title',
       icon: <Magnet size={40} />,
       color: 'from-[#f43f5e] to-[#fb7185]',
+      colorHex: '#f43f5e',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(244,63,94,0.2)]',
       borderGlow: 'hover:border-brand-rose/30',
       textColor: 'text-brand-rose',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u6.t1', 'classIX.u6.t2', 'classIX.u6.t3', 'classIX.u6.t4'],
     },
     {
       number: '07',
       titleKey: 'classIX.u7.title',
       icon: <Zap size={40} />,
       color: 'from-[#7c3aed] to-[#06b6d4]',
+      colorHex: '#7c3aed',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(124,58,237,0.2)]',
       borderGlow: 'hover:border-brand-purple/30',
       textColor: 'text-brand-purple',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u7.t1', 'classIX.u7.t2', 'classIX.u7.t3', 'classIX.u7.t4'],
     },
     {
       number: '08',
       titleKey: 'classIX.u8.title',
       icon: <Zap size={40} />,
       color: 'from-[#f59e0b] to-[#f43f5e]',
+      colorHex: '#f59e0b',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(245,158,11,0.2)]',
       borderGlow: 'hover:border-brand-amber/30',
       textColor: 'text-brand-amber',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u8.t1', 'classIX.u8.t2', 'classIX.u8.t3', 'classIX.u8.t4', 'classIX.u8.t5'],
     },
     {
       number: '09',
       titleKey: 'classIX.u9.title',
       icon: <Thermometer size={40} />,
       color: 'from-[#ec4899] to-[#f59e0b]',
+      colorHex: '#ec4899',
       bgGlow: 'hover:shadow-[0_0_60px_rgba(236,72,153,0.2)]',
       borderGlow: 'hover:border-brand-pink/30',
       textColor: 'text-brand-pink',
-      topicsKeys: [],
+      topicsKeys: ['classIX.u9.t1', 'classIX.u9.t2', 'classIX.u9.t3', 'classIX.u9.t4', 'classIX.u9.t5'],
     },
   ];
 
@@ -149,8 +156,8 @@ export default function ClassIXPage() {
       {/* Hero Banner */}
       <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden pt-20">
         <PhysicsBackground />
-        <div className="blob w-80 h-80 bg-brand-purple top-10 -left-10" style={{ animationDelay: '0s' }} />
-        <div className="blob w-64 h-64 bg-brand-cyan bottom-10 -right-10" style={{ animationDelay: '5s' }} />
+        <div className="blob w-80 h-80 bg-brand-purple top-10 -left-10" style={BLOB_DELAY_0S} />
+        <div className="blob w-64 h-64 bg-brand-cyan bottom-10 -right-10" style={BLOB_DELAY_5S} />
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-6 float-anim">
@@ -170,7 +177,7 @@ export default function ClassIXPage() {
       {/* Units Grid */}
       <section className="relative py-20 md:py-28 grid-bg">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="ix-reveal text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+          <div className="ix-reveal text-center mb-16" {...GSAP_REVEAL_STYLE}>
             <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
               {t('classIX.sectionTitle')}
             </h2>
@@ -186,7 +193,7 @@ export default function ClassIXPage() {
                 to={`/class-ix/unit/${unit.number}`}
                 className={`unit-card glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden cursor-pointer transition-all duration-500 block ${unit.bgGlow} ${unit.borderGlow}`}
               >
-                <div className="unit-number" style={{ color: unit.textColor.replace('text-', '#') === '#text-brand-purple' ? '#7c3aed' : unit.textColor.replace('text-', '#') === '#text-brand-cyan' ? '#06b6d4' : unit.textColor.replace('text-', '#') === '#text-brand-pink' ? '#ec4899' : unit.textColor.replace('text-', '#') === '#text-brand-amber' ? '#f59e0b' : unit.textColor.replace('text-', '#') === '#text-brand-teal' ? '#14b8a6' : unit.textColor.replace('text-', '#') === '#text-brand-rose' ? '#f43f5e' : '#7c3aed' }}>
+                <div className="unit-number" style={{ color: unit.colorHex }}>
                   {unit.number}
                 </div>
 
@@ -227,7 +234,7 @@ export default function ClassIXPage() {
       {/* Coming Soon Banner */}
       <section className="relative py-16">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="ix-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+          <div className="ix-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" {...GSAP_REVEAL_STYLE}>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan" />
             <h3 className="text-2xl md:text-3xl font-black text-white mb-3">{t('classIX.comingSoon')}</h3>
             <p className="text-gray-400 text-lg max-w-xl mx-auto">

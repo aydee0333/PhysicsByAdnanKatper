@@ -1,6 +1,7 @@
 import { useParams, useLocation, Link } from 'react-router-dom';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { gsap } from '../utils/gsap';
+import { GSAP_REVEAL_STYLE, BLOB_DELAY_0S, BLOB_DELAY_5S } from '../utils/styles';
 import PhysicsBackground from '../components/PhysicsBackground';
 import { BookOpen, AlertTriangle } from 'lucide-react';
 import { useProgress } from '../hooks/useProgress';
@@ -54,6 +55,69 @@ const unitSections: Record<string, { id: string; label: string }[]> = {
     { id: 'inertia', label: 'Inertia' },
     { id: 'mass-weight', label: 'Mass & Weight' },
     { id: 'momentum', label: 'Momentum' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '04': [
+    { id: 'torque', label: 'Torque' },
+    { id: 'moment-arm', label: 'Moment Arm' },
+    { id: 'principle-of-moments', label: 'Principle of Moments' },
+    { id: 'equilibrium', label: 'Equilibrium' },
+    { id: 'center-of-mass', label: 'Centre of Mass' },
+    { id: 'stability', label: 'Stability' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '05': [
+    { id: 'hooks-law', label: "Hooke's Law" },
+    { id: 'spring-constant', label: 'Spring Constant' },
+    { id: 'pressure', label: 'Pressure' },
+    { id: 'stress-strain', label: 'Stress and Strain' },
+    { id: 'density', label: 'Density' },
+    { id: 'buoyancy', label: 'Buoyancy' },
+    { id: 'atmospheric-pressure', label: 'Atmospheric Pressure' },
+    { id: 'hydraulic-press', label: 'Hydraulic Press' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '06': [
+    { id: 'gravitational-force', label: 'Gravitational Force' },
+    { id: 'newtons-law-gravitation', label: "Newton's Law of Gravitation" },
+    { id: 'gravitational-constant', label: 'Gravitational Constant' },
+    { id: 'mass-weight', label: 'Mass and Weight' },
+    { id: 'orbital-motion', label: 'Orbital Motion' },
+    { id: 'satellites', label: 'Satellites' },
+    { id: 'weightlessness', label: 'Weightlessness' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '07': [
+    { id: 'states-of-matter', label: 'States of Matter' },
+    { id: 'density', label: 'Density' },
+    { id: 'elasticity', label: 'Elasticity' },
+    { id: 'pressure-in-liquids', label: 'Pressure in Liquids' },
+    { id: 'pascals-law', label: "Pascal's Law" },
+    { id: 'surface-tension', label: 'Surface Tension' },
+    { id: 'viscosity', label: 'Viscosity' },
+    { id: 'bernoulli', label: "Bernoulli's Principle" },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '08': [
+    { id: 'work', label: 'Work' },
+    { id: 'energy-types', label: 'Types of Energy' },
+    { id: 'kinetic-energy', label: 'Kinetic Energy' },
+    { id: 'potential-energy', label: 'Potential Energy' },
+    { id: 'energy-conversion', label: 'Energy Conversion' },
+    { id: 'conservation', label: 'Conservation of Energy' },
+    { id: 'power', label: 'Power' },
+    { id: 'efficiency', label: 'Efficiency' },
+    { id: 'quiz', label: 'Quiz' },
+  ],
+  '09': [
+    { id: 'temperature', label: 'Temperature and Heat' },
+    { id: 'thermometers', label: 'Thermometers' },
+    { id: 'thermal-expansion', label: 'Thermal Expansion' },
+    { id: 'specific-heat', label: 'Specific Heat Capacity' },
+    { id: 'latent-heat', label: 'Latent Heat' },
+    { id: 'change-of-state', label: 'Change of State' },
+    { id: 'evaporation', label: 'Evaporation' },
+    { id: 'gas-laws', label: 'Gas Laws' },
     { id: 'quiz', label: 'Quiz' },
   ],
 };
@@ -124,7 +188,7 @@ export default function UnitDetailPage() {
       observer.disconnect();
       ctx.revert();
     };
-  }, [unitNumber]);
+  }, [unitNumber, chapter, chapterLoading]);
 
   if (!isValidUnit) {
     return (
@@ -153,10 +217,10 @@ export default function UnitDetailPage() {
   return (
     <div ref={sectionRef}>
       {/* Hero Banner */}
-      <section className="relative min-h-[35vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-20 pb-8">
+      <section className="relative min-h-[35vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-20 pb-12">
         <PhysicsBackground />
-        <div className="blob w-72 h-72 bg-brand-purple top-0 -left-10" style={{ animationDelay: '0s' }} />
-        <div className="blob w-56 h-56 bg-brand-cyan bottom-0 -right-10" style={{ animationDelay: '5s' }} />
+        <div className="blob w-72 h-72 bg-brand-purple top-0 -left-10" style={BLOB_DELAY_0S} />
+        <div className="blob w-56 h-56 bg-brand-cyan bottom-0 -right-10" style={BLOB_DELAY_5S} />
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           {/* Breadcrumb */}
@@ -184,7 +248,7 @@ export default function UnitDetailPage() {
           {/* Progress Bar */}
           <div className="mt-6 max-w-sm mx-auto">
             <ProgressBar
-              value={getUnitProgress()}
+              value={getUnitProgress(sections.length)}
               label={t('unitDetail.yourProgress')}
               size="md"
             />
@@ -194,7 +258,7 @@ export default function UnitDetailPage() {
 
       {/* Content with sidebar */}
       <section className="relative py-10 md:py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl xl:max-w-[calc(64rem-18rem)] mx-auto px-4 sm:px-6">
           {sections.length > 0 && (
             <UnitSidebar sections={sections} unitId={unitId} />
           )}
@@ -204,19 +268,19 @@ export default function UnitDetailPage() {
             <ChapterRenderer chapter={chapter} unitId={unitId} />
           )}
           {useNewContent && chapterLoading && (
-            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" {...GSAP_REVEAL_STYLE}>
               <p className="text-gray-400 text-lg">Loading chapter content...</p>
             </div>
           )}
           {useNewContent && !chapterLoading && !chapter && (
-            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" {...GSAP_REVEAL_STYLE}>
               <p className="text-red-400 text-lg">{chapterError || 'Failed to load chapter content.'}</p>
             </div>
           )}
           {/* Legacy component rendering (fallback for unmigrated units) */}
           {!useNewContent && unitNumber && lazyUnitComponents[unitNumber] && (
             <Suspense fallback={
-              <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+              <div className="unit-detail-reveal glass-card rounded-3xl p-10 text-center" {...GSAP_REVEAL_STYLE}>
                 <p className="text-gray-400 text-lg">Loading...</p>
               </div>
             }>
@@ -224,7 +288,7 @@ export default function UnitDetailPage() {
             </Suspense>
           )}
           {!useNewContent && unitNumber && !lazyUnitComponents[unitNumber] && (
-            <div className="unit-detail-reveal glass-card-strong rounded-3xl p-10 md:p-12 text-center" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+            <div className="unit-detail-reveal glass-card-strong rounded-3xl p-10 md:p-12 text-center" {...GSAP_REVEAL_STYLE}>
               <h2 className="text-2xl md:text-3xl font-black text-white mb-3">{t('unitDetail.comingSoon')}</h2>
               <p className="text-gray-400 text-base md:text-lg">{t('unitDetail.comingSoonDesc')}</p>
             </div>

@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { RotateCcw, Zap, ArrowUp, Recycle, Lightbulb, Gauge } from 'lucide-react';
 import { useT } from '../../i18n/LanguageContext';
+import { GSAP_REVEAL_STYLE } from '../../utils/styles';
 import Section from '../Section';
 import UnitQuiz from '../UnitQuiz';
 
@@ -779,6 +780,13 @@ function ElasticCollisionSim() {
 
 export default function Unit8Content() {
   const t = useT();
+  const quizQuestions = useMemo(() => [
+    { question: t('unit8.quiz.q1'), options: [t('unit8.quiz.q1.opt1'), t('unit8.quiz.q1.opt2'), t('unit8.quiz.q1.opt3'), t('unit8.quiz.q1.opt4')], correctIndex: 1 },
+    { question: t('unit8.quiz.q2'), options: [t('unit8.quiz.q2.opt1'), t('unit8.quiz.q2.opt2'), t('unit8.quiz.q2.opt3'), t('unit8.quiz.q2.opt4')], correctIndex: 1 },
+    { question: t('unit8.quiz.q3'), options: [t('unit8.quiz.q3.opt1'), t('unit8.quiz.q3.opt2'), t('unit8.quiz.q3.opt3'), t('unit8.quiz.q3.opt4')], correctIndex: 2 },
+    { question: t('unit8.quiz.q4'), options: [t('unit8.quiz.q4.opt1'), t('unit8.quiz.q4.opt2'), t('unit8.quiz.q4.opt3'), t('unit8.quiz.q4.opt4')], correctIndex: 2 },
+    { question: t('unit8.quiz.q5'), options: [t('unit8.quiz.q5.opt1'), t('unit8.quiz.q5.opt2'), t('unit8.quiz.q5.opt3'), t('unit8.quiz.q5.opt4')], correctIndex: 0 },
+  ], [t]);
   return (
     <div>
       <Section title={t('unit8.energy')} icon={<Zap size={24} />} color="brand-cyan">
@@ -834,7 +842,7 @@ export default function Unit8Content() {
       </Section>
 
       {/* WORK-ENERGY THEOREM */}
-      <div className="unit-detail-reveal glass-card rounded-3xl p-8" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
         <h2 className="text-3xl font-black mb-2">Work-Energy Theorem</h2>
         <p className="text-gray-400 mb-6">Apply force over a distance and see how work converts to kinetic energy.</p>
         <WorkEnergyTheoremSim />
@@ -861,21 +869,15 @@ export default function Unit8Content() {
       </Section>
 
       {/* RUBE GOLDBERG ENERGY CHAIN */}
-      <div className="unit-detail-reveal glass-card rounded-3xl p-8" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
         <h2 className="text-3xl font-black mb-2">Rube Goldberg Energy Chain</h2>
         <p className="text-gray-400 mb-6">Watch energy transform and degrade through a chain of conversions. Each step loses some to heat!</p>
         <RubeGoldbergEnergySim />
       </div>
 
-      <UnitQuiz unitId="unit8" questions={[
-        { question: t('unit8.quiz.q1'), options: [t('unit8.quiz.q1.opt1'), t('unit8.quiz.q1.opt2'), t('unit8.quiz.q1.opt3'), t('unit8.quiz.q1.opt4')], correctIndex: 1 },
-        { question: t('unit8.quiz.q2'), options: [t('unit8.quiz.q2.opt1'), t('unit8.quiz.q2.opt2'), t('unit8.quiz.q2.opt3'), t('unit8.quiz.q2.opt4')], correctIndex: 1 },
-        { question: t('unit8.quiz.q3'), options: [t('unit8.quiz.q3.opt1'), t('unit8.quiz.q3.opt2'), t('unit8.quiz.q3.opt3'), t('unit8.quiz.q3.opt4')], correctIndex: 2 },
-        { question: t('unit8.quiz.q4'), options: [t('unit8.quiz.q4.opt1'), t('unit8.quiz.q4.opt2'), t('unit8.quiz.q4.opt3'), t('unit8.quiz.q4.opt4')], correctIndex: 2 },
-        { question: t('unit8.quiz.q5'), options: [t('unit8.quiz.q5.opt1'), t('unit8.quiz.q5.opt2'), t('unit8.quiz.q5.opt3'), t('unit8.quiz.q5.opt4')], correctIndex: 0 },
-      ]} />
+      <UnitQuiz unitId="unit8" questions={quizQuestions} />
 
-      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" {...GSAP_REVEAL_STYLE}>
         <h3 className="text-2xl md:text-3xl font-black text-white mb-6">{t('unit8.summary')}</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-start">
           <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-purple font-bold text-sm mb-1">{t('unit8.sumKEPE')}</p><p className="text-gray-400 text-xs">{t('unit8.sumKEPEDesc')}</p></div>

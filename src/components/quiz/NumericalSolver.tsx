@@ -73,7 +73,7 @@ export default function NumericalSolver({ question, onAnswer, showExplanations =
             )}
           />
           {question.unit && (
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
+            <span className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
               {question.unit}
             </span>
           )}

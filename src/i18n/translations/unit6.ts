@@ -14,7 +14,7 @@ export const unit6En: Dict = {
   // Newton's Law
   'unit6.newtonLawDef': 'Every object in the universe <strong>attracts every other object</strong> with a force proportional to the product of their masses and inversely proportional to the square of the distance between them.',
   'unit6.forceCalcTitle': '🎮 Force Calculator',
-  'unit6.gravForceFormula': 'F = G × <span className="text-brand-cyan">m₁</span> × <span className="text-brand-pink">m₂</span> / <span className="text-brand-amber">r²</span>',
+  'unit6.gravForceFormula': 'F = G × <span class="text-brand-cyan">m₁</span> × <span class="text-brand-pink">m₂</span> / <span class="text-brand-amber">r²</span>',
   'unit6.gravConst': 'G = 6.67 × 10⁻¹¹ Nm²/kg²',
   'unit6.mass1': 'Mass 1 (kg)',
   'unit6.mass2': 'Mass 2 (kg)',
@@ -28,8 +28,8 @@ export const unit6En: Dict = {
   'unit6.decreasesR2Desc': 'Double distance = ¼ force',
 
   // Gravitational Field
-  'unit6.gravFieldDef': 'A <strong className="text-brand-purple">gravitational field</strong> is the region around a mass where gravity can be felt. Field strength <strong>g</strong> = force per unit mass.',
-  'unit6.gravFieldFormula': 'g = F/m = <span className="text-brand-purple">GM/r²</span>',
+  'unit6.gravFieldDef': 'A <strong class="text-brand-purple">gravitational field</strong> is the region around a mass where gravity can be felt. Field strength <strong>g</strong> = force per unit mass.',
+  'unit6.gravFieldFormula': 'g = F/m = <span class="text-brand-purple">GM/r²</span>',
   'unit6.onEarth': 'On Earth: g = 9.8 m/s²',
   'unit6.weightPlanetsTitle': '🎮 Weight on Different Planets',
   'unit6.yourMass': 'Your Mass (kg): {mass}',
@@ -38,7 +38,7 @@ export const unit6En: Dict = {
   'unit6.onEarthDesc': 'On Earth: g = 9.8 m/s² at the surface',
 
   // Mass of Earth
-  'unit6.massEarthDef': 'Using <strong className="text-brand-pink">g = GM/R²</strong>, we can calculate the mass of Earth!',
+  'unit6.massEarthDef': 'Using <strong class="text-brand-pink">g = GM/R²</strong>, we can calculate the mass of Earth!',
   'unit6.earthMassCalcTitle': '🎮 Earth Mass Calculator',
   'unit6.step1': 'Step 1: Surface Gravity',
   'unit6.step1Val': 'g = 9.8 m/s²',
@@ -47,26 +47,26 @@ export const unit6En: Dict = {
   'unit6.step3': 'Step 3: Formula',
   'unit6.step3Val': 'M = gR² / G',
   'unit6.massOfEarthResult': 'Mass of Earth',
-  'unit6.massApprox': 'M ≈ <span className="text-brand-lime">{mass} × 10²⁴ kg</span>',
+  'unit6.massApprox': 'M ≈ <span class="text-brand-lime">{mass} × 10²⁴ kg</span>',
   'unit6.trillionKg': "That's about 6 trillion trillion kilograms!",
 
   // Variation of g
   'unit6.withAltitude': '⬆️ With Altitude',
-  'unit6.altitudeDesc': 'g <strong className="text-white">decreases</strong> as height increases.',
+  'unit6.altitudeDesc': 'g <strong class="text-white">decreases</strong> as height increases.',
   'unit6.altitudeFormula': 'g(h) = g × (1 − 2h/R)',
   'unit6.at10km': 'At 10 km: g ≈ 9.7 m/s²',
   'unit6.withDepth': '⬇️ With Depth',
-  'unit6.depthDesc': 'g <strong className="text-white">decreases</strong> toward Earth\'s center.',
+  'unit6.depthDesc': 'g <strong class="text-white">decreases</strong> toward Earth\'s center.',
   'unit6.depthFormula': 'g(d) = g × (1 − d/R)',
   'unit6.atCenter': 'At center: g = 0',
   'unit6.gGraphTitle': '🎮 g vs Altitude Graph',
   'unit6.altitude': 'Altitude: {altitude} km',
   'unit6.gAtAlt': 'g at {altitude} km',
   'unit6.decrease': 'Decrease',
-  'unit6.keyInsight': '<strong className="text-brand-amber">Key Insight:</strong> At the center of Earth, g = 0! At Mount Everest (8.8 km), g ≈ 9.77 m/s². Astronauts in orbit feel weightless because they\'re in free fall, not because there\'s no gravity.',
+  'unit6.keyInsight': '<strong class="text-brand-amber">Key Insight:</strong> At the center of Earth, g = 0! At Mount Everest (8.8 km), g ≈ 9.77 m/s². Astronauts in orbit feel weightless because they\'re in free fall, not because there\'s no gravity.',
 
   // Orbital Motion
-  'unit6.orbitalDef': 'Satellites stay in orbit because <strong className="text-brand-lime">gravity provides the centripetal force</strong> needed for circular motion.',
+  'unit6.orbitalDef': 'Satellites stay in orbit because <strong class="text-brand-lime">gravity provides the centripetal force</strong> needed for circular motion.',
   'unit6.orbitalFormula': 'v = √(GM/r)',
   'unit6.orbitalDesc': 'For Earth: v ≈ 7.8 km/s at 200 km altitude',
   'unit6.satelliteSimTitle': '🎮 Satellite Orbit Simulation',
@@ -109,7 +109,7 @@ export const unit6En: Dict = {
   'unit6.use6': '📶 Internet connectivity',
 
   // Weightlessness
-  'unit6.weightlessnessDef': '<strong className="text-brand-teal">Weightlessness</strong> means apparent weight becomes zero — not because gravity disappears, but because there\'s <strong>no normal force</strong> pushing against you.',
+  'unit6.weightlessnessDef': '<strong class="text-brand-teal">Weightlessness</strong> means apparent weight becomes zero — not because gravity disappears, but because there\'s <strong>no normal force</strong> pushing against you.',
   'unit6.parabolicFlight': '✈️ Parabolic Flight',
   'unit6.parabolicFlightDesc': '"Vomit comet" — plane dives to create free fall',
   'unit6.freeFallElevator': '🛗 Free Fall Elevator',
@@ -123,7 +123,7 @@ export const unit6En: Dict = {
   'unit6.normalWeight': '😊 Normal Weight',
   'unit6.startFreeFall': 'Start Free Fall',
   'unit6.reset': 'Reset',
-  'unit6.whyAstronautsFloat': '<strong className="text-brand-amber">Why do astronauts float?</strong> They\'re in free fall around Earth! They fall toward Earth, but also move sideways so fast that they keep missing it — creating an orbit. Everything falls together, so there\'s no relative force pushing against them.',
+  'unit6.whyAstronautsFloat': '<strong class="text-brand-amber">Why do astronauts float?</strong> They\'re in free fall around Earth! They fall toward Earth, but also move sideways so fast that they keep missing it — creating an orbit. Everything falls together, so there\'s no relative force pushing against them.',
 
   // Summary
   'unit6.sumNewtonLaw': "Newton's Law",
@@ -177,7 +177,7 @@ export const unit6Ur: Dict = {
   // Newton's Law
   'unit6.newtonLawDef': 'کائنات میں ہر چیز <strong>ہر دوسری چیز کو کھینچتی ہے</strong> اور یہ قوت ان کی کمیوں کی ضرب اور درمیانی فاصلے کے مربع کے الٹ تناسب میں ہوتی ہے۔',
   'unit6.forceCalcTitle': '🎮 قوت کیلکولیٹر',
-  'unit6.gravForceFormula': 'F = G × <span className="text-brand-cyan">m₁</span> × <span className="text-brand-pink">m₂</span> / <span className="text-brand-amber">r²</span>',
+  'unit6.gravForceFormula': 'F = G × <span class="text-brand-cyan">m₁</span> × <span class="text-brand-pink">m₂</span> / <span class="text-brand-amber">r²</span>',
   'unit6.gravConst': 'G = 6.67 × 10⁻¹¹ Nm²/kg²',
   'unit6.mass1': 'کمیت 1 (kg)',
   'unit6.mass2': 'کمیت 2 (kg)',
@@ -191,8 +191,8 @@ export const unit6Ur: Dict = {
   'unit6.decreasesR2Desc': 'دگنا فاصلہ = چوتھائی قوت',
 
   // Gravitational Field
-  'unit6.gravFieldDef': '<strong className="text-brand-purple">کشش ثقل کا میدان</strong> کسی کمیت کے گرد وہ علاقہ ہے جہاں کشش ثقل محسوس ہو سکے۔ میدان کی شدت <strong>g</strong> = فی اکائی کمیت قوت۔',
-  'unit6.gravFieldFormula': 'g = F/m = <span className="text-brand-purple">GM/r²</span>',
+  'unit6.gravFieldDef': '<strong class="text-brand-purple">کشش ثقل کا میدان</strong> کسی کمیت کے گرد وہ علاقہ ہے جہاں کشش ثقل محسوس ہو سکے۔ میدان کی شدت <strong>g</strong> = فی اکائی کمیت قوت۔',
+  'unit6.gravFieldFormula': 'g = F/m = <span class="text-brand-purple">GM/r²</span>',
   'unit6.onEarth': 'زمین پر: g = 9.8 m/s²',
   'unit6.weightPlanetsTitle': '🎮 مختلف سیاروں پر وزن',
   'unit6.yourMass': 'آپ کی کمیت (kg): {mass}',
@@ -201,7 +201,7 @@ export const unit6Ur: Dict = {
   'unit6.onEarthDesc': 'زمین پر: g = 9.8 m/s² سطح پر',
 
   // Mass of Earth
-  'unit6.massEarthDef': '<strong className="text-brand-pink">g = GM/R²</strong> استعمال کرکے ہم زمین کی کمیت معلوم کر سکتے ہیں!',
+  'unit6.massEarthDef': '<strong class="text-brand-pink">g = GM/R²</strong> استعمال کرکے ہم زمین کی کمیت معلوم کر سکتے ہیں!',
   'unit6.earthMassCalcTitle': '🎮 زمین کی کمیت کیلکولیٹر',
   'unit6.step1': 'مرحلہ 1: سطحی کشش ثقل',
   'unit6.step1Val': 'g = 9.8 m/s²',
@@ -210,26 +210,26 @@ export const unit6Ur: Dict = {
   'unit6.step3': 'مرحلہ 3: فارمولا',
   'unit6.step3Val': 'M = gR² / G',
   'unit6.massOfEarthResult': 'زمین کی کمیت',
-  'unit6.massApprox': 'M ≈ <span className="text-brand-lime">{mass} × 10²⁴ kg</span>',
+  'unit6.massApprox': 'M ≈ <span class="text-brand-lime">{mass} × 10²⁴ kg</span>',
   'unit6.trillionKg': 'یہ تقریباً 6 ٹرلین ٹرلین کلوگرام ہے!',
 
   // Variation of g
   'unit6.withAltitude': '⬆️ اونچائی کے ساتھ',
-  'unit6.altitudeDesc': 'اونچائی بڑھنے پر g <strong className="text-white">کم ہوتی ہے</strong>۔',
+  'unit6.altitudeDesc': 'اونچائی بڑھنے پر g <strong class="text-white">کم ہوتی ہے</strong>۔',
   'unit6.altitudeFormula': 'g(h) = g × (1 − 2h/R)',
   'unit6.at10km': '10 km پر: g ≈ 9.7 m/s²',
   'unit6.withDepth': '⬇️ گہرائی کے ساتھ',
-  'unit6.depthDesc': 'g زمین کے مرکز کی طرف <strong className="text-white">کم ہوتی ہے</strong>۔',
+  'unit6.depthDesc': 'g زمین کے مرکز کی طرف <strong class="text-white">کم ہوتی ہے</strong>۔',
   'unit6.depthFormula': 'g(d) = g × (1 − d/R)',
   'unit6.atCenter': 'مرکز پر: g = 0',
   'unit6.gGraphTitle': '🎮 g بمقابلہ اونچائی گراف',
   'unit6.altitude': 'اونچائی: {altitude} km',
   'unit6.gAtAlt': '{altitude} km پر g',
   'unit6.decrease': 'کمی',
-  'unit6.keyInsight': '<strong className="text-brand-amber">اہم بات:</strong> زمین کے مرکز پر g = 0! ماؤنٹ ایورسٹ (8.8 km) پر g ≈ 9.77 m/s²۔ خلائی سوار مدار میں بے وزنی محسوس کرتے ہیں کیونکہ وہ آزاد سقوط میں ہیں، نہ کہ کشش ثقل نہیں ہے۔',
+  'unit6.keyInsight': '<strong class="text-brand-amber">اہم بات:</strong> زمین کے مرکز پر g = 0! ماؤنٹ ایورسٹ (8.8 km) پر g ≈ 9.77 m/s²۔ خلائی سوار مدار میں بے وزنی محسوس کرتے ہیں کیونکہ وہ آزاد سقوط میں ہیں، نہ کہ کشش ثقل نہیں ہے۔',
 
   // Orbital Motion
-  'unit6.orbitalDef': 'سیٹلائٹس مدار میں اس لیے رہتی ہیں کیونکہ <strong className="text-brand-lime">کشش ثقل مرکزی قوت</strong> فراہم کرتی ہے جو دائرے کی حرکت کے لیے ضروری ہے۔',
+  'unit6.orbitalDef': 'سیٹلائٹس مدار میں اس لیے رہتی ہیں کیونکہ <strong class="text-brand-lime">کشش ثقل مرکزی قوت</strong> فراہم کرتی ہے جو دائرے کی حرکت کے لیے ضروری ہے۔',
   'unit6.orbitalFormula': 'v = √(GM/r)',
   'unit6.orbitalDesc': 'زمین کے لیے: 200 km اونچائی پر v ≈ 7.8 km/s',
   'unit6.satelliteSimTitle': '🎮 سیٹلائٹ مدار کی سیمولیشن',
@@ -272,7 +272,7 @@ export const unit6Ur: Dict = {
   'unit6.use6': '📶 انٹرنیٹ کنیکٹیویٹی',
 
   // Weightlessness
-  'unit6.weightlessnessDef': '<strong className="text-brand-teal">بے وزنی</strong> کا مطلب ہے ظاہری وزن صفر ہو جاتا ہے — اس لیے نہیں کہ کشش ثقل ختم ہو جاتی ہے، بلکہ اس لیے کہ کوئی <strong>عمودی قوت</strong> آپ کو نہیں دھکالتی۔',
+  'unit6.weightlessnessDef': '<strong class="text-brand-teal">بے وزنی</strong> کا مطلب ہے ظاہری وزن صفر ہو جاتا ہے — اس لیے نہیں کہ کشش ثقل ختم ہو جاتی ہے، بلکہ اس لیے کہ کوئی <strong>عمودی قوت</strong> آپ کو نہیں دھکالتی۔',
   'unit6.parabolicFlight': '✈️ پیرابولک پرواز',
   'unit6.parabolicFlightDesc': '"قے والا طیارہ" — طیارہ آزاد سقوط پیدا کرنے کے لیے ڈائیو کرتا ہے',
   'unit6.freeFallElevator': '🛗 آزاد سقوط لفٹ',
@@ -286,7 +286,7 @@ export const unit6Ur: Dict = {
   'unit6.normalWeight': '😊 عام وزن',
   'unit6.startFreeFall': 'آزاد سقوط شروع کریں',
   'unit6.reset': 'ری سیٹ',
-  'unit6.whyAstronautsFloat': '<strong className="text-brand-amber">خلائی سوار کیوں تیرتے ہیں؟</strong> وہ زمین کے گرد آزاد سقوط میں ہیں! وہ زمین کی طرف گرتے ہیں، لیکن اتنا تیز سے بغل میں بھی حرکت کرتے ہیں کہ زمین کو مار نہیں پاتے — ایک مدار بن جاتی ہے۔ سب کچھ اکٹھا گرتا ہے، اس لیے ان کے خلاف کوئی رشتہ دار قوت نہیں ہوتی۔',
+  'unit6.whyAstronautsFloat': '<strong class="text-brand-amber">خلائی سوار کیوں تیرتے ہیں؟</strong> وہ زمین کے گرد آزاد سقوط میں ہیں! وہ زمین کی طرف گرتے ہیں، لیکن اتنا تیز سے بغل میں بھی حرکت کرتے ہیں کہ زمین کو مار نہیں پاتے — ایک مدار بن جاتی ہے۔ سب کچھ اکٹھا گرتا ہے، اس لیے ان کے خلاف کوئی رشتہ دار قوت نہیں ہوتی۔',
 
   // Summary
   'unit6.sumNewtonLaw': 'نیوٹن کا قانون',
@@ -340,7 +340,7 @@ export const unit6Sd: Dict = {
   // Newton's Law
   'unit6.newtonLawDef': 'ڪائنات ۾ هر شيء <strong>هر ٻيءَ شيء کي ڪڍي ٿي</strong> ۽ اهي قوت انهن جي مادي جي ضرب۽ ۽ درماني فاصلي جي مربع جي الٺ تناسب ۾ آهي.',
   'unit6.forceCalcTitle': '🎮 قوت ڪيلڪوليٽر',
-  'unit6.gravForceFormula': 'F = G × <span className="text-brand-cyan">m₁</span> × <span className="text-brand-pink">m₂</span> / <span className="text-brand-amber">r²</span>',
+  'unit6.gravForceFormula': 'F = G × <span class="text-brand-cyan">m₁</span> × <span class="text-brand-pink">m₂</span> / <span class="text-brand-amber">r²</span>',
   'unit6.gravConst': 'G = 6.67 × 10⁻¹¹ Nm²/kg²',
   'unit6.mass1': 'مادو 1 (kg)',
   'unit6.mass2': 'مادو 2 (kg)',
@@ -354,8 +354,8 @@ export const unit6Sd: Dict = {
   'unit6.decreasesR2Desc': 'ٻگڻو فاصلي = چٿائي قوت',
 
   // Gravitational Field
-  'unit6.gravFieldDef': '<strong className="text-brand-purple">ڪشش ثقل جو ميدان</strong> مادي جي ٻاهر اُهو علائقو آهي جتي ڪشش ثقل محسوس ٿي سگهي. ميدان جي شدت <strong>g</strong> = في اڪائي مادو تي قوت.',
-  'unit6.gravFieldFormula': 'g = F/m = <span className="text-brand-purple">GM/r²</span>',
+  'unit6.gravFieldDef': '<strong class="text-brand-purple">ڪشش ثقل جو ميدان</strong> مادي جي ٻاهر اُهو علائقو آهي جتي ڪشش ثقل محسوس ٿي سگهي. ميدان جي شدت <strong>g</strong> = في اڪائي مادو تي قوت.',
+  'unit6.gravFieldFormula': 'g = F/m = <span class="text-brand-purple">GM/r²</span>',
   'unit6.onEarth': 'زمين تي: g = 9.8 m/s²',
   'unit6.weightPlanetsTitle': '🎮 مختلف سيارن تي وزن',
   'unit6.yourMass': 'توهانجو مادو (kg): {mass}',
@@ -364,7 +364,7 @@ export const unit6Sd: Dict = {
   'unit6.onEarthDesc': 'زمين تي: g = 9.8 m/s² سطح تي',
 
   // Mass of Earth
-  'unit6.massEarthDef': '<strong className="text-brand-pink">g = GM/R²</strong> اِستعمال ڪندي اَسين زمين جو مادو ٻڌي سگهون ٿا!',
+  'unit6.massEarthDef': '<strong class="text-brand-pink">g = GM/R²</strong> اِستعمال ڪندي اَسين زمين جو مادو ٻڌي سگهون ٿا!',
   'unit6.earthMassCalcTitle': '🎮 زمين جو مادو ڪيلڪوليٽر',
   'unit6.step1': 'قدم 1: سطحي ڪشش ثقل',
   'unit6.step1Val': 'g = 9.8 m/s²',
@@ -373,26 +373,26 @@ export const unit6Sd: Dict = {
   'unit6.step3': 'قدم 3: فارمولا',
   'unit6.step3Val': 'M = gR² / G',
   'unit6.massOfEarthResult': 'زمين جو مادو',
-  'unit6.massApprox': 'M ≈ <span className="text-brand-lime">{mass} × 10²⁴ kg</span>',
+  'unit6.massApprox': 'M ≈ <span class="text-brand-lime">{mass} × 10²⁴ kg</span>',
   'unit6.trillionKg': 'اِھو لڳڀڳ ٦ ٽرلين ٽرلين ڪلوگرام آهي!',
 
   // Variation of g
   'unit6.withAltitude': '⬆️ اُڀي سان',
-  'unit6.altitudeDesc': 'اُڀي وڌڻ تي g <strong className="text-white">گهٽي ٿي</strong>.',
+  'unit6.altitudeDesc': 'اُڀي وڌڻ تي g <strong class="text-white">گهٽي ٿي</strong>.',
   'unit6.altitudeFormula': 'g(h) = g × (1 − 2h/R)',
   'unit6.at10km': '10 km تي: g ≈ 9.7 m/s²',
   'unit6.withDepth': '⬇️ ڊوڀي سان',
-  'unit6.depthDesc': 'g زمين جي مرڪز طرف <strong className="text-white">گهٽي ٿي</strong>.',
+  'unit6.depthDesc': 'g زمين جي مرڪز طرف <strong class="text-white">گهٽي ٿي</strong>.',
   'unit6.depthFormula': 'g(d) = g × (1 − d/R)',
   'unit6.atCenter': 'مرڪز تي: g = 0',
   'unit6.gGraphTitle': '🎮 g بمقابلي اُڀي گراف',
   'unit6.altitude': 'اُڀي: {altitude} km',
   'unit6.gAtAlt': '{altitude} km تي g',
   'unit6.decrease': 'گهٽ',
-  'unit6.keyInsight': '<strong className="text-brand-amber">اهم ڳالهه:</strong> زمين جي مرڪز تي g = 0! مائونٽ اورسٽ (8.8 km) تي g ≈ 9.77 m/s². خلائي سوار مدار ۾ بے وزني محسوس ڪن ٿا ڇو ته اُهي آزاد سقوط ۾ آهن، نه ته ڪشش ثقل ناهي.',
+  'unit6.keyInsight': '<strong class="text-brand-amber">اهم ڳالهه:</strong> زمين جي مرڪز تي g = 0! مائونٽ اورسٽ (8.8 km) تي g ≈ 9.77 m/s². خلائي سوار مدار ۾ بے وزني محسوس ڪن ٿا ڇو ته اُهي آزاد سقوط ۾ آهن، نه ته ڪشش ثقل ناهي.',
 
   // Orbital Motion
-  'unit6.orbitalDef': 'سيٽيلايٽس مدار ۾ اِن ڪري رهن ٿيون ڇو ته <strong className="text-brand-lime">ڪشش ثقل مركزي قوت</strong> فراهم ڪري ٿي جيڪا ڳڪي جي حركت لاءِ ضروري آهي.',
+  'unit6.orbitalDef': 'سيٽيلايٽس مدار ۾ اِن ڪري رهن ٿيون ڇو ته <strong class="text-brand-lime">ڪشش ثقل مركزي قوت</strong> فراهم ڪري ٿي جيڪا ڳڪي جي حركت لاءِ ضروري آهي.',
   'unit6.orbitalFormula': 'v = √(GM/r)',
   'unit6.orbitalDesc': 'زمين لاءِ: 200 km اُڀي تي v ≈ 7.8 km/s',
   'unit6.satelliteSimTitle': '🎮 سيٽيلايٽ مدار جو سيميوليٽر',
@@ -435,7 +435,7 @@ export const unit6Sd: Dict = {
   'unit6.use6': '📶 انٽرنيٽ جو ڪنيڪٽيويٽي',
 
   // Weightlessness
-  'unit6.weightlessnessDef': '<strong className="text-brand-teal">بے وزني</strong> جو مطلب آهي ظاهري وزن صفرو ٿي وڃي ٿو — اِن ڪري نه ته ڪشش ثقل ختم ٿي وڃي ٿي، بلڪه اِن ڪري ته ڪوئي <strong>عمودي قوت</strong> توهانکي نه ڌڪائي.',
+  'unit6.weightlessnessDef': '<strong class="text-brand-teal">بے وزني</strong> جو مطلب آهي ظاهري وزن صفرو ٿي وڃي ٿو — اِن ڪري نه ته ڪشش ثقل ختم ٿي وڃي ٿي، بلڪه اِن ڪري ته ڪوئي <strong>عمودي قوت</strong> توهانکي نه ڌڪائي.',
   'unit6.parabolicFlight': '✈️ پيرابولڪ پرواز',
   'unit6.parabolicFlightDesc': '"قے جو طيارة" — طيارة آزاد سقوط ٺاھڻ لاءِ ڊائيو ڪري ٿو',
   'unit6.freeFallElevator': '🛗 آزاد سقوط لفٽ',
@@ -449,7 +449,7 @@ export const unit6Sd: Dict = {
   'unit6.normalWeight': '😊 عام وزن',
   'unit6.startFreeFall': 'آزاد سقوط شروع ڪريو',
   'unit6.reset': 'ري سيٽ',
-  'unit6.whyAstronautsFloat': '<strong className="text-brand-amber">خلائي سوارڇو ترن ٿا؟</strong> اُهي زمين جي ٻاهر آزاد سقوط ۾ آهن! اُهي زمين طرف پيتي پين ٿا، پر اُنھي حد تي پاسي تي به هلن ٿا ته زمين کي مار نه سگهن ٿا — هڪ مدار بڻي وڃي ٿي. سڀ ڪجهه سانگي پيتي پيو ٿو، اِن لاءِ انھن جي مخالف ڪوئي رشته دار قوت ناهي.',
+  'unit6.whyAstronautsFloat': '<strong class="text-brand-amber">خلائي سوارڇو ترن ٿا؟</strong> اُهي زمين جي ٻاهر آزاد سقوط ۾ آهن! اُهي زمين طرف پيتي پين ٿا، پر اُنھي حد تي پاسي تي به هلن ٿا ته زمين کي مار نه سگهن ٿا — هڪ مدار بڻي وڃي ٿي. سڀ ڪجهه سانگي پيتي پيو ٿو، اِن لاءِ انھن جي مخالف ڪوئي رشته دار قوت ناهي.',
 
   // Summary
   'unit6.sumNewtonLaw': 'نيوٽن جو قانون',

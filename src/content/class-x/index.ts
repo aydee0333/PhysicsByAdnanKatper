@@ -121,4 +121,19 @@ export const classXChapters: ChapterMeta[] = [
       sd: 'ائٽمي ساخت، تشعشعيت، ۽ هسته توانائي',
     },
   },
+  {
+    id: 'chapter-09',
+    classId: 'class-x',
+    number: 9,
+    title: {
+      en: 'Atomic and Nuclear Physics',
+      ur: 'ایٹمی اور جوہری فزکس',
+      sd: 'ايٽمي ۽ جوھري فيزڪس',
+    },
+    subtitle: {
+      en: 'Atomic Structure, Radioactivity, and Nuclear Energy',
+      ur: 'ایٹمی ساخت، تشعشعیت، اور جوہری توانائی',
+      sd: 'ايٽمي ٺاهڻ، شعاعيت، ۽ جوھري توانائي',
+    },
+  },
 ];

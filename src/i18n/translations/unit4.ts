@@ -10,8 +10,8 @@ export const unit4En: Dict = {
   'unit4.summary': '\ud83d\udcdd Unit 4 Quick Summary',
 
   // ── Torque ──
-  'unit4.torqueDef': '<strong className="text-brand-cyan">Torque</strong> (or moment) is the <strong>turning effect</strong> of a force. It depends on the force and the perpendicular distance from the pivot point.',
-  'unit4.torqueFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.torqueDef': '<strong class="text-brand-cyan">Torque</strong> (or moment) is the <strong>turning effect</strong> of a force. It depends on the force and the perpendicular distance from the pivot point.',
+  'unit4.torqueFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.torqueUnit': '\u03c4 = torque (Nm)',
   'unit4.forceUnit': 'F = force (N)',
   'unit4.distUnit': 'd = perpendicular distance (m)',
@@ -33,10 +33,10 @@ export const unit4En: Dict = {
 
   // ── Like & Unlike Forces ──
   'unit4.likeTitle': '\u27a1\ufe0f Like Forces',
-  'unit4.likeDesc': 'Forces acting in the <strong className="text-white">same direction</strong>. Resultant = sum of magnitudes.',
+  'unit4.likeDesc': 'Forces acting in the <strong class="text-white">same direction</strong>. Resultant = sum of magnitudes.',
   'unit4.likeFormula': 'R = F\u2081 + F\u2082',
   'unit4.unlikeTitle': '\u2b05\ufe0f\u27a1\ufe0f Unlike Forces',
-  'unit4.unlikeDesc': 'Forces acting in <strong className="text-white">opposite directions</strong>. Resultant = difference.',
+  'unit4.unlikeDesc': 'Forces acting in <strong class="text-white">opposite directions</strong>. Resultant = difference.',
   'unit4.unlikeFormula': 'R = |F\u2081 \u2212 F\u2082|',
   'unit4.forceCombineTitle': '\ud83c\udfae Force Combine',
   'unit4.likeBtn': 'Like Forces (same direction)',
@@ -49,9 +49,9 @@ export const unit4En: Dict = {
 
   // ── Center of Mass & Gravity ──
   'unit4.cmTitle': '\ud83d\udccd Center of Mass (CM)',
-  'unit4.cmDesc': 'Point where the <strong className="text-white">mass</strong> of an object is concentrated. For symmetric objects, it\'s at the geometric center.',
+  'unit4.cmDesc': 'Point where the <strong class="text-white">mass</strong> of an object is concentrated. For symmetric objects, it\'s at the geometric center.',
   'unit4.cgTitle': '\u2696\ufe0f Center of Gravity (CG)',
-  'unit4.cgDesc': 'Point where the <strong className="text-white">weight</strong> of an object acts. Usually same as CM for small objects near Earth.',
+  'unit4.cgDesc': 'Point where the <strong class="text-white">weight</strong> of an object acts. Usually same as CM for small objects near Earth.',
   'unit4.eqTypes': 'Types of Equilibrium:',
   'unit4.stable': '\u2705 Stable',
   'unit4.stableDesc': 'Returns to original position after disturbance. Like a ball in a bowl.',
@@ -71,7 +71,7 @@ export const unit4En: Dict = {
   'unit4.sphereStable': 'Sphere is always stable (rolls back)',
 
   // ── Equilibrium ──
-  'unit4.eqDef': 'An object is in <strong className="text-brand-amber">equilibrium</strong> when it is at rest or moving with constant velocity.',
+  'unit4.eqDef': 'An object is in <strong class="text-brand-amber">equilibrium</strong> when it is at rest or moving with constant velocity.',
   'unit4.firstCond': 'First Condition',
   'unit4.firstCondDesc': '\u03a3F = 0 \u2014 No net force acting on the object',
   'unit4.secondCond': 'Second Condition',
@@ -90,8 +90,8 @@ export const unit4En: Dict = {
   'unit4.notEquilibrium': '\u274c Not in Equilibrium',
 
   // ── Couple ──
-  'unit4.coupleDef': 'A <strong className="text-brand-rose">couple</strong> is two <strong>equal and opposite forces</strong> acting on a body, not through the same point. They produce <strong className="text-brand-cyan">rotation without translation</strong> (no movement forward/backward).',
-  'unit4.coupleFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.coupleDef': 'A <strong class="text-brand-rose">couple</strong> is two <strong>equal and opposite forces</strong> acting on a body, not through the same point. They produce <strong class="text-brand-cyan">rotation without translation</strong> (no movement forward/backward).',
+  'unit4.coupleFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.coupleDistNote': 'd = perpendicular distance between the two forces',
   'unit4.coupleExamples': 'Examples of Couple in Daily Life:',
   'unit4.steering': '\ud83d\ude97 Steering Wheel',
@@ -150,14 +150,14 @@ export const unit4Ur: Dict = {
   // ── Section Titles ──
   'unit4.torque': 'ٹارک (قوت کا مومنٹ)',
   'unit4.likeUnlike': 'ملتی اور مخالف متوازی قوتیں',
-  'unit4.cmCg': 'มวล کا مرکز اور کشش ثقل کا مرکز',
+  'unit4.cmCg': 'کثیر کا مرکز اور کشش ثقل کا مرکز',
   'unit4.equilibrium': 'توازن',
   'unit4.couple': 'کپل',
   'unit4.summary': '\ud83d\udcdd یونٹ 4 کا خلاصہ',
 
   // ── Torque ──
-  'unit4.torqueDef': '<strong className="text-brand-cyan">ٹارک</strong> (یا مومنٹ) قوت کا <strong>گردشی اثر</strong> ہے۔ یہ قوت اور نقطۂ محور سے عمودی فاصلے پر منحصر ہے۔',
-  'unit4.torqueFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.torqueDef': '<strong class="text-brand-cyan">ٹارک</strong> (یا مومنٹ) قوت کا <strong>گردشی اثر</strong> ہے۔ یہ قوت اور نقطۂ محور سے عمودی فاصلے پر منحصر ہے۔',
+  'unit4.torqueFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.torqueUnit': '\u03c4 = ٹارک (Nm)',
   'unit4.forceUnit': 'F = قوت (N)',
   'unit4.distUnit': 'd = عمودی فاصلہ (m)',
@@ -179,10 +179,10 @@ export const unit4Ur: Dict = {
 
   // ── Like & Unlike Forces ──
   'unit4.likeTitle': '\u27a1\ufe0f ملتی قوتیں',
-  'unit4.likeDesc': 'قوتیں <strong className="text-white">ایک ہی سمت</strong> میں کام کرتی ہیں۔ مجموعی = مقداروں کا مجموعہ۔',
+  'unit4.likeDesc': 'قوتیں <strong class="text-white">ایک ہی سمت</strong> میں کام کرتی ہیں۔ مجموعی = مقداروں کا مجموعہ۔',
   'unit4.likeFormula': 'R = F\u2081 + F\u2082',
   'unit4.unlikeTitle': '\u2b05\ufe0f\u27a1\ufe0f مخالف قوتیں',
-  'unit4.unlikeDesc': 'قوتیں <strong className="text-white">مخالف سمتوں</strong> میں کام کرتی ہیں۔ مجموعی = فرق۔',
+  'unit4.unlikeDesc': 'قوتیں <strong class="text-white">مخالف سمتوں</strong> میں کام کرتی ہیں۔ مجموعی = فرق۔',
   'unit4.unlikeFormula': 'R = |F\u2081 \u2212 F\u2082|',
   'unit4.forceCombineTitle': '\ud83c\udfae قوت کا مجموعہ',
   'unit4.likeBtn': 'ملتی قوتیں (ایک سمت)',
@@ -194,10 +194,10 @@ export const unit4Ur: Dict = {
   'unit4.subForces': 'چھوٹی کو بڑی سے منہ کریں',
 
   // ── Center of Mass & Gravity ──
-  'unit4.cmTitle': '\ud83d\udccdมวล کا مرکز (CM)',
-  'unit4.cmDesc': 'وہ نقطہ جہاں کسی چیز کی <strong className="text-white">کمیت</strong> مرکوز ہوتی ہے۔ متناظر چیزوں کے لیے یہ ہندسی مرکز میں ہوتا ہے۔',
+  'unit4.cmTitle': '\ud83d\udccd کثیر کا مرکز (CM)',
+  'unit4.cmDesc': 'وہ نقطہ جہاں کسی چیز کی <strong class="text-white">کمیت</strong> مرکوز ہوتی ہے۔ متناظر چیزوں کے لیے یہ ہندسی مرکز میں ہوتا ہے۔',
   'unit4.cgTitle': '\u2696\ufe0f کشش ثقل کا مرکز (CG)',
-  'unit4.cgDesc': 'وہ نقطہ جہاں کسی چیز کا <strong className="text-white">وزن</strong> کام کرتا ہے۔ عام طور پر زمین کے قریب چھوٹی چیزوں کے لیے CM جیسا ہوتا ہے۔',
+  'unit4.cgDesc': 'وہ نقطہ جہاں کسی چیز کا <strong class="text-white">وزن</strong> کام کرتا ہے۔ عام طور پر زمین کے قریب چھوٹی چیزوں کے لیے CM جیسا ہوتا ہے۔',
   'unit4.eqTypes': 'توازن کی اقسام:',
   'unit4.stable': '\u2705 مستحکم',
   'unit4.stableDesc': 'پریشانی کے بعد اصل پوزیشن پر واپس آتا ہے۔ جیسے کٹورے میں گیند۔',
@@ -217,7 +217,7 @@ export const unit4Ur: Dict = {
   'unit4.sphereStable': 'گولا ہمیشہ مستحکم ہے (واپس گھومتا ہے)',
 
   // ── Equilibrium ──
-  'unit4.eqDef': 'کوئی چیز <strong className="text-brand-amber">توازن</strong> میں ہوتی ہے جب وہ سکون میں ہو یا مستقل رفتار سے حرکت کر رہی ہو۔',
+  'unit4.eqDef': 'کوئی چیز <strong class="text-brand-amber">توازن</strong> میں ہوتی ہے جب وہ سکون میں ہو یا مستقل رفتار سے حرکت کر رہی ہو۔',
   'unit4.firstCond': 'پہلی شرط',
   'unit4.firstCondDesc': '\u03a3F = 0 \u2014 چیز پر کوئی خالص قوت نہیں',
   'unit4.secondCond': 'دوسری شرط',
@@ -236,8 +236,8 @@ export const unit4Ur: Dict = {
   'unit4.notEquilibrium': '\u274c توازن میں نہیں',
 
   // ── Couple ──
-  'unit4.coupleDef': '<strong className="text-brand-rose">کپل</strong> دو <strong>برابر اور مخالف قوتیں</strong> ہیں جو کسی جسم پر ایک ہی نقطے سے نہیں گزرتیں۔ یہ <strong className="text-brand-cyan"> بغیر حرکت کے گردش</strong> پیدا کرتی ہیں۔',
-  'unit4.coupleFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.coupleDef': '<strong class="text-brand-rose">کپل</strong> دو <strong>برابر اور مخالف قوتیں</strong> ہیں جو کسی جسم پر ایک ہی نقطے سے نہیں گزرتیں۔ یہ <strong class="text-brand-cyan"> بغیر حرکت کے گردش</strong> پیدا کرتی ہیں۔',
+  'unit4.coupleFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.coupleDistNote': 'd = دونوں قوتوں کے درمیان عمودی فاصلہ',
   'unit4.coupleExamples': 'روزانہ زندگی میں کپل کی مثالیں:',
   'unit4.steering': '\ud83d\ude97 اسٹیئرنگ وہیل',
@@ -296,14 +296,14 @@ export const unit4Sd: Dict = {
   // ── Section Titles ──
   'unit4.torque': 'ٽارڪ (قوت جو مومنٽ)',
   'unit4.likeUnlike': 'ميل ۽ مخالف متوازي قوتن',
-  'unit4.cmCg': 'มวล جو مرڪز ۽ ڪشش ثقل جو مرڪز',
+  'unit4.cmCg': 'مادي جو مرڪز ۽ ڪشش ثقل جو مرڪز',
   'unit4.equilibrium': 'توازن',
   'unit4.couple': 'ڪپل',
   'unit4.summary': '\ud83d\udcdd يونٽ ٤ جو خلاصو',
 
   // ── Torque ──
-  'unit4.torqueDef': '<strong className="text-brand-cyan">ٽارڪ</strong> (يا مومنٽ) قوت جو <strong>گردشي اثر</strong> آهي. اهو قوت ۽ نقطي محور کان عمودي فاصلي تي منحصر آهي.',
-  'unit4.torqueFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.torqueDef': '<strong class="text-brand-cyan">ٽارڪ</strong> (يا مومنٽ) قوت جو <strong>گردشي اثر</strong> آهي. اهو قوت ۽ نقطي محور کان عمودي فاصلي تي منحصر آهي.',
+  'unit4.torqueFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.torqueUnit': '\u03c4 = ٽارڪ (Nm)',
   'unit4.forceUnit': 'F = قوت (N)',
   'unit4.distUnit': 'd = عمودي فاصلو (m)',
@@ -325,10 +325,10 @@ export const unit4Sd: Dict = {
 
   // ── Like & Unlike Forces ──
   'unit4.likeTitle': '\u27a1\ufe0f ميل واريون قوتن',
-  'unit4.likeDesc': 'قوتن <strong className="text-white">هڪ ئي سمت</strong> ۾ ڪم ڪين ٿيون. مجموعي = مقدارن جو مجموعو.',
+  'unit4.likeDesc': 'قوتن <strong class="text-white">هڪ ئي سمت</strong> ۾ ڪم ڪين ٿيون. مجموعي = مقدارن جو مجموعو.',
   'unit4.likeFormula': 'R = F\u2081 + F\u2082',
   'unit4.unlikeTitle': '\u2b05\ufe0f\u27a1\ufe0f مخالف قوتن',
-  'unit4.unlikeDesc': 'قوتن <strong className="text-white">مخالف سمتن</strong> ۾ ڪم ڪين ٿيون. مجموعي = فرق.',
+  'unit4.unlikeDesc': 'قوتن <strong class="text-white">مخالف سمتن</strong> ۾ ڪم ڪين ٿيون. مجموعي = فرق.',
   'unit4.unlikeFormula': 'R = |F\u2081 \u2212 F\u2082|',
   'unit4.forceCombineTitle': '\ud83c\udfae قوت جو مجموعو',
   'unit4.likeBtn': 'ميل واريون قوتن (هڪ سمت)',
@@ -340,10 +340,10 @@ export const unit4Sd: Dict = {
   'unit4.subForces': 'ننڍي کي وڏي کان منھن ڪريو',
 
   // ── Center of Mass & Gravity ──
-  'unit4.cmTitle': '\ud83d\udccdมวล جو مرڪز (CM)',
-  'unit4.cmDesc': 'اُھو نقطو جتي ڪنھن شيء جي <strong className="text-white">مادو</strong> مركوز هوندو آهي. متوازن شيءن لاءِ اهو ھندسي مرڪز ۾ هوندو آهي.',
+  'unit4.cmTitle': '\ud83d\udccd مادي جو مرڪز (CM)',
+  'unit4.cmDesc': 'اُھو نقطو جتي ڪنھن شيء جي <strong class="text-white">مادو</strong> مركوز هوندو آهي. متوازن شيءن لاءِ اهو ھندسي مرڪز ۾ هوندو آهي.',
   'unit4.cgTitle': '\u2696\ufe0f ڪشش ثقل جو مرڪز (CG)',
-  'unit4.cgDesc': 'اُھو نقطو جتي ڪنھن شيء جو <strong className="text-white">وزن</strong> ڪم ڪري ٿو. عام طور تي زمين جي قريبي ننڍيء شيءن لاءِ CM وانگو هوندو آهي.',
+  'unit4.cgDesc': 'اُھو نقطو جتي ڪنھن شيء جو <strong class="text-white">وزن</strong> ڪم ڪري ٿو. عام طور تي زمين جي قريبي ننڍيء شيءن لاءِ CM وانگو هوندو آهي.',
   'unit4.eqTypes': 'توازن جا قسم:',
   'unit4.stable': '\u2705 مستحڪم',
   'unit4.stableDesc': 'پريشاني کان پوءِ اصلي پوزيشن تي واپس ايندو آهي. جئن ڪٻور ۾ گينڊ.',
@@ -363,7 +363,7 @@ export const unit4Sd: Dict = {
   'unit4.sphereStable': 'گولو هميشه مستحڪم آهي (واپس گھومندو آهي)',
 
   // ── Equilibrium ──
-  'unit4.eqDef': 'ڪنھن شيء <strong className="text-brand-amber">توازن</strong> ۾ هوندي آهي جڏو اهو سڪون ۾ هجي يا مستقل رفتار سان حرڪت ڪري رهيو هجي.',
+  'unit4.eqDef': 'ڪنھن شيء <strong class="text-brand-amber">توازن</strong> ۾ هوندي آهي جڏو اهو سڪون ۾ هجي يا مستقل رفتار سان حرڪت ڪري رهيو هجي.',
   'unit4.firstCond': 'پهلو شرط',
   'unit4.firstCondDesc': '\u03a3F = 0 \u2014 شيء تي ڪي خالص قوت ناهي',
   'unit4.secondCond': 'ٻيو شرط',
@@ -382,8 +382,8 @@ export const unit4Sd: Dict = {
   'unit4.notEquilibrium': '\u274c توازن ۾ ناهي',
 
   // ── Couple ──
-  'unit4.coupleDef': '<strong className="text-brand-rose">ڪپل</strong> بَه <strong>برابر ۽ مخالف قوتن</strong> آهن جيڪون ڪنھن شيء تي هڪ ئي نقطي کان نه گزرجن. اهي <strong className="text-brand-cyan">بنا حرڪت جي گردش</strong> پيدا ڪين ٿيون.',
-  'unit4.coupleFormula': '\u03c4 = <span className="text-brand-cyan">F</span> \u00d7 <span className="text-brand-pink">d</span>',
+  'unit4.coupleDef': '<strong class="text-brand-rose">ڪپل</strong> بَه <strong>برابر ۽ مخالف قوتن</strong> آهن جيڪون ڪنھن شيء تي هڪ ئي نقطي کان نه گزرجن. اهي <strong class="text-brand-cyan">بنا حرڪت جي گردش</strong> پيدا ڪين ٿيون.',
+  'unit4.coupleFormula': '\u03c4 = <span class="text-brand-cyan">F</span> \u00d7 <span class="text-brand-pink">d</span>',
   'unit4.coupleDistNote': 'd = بيهي قوتن جي وچ ۾ عمودي فاصلو',
   'unit4.coupleExamples': 'روزانه زندگي ۾ ڪپل جون مثالون:',
   'unit4.steering': '\ud83d\ude97 اسٽيئرنگ ويل',

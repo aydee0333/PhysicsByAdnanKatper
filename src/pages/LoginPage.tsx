@@ -7,8 +7,7 @@ import { useAuth } from '../auth/AuthContext';
 import { useLang } from '../i18n/LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
-const TEACHER_PHOTO_URL =
-  'https://uploads.onecompiler.io/44hsxfpta/44kc9pfyq/1776198454345-019d8dad-17fc-7ce8-ad7d-29c365362acc.png';
+const TEACHER_PHOTO_URL = '/images/teacher.png';
 
 function LoginBackground() {
   const particles = useMemo(() => Array.from({ length: 28 }, (_, i) => ({

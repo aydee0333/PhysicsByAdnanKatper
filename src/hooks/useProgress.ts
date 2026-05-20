@@ -32,40 +32,44 @@ export function useProgress(unitId: string) {
   }, []);
 
   const markSectionComplete = useCallback((sectionKey: string) => {
-    const key = `${unitId}:${sectionKey}`;
-    if (progress.completedSections.includes(key)) return;
-    
-    const updated = {
-      ...progress,
-      completedSections: [...progress.completedSections, key],
-      lastVisited: new Date().toISOString(),
-    };
-    setProgress(updated);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch {}
-  }, [progress, unitId]);
+    setProgress(prev => {
+      const key = `${unitId}:${sectionKey}`;
+      if (prev.completedSections.includes(key)) return prev;
+
+      const updated = {
+        ...prev,
+        completedSections: [...prev.completedSections, key],
+        lastVisited: new Date().toISOString(),
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch {}
+      return updated;
+    });
+  }, [unitId]);
 
   const isSectionComplete = useCallback((sectionKey: string) => {
     return progress.completedSections.includes(`${unitId}:${sectionKey}`);
-  }, [progress, unitId]);
+  }, [progress.completedSections, unitId]);
 
-  const getUnitProgress = useCallback(() => {
+  const getUnitProgress = useCallback((totalSections?: number) => {
     const unitSections = progress.completedSections.filter(k => k.startsWith(`${unitId}:`));
-    // Assumes ~8 sections per unit
-    return Math.min(100, Math.round((unitSections.length / 8) * 100));
-  }, [progress, unitId]);
+    const denominator = totalSections || 8;
+    return Math.min(100, Math.round((unitSections.length / denominator) * 100));
+  }, [progress.completedSections, unitId]);
 
   const saveQuizScore = useCallback((quizKey: string, score: number, total: number) => {
-    const updated = {
-      ...progress,
-      quizScores: {
-        ...progress.quizScores,
-        [`${unitId}:${quizKey}`]: { score, total, date: new Date().toISOString() }
-      },
-      lastVisited: new Date().toISOString(),
-    };
-    setProgress(updated);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch {}
-  }, [progress, unitId]);
+    setProgress(prev => {
+      const updated = {
+        ...prev,
+        quizScores: {
+          ...prev.quizScores,
+          [`${unitId}:${quizKey}`]: { score, total, date: new Date().toISOString() }
+        },
+        lastVisited: new Date().toISOString(),
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch {}
+      return updated;
+    });
+  }, [unitId]);
 
   return {
     progress,

@@ -11,11 +11,11 @@ export const unit5En: Dict = {
   'unit5.summary': '\ud83d\udcdd Unit 5 Quick Summary',
 
   // ── Elasticity ──
-  'unit5.elasticityDef': '<strong className="text-brand-cyan">Elasticity</strong> is the property of a material to <strong>regain its original shape and size</strong> after the external force is removed.',
+  'unit5.elasticityDef': '<strong class="text-brand-cyan">Elasticity</strong> is the property of a material to <strong>regain its original shape and size</strong> after the external force is removed.',
   'unit5.elasticLimitTitle': '\ud83d\udccf Elastic Limit',
-  'unit5.elasticLimitDesc': 'The maximum extent to which a material can be stretched <strong className="text-white">without permanent deformation</strong>. Beyond this, the material won\'t return to its original shape.',
+  'unit5.elasticLimitDesc': 'The maximum extent to which a material can be stretched <strong class="text-white">without permanent deformation</strong>. Beyond this, the material won\'t return to its original shape.',
   'unit5.hookesLaw': "Hooke's Law",
-  'unit5.hookesLawFormula': 'F = <span className="text-brand-cyan">k</span> \u00d7 <span className="text-brand-pink">x</span>',
+  'unit5.hookesLawFormula': 'F = <span class="text-brand-cyan">k</span> \u00d7 <span class="text-brand-pink">x</span>',
   'unit5.springConst': 'k = spring constant (N/m)',
   'unit5.extension': 'x = extension (m)',
   'unit5.springSimTitle': '\ud83c\udfae Spring Simulation',
@@ -27,8 +27,8 @@ export const unit5En: Dict = {
   'unit5.beyondLimit': '\u274c Beyond Elastic Limit!',
 
   // ── Pressure ──
-  'unit5.pressureDef': '<strong className="text-brand-purple">Pressure</strong> is the force acting per unit area on a surface. It tells us how much force is applied on each square meter.',
-  'unit5.pressureFormula': 'P = <span className="text-brand-cyan">F</span> / <span className="text-brand-pink">A</span>',
+  'unit5.pressureDef': '<strong class="text-brand-purple">Pressure</strong> is the force acting per unit area on a surface. It tells us how much force is applied on each square meter.',
+  'unit5.pressureFormula': 'P = <span class="text-brand-cyan">F</span> / <span class="text-brand-pink">A</span>',
   'unit5.pressureUnit': 'Unit: Pascal (Pa) = N/m\u00b2',
   'unit5.pressureTestTitle': '\ud83c\udfae Pressure Tester',
   'unit5.forceLabelPA': 'Force (N): {force}',
@@ -54,7 +54,7 @@ export const unit5En: Dict = {
   'unit5.strainDesc': 'Ratio of change in dimension to original dimension. No units!',
   'unit5.strainFormula': '\u03b5 = \u0394L / L',
   'unit5.youngsModulus': "Young's Modulus",
-  'unit5.youngsFormula': 'E = Stress / Strain = <span className="text-brand-amber">(F/A) / (\u0394L/L)</span>',
+  'unit5.youngsFormula': 'E = Stress / Strain = <span class="text-brand-amber">(F/A) / (\u0394L/L)</span>',
   'unit5.youngsDesc': 'Measures stiffness of a material. Higher E = stiffer material.',
   'unit5.stressStrainGraphTitle': '\ud83c\udfae Stress-Strain Graph',
   'unit5.appliedForce': 'Applied Force (N): {force}',
@@ -64,8 +64,8 @@ export const unit5En: Dict = {
   'unit5.steelNote': 'E = Stress / Strain = {value} GPa (Steel)',
 
   // ── Density ──
-  'unit5.densityDef': '<strong className="text-brand-amber">Density</strong> is the mass per unit volume of a substance. It tells how tightly packed the matter is.',
-  'unit5.densityFormula': '\u03c1 = <span className="text-brand-cyan">m</span> / <span className="text-brand-pink">V</span>',
+  'unit5.densityDef': '<strong class="text-brand-amber">Density</strong> is the mass per unit volume of a substance. It tells how tightly packed the matter is.',
+  'unit5.densityFormula': '\u03c1 = <span class="text-brand-cyan">m</span> / <span class="text-brand-pink">V</span>',
   'unit5.densityUnit': 'Unit: kg/m\u00b3 (also g/cm\u00b3)',
   'unit5.densityCalcTitle': '\ud83c\udfae Density Calculator',
   'unit5.massLabel': 'Mass (kg): {mass}',
@@ -84,7 +84,7 @@ export const unit5En: Dict = {
   'unit5.neutralBuoyancy': '\u26aa Neutral Buoyancy',
 
   // ── Buoyancy ──
-  'unit5.archimedesDef': '<strong className="text-brand-teal">Archimedes Principle:</strong> When an object is immersed in a fluid, it experiences an upward force (upthrust) <strong>equal to the weight of the fluid displaced</strong>.',
+  'unit5.archimedesDef': '<strong class="text-brand-teal">Archimedes Principle:</strong> When an object is immersed in a fluid, it experiences an upward force (upthrust) <strong>equal to the weight of the fluid displaced</strong>.',
   'unit5.upthrustFormula': 'Upthrust = \u03c1<sub>fluid</sub> \u00d7 V<sub>displaced</sub> \u00d7 g',
   'unit5.floatsLabel': '\ud83d\udfe2 Floats',
   'unit5.floatsDesc': 'Object density < Fluid density',
@@ -100,15 +100,15 @@ export const unit5En: Dict = {
   'unit5.submergedNote': '{percent}% of object is submerged',
 
   // ── Atmospheric Pressure ──
-  'unit5.atmPressureDef': '<strong className="text-brand-rose">Atmospheric pressure</strong> is the pressure exerted by the weight of air molecules on Earth\'s surface. It\'s like the atmosphere pushing down on us.',
-  'unit5.atmFormula': '1 atm = <span className="text-brand-rose">101,325 Pa</span>',
+  'unit5.atmPressureDef': '<strong class="text-brand-rose">Atmospheric pressure</strong> is the pressure exerted by the weight of air molecules on Earth\'s surface. It\'s like the atmosphere pushing down on us.',
+  'unit5.atmFormula': '1 atm = <span class="text-brand-rose">101,325 Pa</span>',
   'unit5.atSeaLevel': 'at sea level',
-  'unit5.whyNotCrushed': '<strong className="text-brand-amber">Why don\'t we get crushed?</strong> Our body pushes outward with equal force, balancing the atmospheric pressure. It\'s like a tug-of-war where both sides are equally strong!',
+  'unit5.whyNotCrushed': '<strong class="text-brand-amber">Why don\'t we get crushed?</strong> Our body pushes outward with equal force, balancing the atmospheric pressure. It\'s like a tug-of-war where both sides are equally strong!',
   'unit5.strawSimTitle': '\ud83c\udfae Straw in Water Simulation',
   'unit5.suctionLabel': 'Suction Strength: {strength}%',
   'unit5.waterRise': 'Water Rise',
   'unit5.atmPressureLabel': 'Atmospheric Pressure',
-  'unit5.magdeburgNote': '<strong className="text-brand-amber">Magdeburg Hemispheres:</strong> Two teams of horses couldn\'t pull apart two hollow hemispheres with air pumped out \u2014 because atmospheric pressure was pushing them together with enormous force!',
+  'unit5.magdeburgNote': '<strong class="text-brand-amber">Magdeburg Hemispheres:</strong> Two teams of horses couldn\'t pull apart two hollow hemispheres with air pumped out \u2014 because atmospheric pressure was pushing them together with enormous force!',
 
   // ── Summary ──
   'unit5.sumElasticity': 'Elasticity',
@@ -163,11 +163,11 @@ export const unit5Ur: Dict = {
   'unit5.summary': '\ud83d\udcdd یونٹ 5 کا خلاصہ',
 
   // ── Elasticity ──
-  'unit5.elasticityDef': '<strong className="text-brand-cyan">لچک</strong> کسی مادے کی وہ خاصیت ہے جس سے وہ بیرونی قوت ہٹانے کے بعد <strong>اصلی شکل اور سائز میں واپس</strong> آ جاتا ہے۔',
+  'unit5.elasticityDef': '<strong class="text-brand-cyan">لچک</strong> کسی مادے کی وہ خاصیت ہے جس سے وہ بیرونی قوت ہٹانے کے بعد <strong>اصلی شکل اور سائز میں واپس</strong> آ جاتا ہے۔',
   'unit5.elasticLimitTitle': '\ud83d\udccf لچک کی حد',
-  'unit5.elasticLimitDesc': 'وہ زیادہ سے زیادہ حد جس تک کسی مادے کو کھینچا جا سکتا ہے <strong className="text-white">بغیر مستقل تبدیلی کے</strong>۔ اس سے آگے مادہ اصلی شکل میں واپس نہیں آتا۔',
+  'unit5.elasticLimitDesc': 'وہ زیادہ سے زیادہ حد جس تک کسی مادے کو کھینچا جا سکتا ہے <strong class="text-white">بغیر مستقل تبدیلی کے</strong>۔ اس سے آگے مادہ اصلی شکل میں واپس نہیں آتا۔',
   'unit5.hookesLaw': 'ہوک کا قانون',
-  'unit5.hookesLawFormula': 'F = <span className="text-brand-cyan">k</span> \u00d7 <span className="text-brand-pink">x</span>',
+  'unit5.hookesLawFormula': 'F = <span class="text-brand-cyan">k</span> \u00d7 <span class="text-brand-pink">x</span>',
   'unit5.springConst': 'k = اسپرنگ مستقل (N/m)',
   'unit5.extension': 'x = توسیع (m)',
   'unit5.springSimTitle': '\ud83c\udfae اسپرنگ سیمیولیٹر',
@@ -179,8 +179,8 @@ export const unit5Ur: Dict = {
   'unit5.beyondLimit': '\u274c لچک کی حد سے باہر!',
 
   // ── Pressure ──
-  'unit5.pressureDef': '<strong className="text-brand-purple">دباؤ</strong> کسی سطح پر فی اکائی رقبے پر لگنے والی قوت ہے۔ یہ بتاتا ہے کہ ہر مربع میٹر پر کتنی قوت لگتی ہے۔',
-  'unit5.pressureFormula': 'P = <span className="text-brand-cyan">F</span> / <span className="text-brand-pink">A</span>',
+  'unit5.pressureDef': '<strong class="text-brand-purple">دباؤ</strong> کسی سطح پر فی اکائی رقبے پر لگنے والی قوت ہے۔ یہ بتاتا ہے کہ ہر مربع میٹر پر کتنی قوت لگتی ہے۔',
+  'unit5.pressureFormula': 'P = <span class="text-brand-cyan">F</span> / <span class="text-brand-pink">A</span>',
   'unit5.pressureUnit': 'اکائی: پاسکل (Pa) = N/m\u00b2',
   'unit5.pressureTestTitle': '\ud83c\udfae ٹیسٹر دباؤ',
   'unit5.forceLabelPA': 'قوت (N): {force}',
@@ -206,7 +206,7 @@ export const unit5Ur: Dict = {
   'unit5.strainDesc': 'ابعاد میں تبدیلی کا اصلی ابعاد سے تناسب۔ کوئی اکائی نہیں!',
   'unit5.strainFormula': '\u03b5 = \u0394L / L',
   'unit5.youngsModulus': 'یانگ کا ماؤڈیولس',
-  'unit5.youngsFormula': 'E = تناؤ / تناؤ کی شرح = <span className="text-brand-amber">(F/A) / (\u0394L/L)</span>',
+  'unit5.youngsFormula': 'E = تناؤ / تناؤ کی شرح = <span class="text-brand-amber">(F/A) / (\u0394L/L)</span>',
   'unit5.youngsDesc': 'کسی مادے کی سختی کی پیمائش کرتا ہے۔ زیادہ E = سخت مادہ۔',
   'unit5.stressStrainGraphTitle': '\ud83c\udfae تناؤ-تناؤ کی شرح گراف',
   'unit5.appliedForce': 'لگائی گئی قوت (N): {force}',
@@ -216,8 +216,8 @@ export const unit5Ur: Dict = {
   'unit5.steelNote': 'E = تناؤ / تناؤ کی شرح = {value} GPa (فولاد)',
 
   // ── Density ──
-  'unit5.densityDef': '<strong className="text-brand-amber">کثافت</strong> کسی مادے کی فی اکائی حجم کمیت ہے۔ یہ بتاتی ہے کہ مادہ کتنا گھنا ہے۔',
-  'unit5.densityFormula': '\u03c1 = <span className="text-brand-cyan">m</span> / <span className="text-brand-pink">V</span>',
+  'unit5.densityDef': '<strong class="text-brand-amber">کثافت</strong> کسی مادے کی فی اکائی حجم کمیت ہے۔ یہ بتاتی ہے کہ مادہ کتنا گھنا ہے۔',
+  'unit5.densityFormula': '\u03c1 = <span class="text-brand-cyan">m</span> / <span class="text-brand-pink">V</span>',
   'unit5.densityUnit': 'اکائی: kg/m\u00b3 (g/cm\u00b3 بھی)',
   'unit5.densityCalcTitle': '\ud83c\udfae کثافت کیلکولیٹر',
   'unit5.massLabel': 'کمیت (kg): {mass}',
@@ -236,7 +236,7 @@ export const unit5Ur: Dict = {
   'unit5.neutralBuoyancy': '\u26aa غیر جانبدار تیرنے کی قوت',
 
   // ── Buoyancy ──
-  'unit5.archimedesDef': '<strong className="text-brand-teal">ارقمیدس کا اصول:</strong> جب کوئی چیز سیال میںڈوبوی جاتی ہے تو اسے اوپر کی طرف ایک قوت (اپتھرسٹ) ملتی ہے جو <strong>سیال کے ہٹائے گئے وزن کے برابر</strong> ہوتی ہے۔',
+  'unit5.archimedesDef': '<strong class="text-brand-teal">ارقمیدس کا اصول:</strong> جب کوئی چیز سیال میںڈوبوی جاتی ہے تو اسے اوپر کی طرف ایک قوت (اپتھرسٹ) ملتی ہے جو <strong>سیال کے ہٹائے گئے وزن کے برابر</strong> ہوتی ہے۔',
   'unit5.upthrustFormula': 'اپتھرسٹ = \u03c1<sub>سیال</sub> \u00d7 V<sub>ہٹایا گیا</sub> \u00d7 g',
   'unit5.floatsLabel': '\ud83d\udfe2 تیرتا ہے',
   'unit5.floatsDesc': 'چیز کی کثافت < سیال کی کثافت',
@@ -252,15 +252,15 @@ export const unit5Ur: Dict = {
   'unit5.submergedNote': 'چیز کا {percent}%ڈوبا ہوا ہے',
 
   // ── Atmospheric Pressure ──
-  'unit5.atmPressureDef': '<strong className="text-brand-rose">ماحولیاتی دباؤ</strong> زمین کی سطح پر ہوا کے مالیکیولوں کے وزن سے پیدا ہونے والا دباؤ ہے۔ یہ ایسا ہے جیسے ماحولیات ہم پر نیچے دھکا لگا رہی ہو۔',
-  'unit5.atmFormula': '1 atm = <span className="text-brand-rose">101,325 Pa</span>',
+  'unit5.atmPressureDef': '<strong class="text-brand-rose">ماحولیاتی دباؤ</strong> زمین کی سطح پر ہوا کے مالیکیولوں کے وزن سے پیدا ہونے والا دباؤ ہے۔ یہ ایسا ہے جیسے ماحولیات ہم پر نیچے دھکا لگا رہی ہو۔',
+  'unit5.atmFormula': '1 atm = <span class="text-brand-rose">101,325 Pa</span>',
   'unit5.atSeaLevel': 'سطح بحر پر',
-  'unit5.whyNotCrushed': '<strong className="text-brand-amber">ہم کیوں نہیں پسے جاتے؟</strong> ہمارا جسم برابر قوت سے باہر کی طرف دھکا لگاتا ہے، ماحولیاتی دباؤ کو متوازن کرتا ہے۔ یہ ایسا ہے جیسے رسی کشی ہو جہاں دونوں طرف یکساں مضبوط ہوں!',
+  'unit5.whyNotCrushed': '<strong class="text-brand-amber">ہم کیوں نہیں پسے جاتے؟</strong> ہمارا جسم برابر قوت سے باہر کی طرف دھکا لگاتا ہے، ماحولیاتی دباؤ کو متوازن کرتا ہے۔ یہ ایسا ہے جیسے رسی کشی ہو جہاں دونوں طرف یکساں مضبوط ہوں!',
   'unit5.strawSimTitle': '\ud83c\udfae پانی میں پرال سیمیولیٹر',
   'unit5.suctionLabel': 'چوسنے کی طاقت: {strength}%',
   'unit5.waterRise': 'پانی کا ابھار',
   'unit5.atmPressureLabel': 'ماحولیاتی دباؤ',
-  'unit5.magdeburgNote': '<strong className="text-brand-amber">میگڈی堡 ہیمیسفیئرز:</strong> گھوڑوں کی دو ٹیمیں ہوا خارج کی گئی دو خالی نصف گولوں کو الگ نہیں کر سکیں \u2014 کیونکہ ماحولیاتی دباؤ انہیں بہت طاقت سے ایک ساتھ دھکا لگا رہا تھا!',
+  'unit5.magdeburgNote': '<strong class="text-brand-amber">میگڈی堡 ہیمیسفیئرز:</strong> گھوڑوں کی دو ٹیمیں ہوا خارج کی گئی دو خالی نصف گولوں کو الگ نہیں کر سکیں \u2014 کیونکہ ماحولیاتی دباؤ انہیں بہت طاقت سے ایک ساتھ دھکا لگا رہا تھا!',
 
   // ── Summary ──
   'unit5.sumElasticity': 'لچک',
@@ -315,11 +315,11 @@ export const unit5Sd: Dict = {
   'unit5.summary': '\ud83d\udcdd يونٽ ٥ جو خلاصو',
 
   // ── Elasticity ──
-  'unit5.elasticityDef': '<strong className="text-brand-cyan">لچڪ</strong> ڪنھن مادي جي اُها خاصيت آهي جيڪا ٻاهرين قوت ڪڍڻ کان پوءِ <strong>اصلي شڪل ۽ سائيزي ۾ واپس</strong> ايندي آهي.',
+  'unit5.elasticityDef': '<strong class="text-brand-cyan">لچڪ</strong> ڪنھن مادي جي اُها خاصيت آهي جيڪا ٻاهرين قوت ڪڍڻ کان پوءِ <strong>اصلي شڪل ۽ سائيزي ۾ واپس</strong> ايندي آهي.',
   'unit5.elasticLimitTitle': '\ud83d\udccf لچڪ جي حد',
-  'unit5.elasticLimitDesc': 'وڌيڪ کان وڌيڪ حد جيتري ڪنھن مادي کي ڪڍي سگهجي ٿو <strong className="text-white">بنا مستحڪم تبديلي جي</strong>. ان کان اڳي مادو اصلي شڪل ۾ واپس نٿو اچي.',
+  'unit5.elasticLimitDesc': 'وڌيڪ کان وڌيڪ حد جيتري ڪنھن مادي کي ڪڍي سگهجي ٿو <strong class="text-white">بنا مستحڪم تبديلي جي</strong>. ان کان اڳي مادو اصلي شڪل ۾ واپس نٿو اچي.',
   'unit5.hookesLaw': 'هوڪ جو قانون',
-  'unit5.hookesLawFormula': 'F = <span className="text-brand-cyan">k</span> \u00d7 <span className="text-brand-pink">x</span>',
+  'unit5.hookesLawFormula': 'F = <span class="text-brand-cyan">k</span> \u00d7 <span class="text-brand-pink">x</span>',
   'unit5.springConst': 'k = اسپرنگ مستقل (N/m)',
   'unit5.extension': 'x = توسیع (m)',
   'unit5.springSimTitle': '\ud83c\udfae اسپرنگ سيميوليٽر',
@@ -331,8 +331,8 @@ export const unit5Sd: Dict = {
   'unit5.beyondLimit': '\u274c لچڪ جي حد کان ٻاهر!',
 
   // ── Pressure ──
-  'unit5.pressureDef': '<strong className="text-brand-purple">دبائو</strong> ڪنھن سطح تي فی ايڪي رقعي تي لڳندڙ قوت آهي. اهو ٻڌائي ٿو ته هر مربع ميٽر تي ڪيتري قوت لڳي ٿي.',
-  'unit5.pressureFormula': 'P = <span className="text-brand-cyan">F</span> / <span className="text-brand-pink">A</span>',
+  'unit5.pressureDef': '<strong class="text-brand-purple">دبائو</strong> ڪنھن سطح تي فی ايڪي رقعي تي لڳندڙ قوت آهي. اهو ٻڌائي ٿو ته هر مربع ميٽر تي ڪيتري قوت لڳي ٿي.',
+  'unit5.pressureFormula': 'P = <span class="text-brand-cyan">F</span> / <span class="text-brand-pink">A</span>',
   'unit5.pressureUnit': 'ايڪو: پاسڪل (Pa) = N/m\u00b2',
   'unit5.pressureTestTitle': '\ud83c\udfae ٽيسٽر دبائو',
   'unit5.forceLabelPA': 'قوت (N): {force}',
@@ -358,7 +358,7 @@ export const unit5Sd: Dict = {
   'unit5.strainDesc': 'ابعاد ۾ تبديلي جو اصلي ابعاد سان تناسب. ڪي ايڪو ناهي!',
   'unit5.strainFormula': '\u03b5 = \u0394L / L',
   'unit5.youngsModulus': 'يانگ جو مائڊيولس',
-  'unit5.youngsFormula': 'E = تنائو / تنائو جي شرح = <span className="text-brand-amber">(F/A) / (\u0394L/L)</span>',
+  'unit5.youngsFormula': 'E = تنائو / تنائو جي شرح = <span class="text-brand-amber">(F/A) / (\u0394L/L)</span>',
   'unit5.youngsDesc': 'ڪنھن مادي جي سختي جي پيمائش ڪري ٿو. وڌيڪ E = سخت مادو.',
   'unit5.stressStrainGraphTitle': '\ud83c\udfae تنائو-تنائو جي شرح گراف',
   'unit5.appliedForce': 'لڳائيل قوت (N): {force}',
@@ -368,8 +368,8 @@ export const unit5Sd: Dict = {
   'unit5.steelNote': 'E = تنائو / تنائو جي شرح = {value} GPa (فولاد)',
 
   // ── Density ──
-  'unit5.densityDef': '<strong className="text-brand-amber">گهڻڪ</strong> ڪنھن مادي جي فی ايڪي حجم مادو آهي. اهو ٻڌائي ٿو ته مادو ڪيترو گهنو آهي.',
-  'unit5.densityFormula': '\u03c1 = <span className="text-brand-cyan">m</span> / <span className="text-brand-pink">V</span>',
+  'unit5.densityDef': '<strong class="text-brand-amber">گهڻڪ</strong> ڪنھن مادي جي فی ايڪي حجم مادو آهي. اهو ٻڌائي ٿو ته مادو ڪيترو گهنو آهي.',
+  'unit5.densityFormula': '\u03c1 = <span class="text-brand-cyan">m</span> / <span class="text-brand-pink">V</span>',
   'unit5.densityUnit': 'ايڪو: kg/m\u00b3 (g/cm\u00b3 به)',
   'unit5.densityCalcTitle': '\ud83c\udfae گهڻڪ ڪيلڪوليٽر',
   'unit5.massLabel': 'مادو (kg): {mass}',
@@ -388,7 +388,7 @@ export const unit5Sd: Dict = {
   'unit5.neutralBuoyancy': '\u26aa بيطرف تيرڻ جي قوت',
 
   // ── Buoyancy ──
-  'unit5.archimedesDef': '<strong className="text-brand-teal">ارقيمس جو اصول:</strong> جڏو ڪنھن شيء کي سيال ۾ ٻوڙيو وڃي ٿو ته اُن کي مٿي طرف هڪ قوت (اپٿرسٽ) ملدي آهي جيڪا <strong>سيال جي هٽائيل وزن جي برابر</strong> هوندي آهي.',
+  'unit5.archimedesDef': '<strong class="text-brand-teal">ارقيمس جو اصول:</strong> جڏو ڪنھن شيء کي سيال ۾ ٻوڙيو وڃي ٿو ته اُن کي مٿي طرف هڪ قوت (اپٿرسٽ) ملدي آهي جيڪا <strong>سيال جي هٽائيل وزن جي برابر</strong> هوندي آهي.',
   'unit5.upthrustFormula': 'اپٿرسٽ = \u03c1<sub>سيال</sub> \u00d7 V<sub>هٽائيل</sub> \u00d7 g',
   'unit5.floatsLabel': '\ud83d\udfe2 تيرندو آهي',
   'unit5.floatsDesc': ' شيء جي گهڻڪ < سيال جي گهڻڪ',
@@ -404,15 +404,15 @@ export const unit5Sd: Dict = {
   'unit5.submergedNote': ' شيء جو {percent}% ٻوڙيل آهي',
 
   // ── Atmospheric Pressure ──
-  'unit5.atmPressureDef': '<strong className="text-brand-rose">ماحولي دبائو</strong> زمين جي سطح تي هوا جي مالیڪيولن جي وزن کان پيدا ٿيڻ وارو دبائو آهي. اهو ائين آهي جئن ماحوليات اسان تي هيٺي ڌڪو لڳائي رهي آهي.',
-  'unit5.atmFormula': '1 atm = <span className="text-brand-rose">101,325 Pa</span>',
+  'unit5.atmPressureDef': '<strong class="text-brand-rose">ماحولي دبائو</strong> زمين جي سطح تي هوا جي مالیڪيولن جي وزن کان پيدا ٿيڻ وارو دبائو آهي. اهو ائين آهي جئن ماحوليات اسان تي هيٺي ڌڪو لڳائي رهي آهي.',
+  'unit5.atmFormula': '1 atm = <span class="text-brand-rose">101,325 Pa</span>',
   'unit5.atSeaLevel': 'سطح بحر تي',
-  'unit5.whyNotCrushed': '<strong className="text-brand-amber">اسان ڇو نٿا پسج وڃون؟</strong> اسانجو جسم برابر قوت سان ٻاهر طرف ڌڪو لڳائي ٿو، ماحولي دبائو کي متوازن ڪري ٿو. اهو ائين آهي جئن ٻنھي پاسي يڪسان مضبوط هجن!',
+  'unit5.whyNotCrushed': '<strong class="text-brand-amber">اسان ڇو نٿا پسج وڃون؟</strong> اسانجو جسم برابر قوت سان ٻاهر طرف ڌڪو لڳائي ٿو، ماحولي دبائو کي متوازن ڪري ٿو. اهو ائين آهي جئن ٻنھي پاسي يڪسان مضبوط هجن!',
   'unit5.strawSimTitle': '\ud83c\udfae پاڻي ۾ پرال سيميوليٽر',
   'unit5.suctionLabel': 'چوسڻ جي طاقت: {strength}%',
   'unit5.waterRise': 'پاڻي جو اڀار',
   'unit5.atmPressureLabel': 'ماحولي دبائو',
-  'unit5.magdeburgNote': '<strong className="text-brand-amber">ميگڊي堡 هيميسفيريئرز:</strong> گهوڙن جي ٻه ٽيمون هوا ڪڍي ٻه خالي نصف گولن کي جدا نه ڪري سگهين \u2014 ڇوڪه ماحولي دبائو انھن کي تمام طاقت سان هڪ سانڌي ڌڪو لڳائي رهيو هو!',
+  'unit5.magdeburgNote': '<strong class="text-brand-amber">ميگڊي堡 هيميسفيريئرز:</strong> گهوڙن جي ٻه ٽيمون هوا ڪڍي ٻه خالي نصف گولن کي جدا نه ڪري سگهين \u2014 ڇوڪه ماحولي دبائو انھن کي تمام طاقت سان هڪ سانڌي ڌڪو لڳائي رهيو هو!',
 
   // ── Summary ──
   'unit5.sumElasticity': 'لچڪ',

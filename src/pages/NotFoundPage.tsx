@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Home, AlertTriangle } from 'lucide-react';
 import PhysicsBackground from '../components/PhysicsBackground';
+import { BLOB_DELAY_0S, BLOB_DELAY_5S } from '../utils/styles';
 
 export default function NotFoundPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <PhysicsBackground />
-      <div className="blob w-72 h-72 bg-brand-purple top-10 -left-10" style={{ animationDelay: '0s' }} />
-      <div className="blob w-56 h-56 bg-brand-cyan bottom-10 -right-10" style={{ animationDelay: '5s' }} />
+      <div className="blob w-72 h-72 bg-brand-purple top-10 -left-10" style={BLOB_DELAY_0S} />
+      <div className="blob w-56 h-56 bg-brand-cyan bottom-10 -right-10" style={BLOB_DELAY_5S} />
 
       <div className="relative z-10 text-center px-6 max-w-lg mx-auto">
         <div className="glass-card-strong rounded-3xl p-10 md:p-14">

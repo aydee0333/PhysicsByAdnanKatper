@@ -34,9 +34,18 @@ export default defineConfig(({ mode }) => {
     build: {
       assetsInlineLimit: isSingleFile ? 100000000 : 4096,
       cssCodeSplit: !isSingleFile,
+      chunkSizeWarningLimit: 600,
       rollupOptions: {
         output: {
           inlineDynamicImports: isSingleFile,
+          ...(isSingleFile ? {} : {
+            manualChunks: {
+              'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+              'vendor-gsap': ['gsap'],
+              'vendor-icons': ['lucide-react'],
+              'vendor-three': ['three'],
+            },
+          }),
         },
       },
     },

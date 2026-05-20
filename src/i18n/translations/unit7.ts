@@ -41,7 +41,7 @@ export const unit7En: Dict = {
   'unit7.fillsContainer': 'Fills container',
 
   // Elasticity Review
-  'unit7.elasticityDef': '<strong className="text-brand-purple">Elasticity</strong> is the property of a material to <strong>regain its original shape</strong> after the removal of deforming force.',
+  'unit7.elasticityDef': '<strong class="text-brand-purple">Elasticity</strong> is the property of a material to <strong>regain its original shape</strong> after the removal of deforming force.',
   'unit7.elasticLimitFormula': 'Within elastic limit, extension ∝ force',
   'unit7.elasticityCard': 'Elasticity',
   'unit7.elasticityCardDesc': 'Regains shape',
@@ -56,7 +56,7 @@ export const unit7En: Dict = {
   'unit7.springResult': 'F = kx → {force} = {k} × {x}',
 
   // Pressure in Liquids
-  'unit7.liquidPressureFormula': 'P = <span className="text-brand-cyan">ρ</span> × <span className="text-brand-pink">g</span> × <span className="text-brand-amber">h</span>',
+  'unit7.liquidPressureFormula': 'P = <span class="text-brand-cyan">ρ</span> × <span class="text-brand-pink">g</span> × <span class="text-brand-amber">h</span>',
   'unit7.densityLabel': 'ρ = density (kg/m³)',
   'unit7.gLabel': 'g = 9.8 m/s²',
   'unit7.depthLabel': 'h = depth (m)',
@@ -75,7 +75,7 @@ export const unit7En: Dict = {
   'unit7.submarinesDesc': 'Stronger hulls needed for deeper dives',
 
   // Pascal's Law
-  'unit7.pascalLawDef': 'Pressure applied to an <strong>enclosed fluid</strong> is transmitted <strong className="text-brand-amber">equally</strong> to every part of the fluid and to the walls of the container.',
+  'unit7.pascalLawDef': 'Pressure applied to an <strong>enclosed fluid</strong> is transmitted <strong class="text-brand-amber">equally</strong> to every part of the fluid and to the walls of the container.',
   'unit7.pascalFormula': 'P = F₁/A₁ = F₂/A₂',
   'unit7.pascalResult': 'F₂ = F₁ × (A₂/A₁)',
   'unit7.pascalDesc': 'Small force → Large force (mechanical advantage)',
@@ -90,7 +90,7 @@ export const unit7En: Dict = {
   'unit7.excavators': 'Excavators',
 
   // Surface Tension
-  'unit7.surfaceTensionDef': '<strong className="text-brand-teal">Surface tension</strong> makes a liquid surface behave like a stretched elastic membrane. Caused by <strong>cohesive forces</strong> between liquid molecules.',
+  'unit7.surfaceTensionDef': '<strong class="text-brand-teal">Surface tension</strong> makes a liquid surface behave like a stretched elastic membrane. Caused by <strong>cohesive forces</strong> between liquid molecules.',
   'unit7.needleWaterTitle': '🎮 Needle on Water',
   'unit7.soapConcentration': 'Soap Concentration: {soap}%',
   'unit7.waterSurface': 'Water Surface',
@@ -104,7 +104,7 @@ export const unit7En: Dict = {
   'unit7.insectsWaterDesc': 'Walk on water — surface tension supports them',
 
   // Viscosity
-  'unit7.viscosityDef': '<strong className="text-brand-rose">Viscosity</strong> is the internal friction in a fluid that <strong>resists flow</strong>. Thicker liquids have higher viscosity.',
+  'unit7.viscosityDef': '<strong class="text-brand-rose">Viscosity</strong> is the internal friction in a fluid that <strong>resists flow</strong>. Thicker liquids have higher viscosity.',
   'unit7.ballDropTitle': '🎮 Ball Drop in Liquids',
   'unit7.viscosityLevel': 'Viscosity Level',
   'unit7.waterDesc': 'Flows easily — low viscosity',
@@ -112,9 +112,9 @@ export const unit7En: Dict = {
   'unit7.honeyDesc': 'Flows very slowly — high viscosity',
 
   // Hooke's Law Experiment
-  'unit7.apparatus': '<strong className="text-brand-lime">Apparatus:</strong> Spring, hook, pointer, scale, weight hanger',
-  'unit7.procedure': '<strong className="text-brand-lime">Procedure:</strong> Add known weights, record extension, plot Force vs Extension graph.',
-  'unit7.result': '<strong className="text-brand-lime">Result:</strong> Straight line through origin → confirms F ∝ x (within elastic limit)',
+  'unit7.apparatus': '<strong class="text-brand-lime">Apparatus:</strong> Spring, hook, pointer, scale, weight hanger',
+  'unit7.procedure': '<strong class="text-brand-lime">Procedure:</strong> Add known weights, record extension, plot Force vs Extension graph.',
+  'unit7.result': '<strong class="text-brand-lime">Result:</strong> Straight line through origin → confirms F ∝ x (within elastic limit)',
   'unit7.plotGraphTitle': '🎮 Plot Force-Extension Graph',
   'unit7.addWeight': 'Add 2N Weight',
   'unit7.reset': 'Reset',
@@ -206,7 +206,7 @@ export const unit7Ur: Dict = {
   'unit7.fillsContainer': 'برتن بھر دیتی ہے',
 
   // Elasticity Review
-  'unit7.elasticityDef': '<strong className="text-brand-purple">لچک</strong> کسی مادے کی وہ خاصیت ہے جس سے وہ بگاڑنے والی قوت ہٹانے کے بعد <strong>اپنی اصل شکل واپس پا لیتا ہے</strong>۔',
+  'unit7.elasticityDef': '<strong class="text-brand-purple">لچک</strong> کسی مادے کی وہ خاصیت ہے جس سے وہ بگاڑنے والی قوت ہٹانے کے بعد <strong>اپنی اصل شکل واپس پا لیتا ہے</strong>۔',
   'unit7.elasticLimitFormula': 'لچک کی حد کے اندر، ایکسٹنشن ∝ قوت',
   'unit7.elasticityCard': 'لچک',
   'unit7.elasticityCardDesc': 'شکل واپس آتی ہے',
@@ -221,7 +221,7 @@ export const unit7Ur: Dict = {
   'unit7.springResult': 'F = kx → {force} = {k} × {x}',
 
   // Pressure in Liquids
-  'unit7.liquidPressureFormula': 'P = <span className="text-brand-cyan">ρ</span> × <span className="text-brand-pink">g</span> × <span className="text-brand-amber">h</span>',
+  'unit7.liquidPressureFormula': 'P = <span class="text-brand-cyan">ρ</span> × <span class="text-brand-pink">g</span> × <span class="text-brand-amber">h</span>',
   'unit7.densityLabel': 'ρ = کثافت (kg/m³)',
   'unit7.gLabel': 'g = 9.8 m/s²',
   'unit7.depthLabel': 'h = گہرائی (m)',
@@ -240,7 +240,7 @@ export const unit7Ur: Dict = {
   'unit7.submarinesDesc': 'گہرائی میں مضبوط جسم درکار',
 
   // Pascal's Law
-  'unit7.pascalLawDef': 'کسی <strong>بند مائع</strong> پر لگایا گیا دباؤ <strong className="text-brand-amber">برابر طور</strong> پر مائع کے ہر حصے اور برتن کی دیواروں تک پہنچتا ہے۔',
+  'unit7.pascalLawDef': 'کسی <strong>بند مائع</strong> پر لگایا گیا دباؤ <strong class="text-brand-amber">برابر طور</strong> پر مائع کے ہر حصے اور برتن کی دیواروں تک پہنچتا ہے۔',
   'unit7.pascalFormula': 'P = F₁/A₁ = F₂/A₂',
   'unit7.pascalResult': 'F₂ = F₁ × (A₂/A₁)',
   'unit7.pascalDesc': 'چھوٹی قوت → بڑی قوت (میکانکل فائدہ)',
@@ -255,7 +255,7 @@ export const unit7Ur: Dict = {
   'unit7.excavators': 'ایکسکیویٹر',
 
   // Surface Tension
-  'unit7.surfaceTensionDef': '<strong className="text-brand-teal">سطح کشش</strong> مائع کی سطح کو کھنچی ہوئی لچکدار جھلی جیسا بنا دیتی ہے۔ مائع کے مالیکیولز کے درمیان <strong>اہنگی قوتوں</strong> کی وجہ سے ہوتی ہے۔',
+  'unit7.surfaceTensionDef': '<strong class="text-brand-teal">سطح کشش</strong> مائع کی سطح کو کھنچی ہوئی لچکدار جھلی جیسا بنا دیتی ہے۔ مائع کے مالیکیولز کے درمیان <strong>اہنگی قوتوں</strong> کی وجہ سے ہوتی ہے۔',
   'unit7.needleWaterTitle': '🎮 پانی پر سوئی',
   'unit7.soapConcentration': 'صابن کی مقدار: {soap}%',
   'unit7.waterSurface': 'پانی کی سطح',
@@ -269,7 +269,7 @@ export const unit7Ur: Dict = {
   'unit7.insectsWaterDesc': 'پانی پر چلتے ہیں — سطح کشش انہیں سہارا دیتی ہے',
 
   // Viscosity
-  'unit7.viscosityDef': '<strong className="text-brand-rose">لیسکتا</strong> مائع میں اندرونی رگڑ ہے جو <strong>بہاؤ کو روکتی</strong> ہے۔ گاڑھے مائعات میں لیسکتا زیادہ ہوتی ہے۔',
+  'unit7.viscosityDef': '<strong class="text-brand-rose">لیسکتا</strong> مائع میں اندرونی رگڑ ہے جو <strong>بہاؤ کو روکتی</strong> ہے۔ گاڑھے مائعات میں لیسکتا زیادہ ہوتی ہے۔',
   'unit7.ballDropTitle': '🎮 مائعات میں گیند گراو',
   'unit7.viscosityLevel': 'لیسکتا کی سطح',
   'unit7.waterDesc': 'آسانی سے بہتا ہے — کم لیسکتا',
@@ -277,9 +277,9 @@ export const unit7Ur: Dict = {
   'unit7.honeyDesc': 'بہت آہستہ بہتا ہے — زیادہ لیسکتا',
 
   // Hooke's Law Experiment
-  'unit7.apparatus': '<strong className="text-brand-lime">آلہ:</strong> اسپرنگ، ہک، پوائنٹر، اسکیل، وزن کا جھولنا',
-  'unit7.procedure': '<strong className="text-brand-lime">طریقہ:</strong> معلوم وزن لگائیں، ایکسٹنشن لکھیں، قوت بمقابلہ ایکسٹنشن گراف بنائیں۔',
-  'unit7.result': '<strong className="text-brand-lime">نتیجہ:</strong> آغاز سے سیدھی لکیر → F ∝ x کی تصدیق (لچک کی حد کے اندر)',
+  'unit7.apparatus': '<strong class="text-brand-lime">آلہ:</strong> اسپرنگ، ہک، پوائنٹر، اسکیل، وزن کا جھولنا',
+  'unit7.procedure': '<strong class="text-brand-lime">طریقہ:</strong> معلوم وزن لگائیں، ایکسٹنشن لکھیں، قوت بمقابلہ ایکسٹنشن گراف بنائیں۔',
+  'unit7.result': '<strong class="text-brand-lime">نتیجہ:</strong> آغاز سے سیدھی لکیر → F ∝ x کی تصدیق (لچک کی حد کے اندر)',
   'unit7.plotGraphTitle': '🎮 قوت-ایکسٹنشن گراف',
   'unit7.addWeight': '2N وزن لگائیں',
   'unit7.reset': 'ری سیٹ',
@@ -371,7 +371,7 @@ export const unit7Sd: Dict = {
   'unit7.fillsContainer': 'برتن ڀري ٿي',
 
   // Elasticity Review
-  'unit7.elasticityDef': '<strong className="text-brand-purple">لچڪ</strong> مادي جي اُهي خاصيت آهي جيڪي بگاڙ واري قوت ڪڍڻ کان پوءِ <strong>پنھنجي اصلي شڪل موٽي حاصل ڪري ٿي</strong>.',
+  'unit7.elasticityDef': '<strong class="text-brand-purple">لچڪ</strong> مادي جي اُهي خاصيت آهي جيڪي بگاڙ واري قوت ڪڍڻ کان پوءِ <strong>پنھنجي اصلي شڪل موٽي حاصل ڪري ٿي</strong>.',
   'unit7.elasticLimitFormula': 'لچڪ جي حد ۾، ايڪسٽنشن ∝ قوت',
   'unit7.elasticityCard': 'لچڪ',
   'unit7.elasticityCardDesc': 'شڪل موٽي آئي ٿي',
@@ -386,7 +386,7 @@ export const unit7Sd: Dict = {
   'unit7.springResult': 'F = kx → {force} = {k} × {x}',
 
   // Pressure in Liquids
-  'unit7.liquidPressureFormula': 'P = <span className="text-brand-cyan">ρ</span> × <span className="text-brand-pink">g</span> × <span className="text-brand-amber">h</span>',
+  'unit7.liquidPressureFormula': 'P = <span class="text-brand-cyan">ρ</span> × <span class="text-brand-pink">g</span> × <span class="text-brand-amber">h</span>',
   'unit7.densityLabel': 'ρ = گهڻڪ (kg/m³)',
   'unit7.gLabel': 'g = 9.8 m/s²',
   'unit7.depthLabel': 'h = ڊوڀي (m)',
@@ -405,7 +405,7 @@ export const unit7Sd: Dict = {
   'unit7.submarinesDesc': 'ڊوڀي ۾ مضبوط جسم گهربل',
 
   // Pascal's Law
-  'unit7.pascalLawDef': 'ڪنھن <strong>بند مايع</strong> تي لڳاءيل دٻاء <strong className="text-brand-amber">برابر طور</strong> تي مايع جي هر حصي۽ برتن جي پرچون تي پهچي ٿو.',
+  'unit7.pascalLawDef': 'ڪنھن <strong>بند مايع</strong> تي لڳاءيل دٻاء <strong class="text-brand-amber">برابر طور</strong> تي مايع جي هر حصي۽ برتن جي پرچون تي پهچي ٿو.',
   'unit7.pascalFormula': 'P = F₁/A₁ = F₂/A₂',
   'unit7.pascalResult': 'F₂ = F₁ × (A₂/A₁)',
   'unit7.pascalDesc': 'ننڍي قوت → وڏي قوت (ميڪانيڪل فائدو)',
@@ -420,7 +420,7 @@ export const unit7Sd: Dict = {
   'unit7.excavators': 'ايڪسڪيويٽر',
 
   // Surface Tension
-  'unit7.surfaceTensionDef': '<strong className="text-brand-teal">سطح ڪشش</strong> مايع جي سطح کي ڪڍيل لچڪدار جهلي وانگر بناي ٿي. مايع جي مالڪيولز وچ ۾ <strong>۽نگي قوت</strong> جي سبب ٿي ٿي.',
+  'unit7.surfaceTensionDef': '<strong class="text-brand-teal">سطح ڪشش</strong> مايع جي سطح کي ڪڍيل لچڪدار جهلي وانگر بناي ٿي. مايع جي مالڪيولز وچ ۾ <strong>۽نگي قوت</strong> جي سبب ٿي ٿي.',
   'unit7.needleWaterTitle': '🎮 پاڻي تي سوئي',
   'unit7.soapConcentration': 'صابن جي مقدار: {soap}%',
   'unit7.waterSurface': 'پاڻي جي سطح',
@@ -434,7 +434,7 @@ export const unit7Sd: Dict = {
   'unit7.insectsWaterDesc': 'پاڻي تي هلن ٿن — سطح ڪشش سان سارو ڏئي ٿي',
 
   // Viscosity
-  'unit7.viscosityDef': '<strong className="text-brand-rose">ليسڪتا</strong> مايع ۾ اندروني رگڙ آهي جيڪا <strong>بهاءُ روڪي ٿي</strong>. گاڍا مايعات ۾ ليسڪتا وڌيڪ هوندي آهي.',
+  'unit7.viscosityDef': '<strong class="text-brand-rose">ليسڪتا</strong> مايع ۾ اندروني رگڙ آهي جيڪا <strong>بهاءُ روڪي ٿي</strong>. گاڍا مايعات ۾ ليسڪتا وڌيڪ هوندي آهي.',
   'unit7.ballDropTitle': '🎮 مايعات ۾ بال پيتو',
   'unit7.viscosityLevel': 'ليسڪتا جي سطح',
   'unit7.waterDesc': 'آساني سان بهي ٿو — گهٽ ليسڪتا',
@@ -442,9 +442,9 @@ export const unit7Sd: Dict = {
   'unit7.honeyDesc': 'وڌيڪ آهستي بهي ٿو — وڌيڪ ليسڪتا',
 
   // Hooke's Law Experiment
-  'unit7.apparatus': '<strong className="text-brand-lime">آلہ:</strong> اسپرنگ، هوڪ، پوائنٽر، اسڪيل، وزن جو گڏي',
-  'unit7.procedure': '<strong className="text-brand-lime">طريقو:</strong> معلوم وزن لڳائيو، ايڪسٽنشن لکو، قوت بمقابلي ايڪسٽنشن گراف ٺاھيو.',
-  'unit7.result': '<strong className="text-brand-lime">نتيجو:</strong> شروعات کان سڌي ليڪ → F ∝ x جي تصديق (لچڪ جي حد ۾)',
+  'unit7.apparatus': '<strong class="text-brand-lime">آلہ:</strong> اسپرنگ، هوڪ، پوائنٽر، اسڪيل، وزن جو گڏي',
+  'unit7.procedure': '<strong class="text-brand-lime">طريقو:</strong> معلوم وزن لڳائيو، ايڪسٽنشن لکو، قوت بمقابلي ايڪسٽنشن گراف ٺاھيو.',
+  'unit7.result': '<strong class="text-brand-lime">نتيجو:</strong> شروعات کان سڌي ليڪ → F ∝ x جي تصديق (لچڪ جي حد ۾)',
   'unit7.plotGraphTitle': '🎮 قوت-ايڪسٽنشن گراف',
   'unit7.addWeight': '2N وزن لڳائيو',
   'unit7.reset': 'ري سيٽ',

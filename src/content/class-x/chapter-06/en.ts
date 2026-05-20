@@ -5,6 +5,14 @@ const chapter06En: ChapterContent = {
   classId: 'class-x',
   title: 'Electromagnetism',
   subtitle: 'Magnetic Fields, Electromagnets, Motors, Generators, and Transformers',
+  objectives: [
+    'Describe magnetic fields and explain the magnetic effect of electric current',
+    'State and apply Fleming\'s Left Hand Rule to find force on a current-carrying conductor',
+    'Explain the construction and working of a D.C. motor',
+    'State Faraday\'s law of electromagnetic induction and Lenz\'s law',
+    'Describe the construction and working of an A.C. generator',
+    'Explain the working of a transformer and solve problems using Vs/Vp = Ns/Np',
+  ],
   sections: [
     {
       id: 'magnetism-basics',
@@ -335,12 +343,14 @@ const chapter06En: ChapterContent = {
               options: ['Zero', 'Uniform and parallel to axis', 'Non-uniform', 'Perpendicular to axis'],
               correctIndex: 1,
               explanation: 'The magnetic field inside a solenoid is uniform and parallel to its axis, making it act like a bar magnet.',
+              type: 'mcq',
             },
             {
               id: 'q2',
               question: 'Fleming\'s Left Hand Rule is used to find the direction of:',
               options: ['Induced current', 'Force on a conductor', 'Magnetic field', 'Electric current'],
               correctIndex: 1,
+              type: 'mcq',
               explanation: 'Fleming\'s Left Hand Rule gives the direction of force on a current-carrying conductor in a magnetic field.',
             },
             {
@@ -348,6 +358,7 @@ const chapter06En: ChapterContent = {
               question: 'The force on a conductor of length 0.5 m carrying 3 A in a field of 0.4 T is:',
               options: ['0.3 N', '0.6 N', '0.9 N', '1.2 N'],
               correctIndex: 1,
+              type: 'mcq',
               explanation: 'F = BIL = 0.4 × 3 × 0.5 = 0.6 N',
             },
             {
@@ -355,6 +366,7 @@ const chapter06En: ChapterContent = {
               question: 'A D.C. motor converts:',
               options: ['Mechanical to electrical energy', 'Electrical to mechanical energy', 'Chemical to electrical energy', 'Heat to electrical energy'],
               correctIndex: 1,
+              type: 'mcq',
               explanation: 'A D.C. motor converts electrical energy into mechanical energy.',
             },
             {
@@ -362,6 +374,7 @@ const chapter06En: ChapterContent = {
               question: 'Electromagnetic induction was discovered by:',
               options: ['Oersted', 'Faraday', 'Fleming', 'Newton'],
               correctIndex: 1,
+              type: 'mcq',
               explanation: 'Michael Faraday discovered electromagnetic induction in 1831.',
             },
             {
@@ -369,6 +382,7 @@ const chapter06En: ChapterContent = {
               question: 'Lenz\'s law is based on the law of conservation of:',
               options: ['Charge', 'Mass', 'Energy', 'Momentum'],
               correctIndex: 2,
+              type: 'mcq',
               explanation: 'Lenz\'s law is a consequence of the law of conservation of energy.',
             },
             {
@@ -376,6 +390,7 @@ const chapter06En: ChapterContent = {
               question: 'A step-up transformer has:',
               options: ['Ns > Np', 'Ns < Np', 'Ns = Np', 'No secondary coil'],
               correctIndex: 0,
+              type: 'mcq',
               explanation: 'A step-up transformer has more turns on the secondary coil than the primary coil.',
             },
             {
@@ -383,6 +398,7 @@ const chapter06En: ChapterContent = {
               question: 'An A.C. generator produces:',
               options: ['Direct current', 'Alternating current', 'Static electricity', 'No current'],
               correctIndex: 1,
+              type: 'mcq',
               explanation: 'An A.C. generator produces alternating current using electromagnetic induction.',
             },
             {
@@ -390,6 +406,7 @@ const chapter06En: ChapterContent = {
               question: 'The factor that does NOT affect the strength of an electromagnet is:',
               options: ['Number of turns', 'Current', 'Colour of wire', 'Type of core'],
               correctIndex: 2,
+              type: 'mcq',
               explanation: 'The colour of wire does not affect the strength of an electromagnet.',
             },
             {
@@ -397,6 +414,7 @@ const chapter06En: ChapterContent = {
               question: 'If a transformer has Vp = 100V, Np = 50, Ns = 200, then Vs is:',
               options: ['25 V', '200 V', '400 V', '100 V'],
               correctIndex: 2,
+              type: 'mcq',
               explanation: 'Vs = Vp × (Ns/Np) = 100 × (200/50) = 100 × 4 = 400 V',
             },
           ],

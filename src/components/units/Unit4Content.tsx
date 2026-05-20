@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import {
   RotateCcw, Scale, ArrowLeftRight, CircleDot, Target
 } from 'lucide-react';
 import { useT } from '../../i18n/LanguageContext';
+import { GSAP_REVEAL_STYLE } from '../../utils/styles';
 import Section from '../Section';
 import UnitQuiz from '../UnitQuiz';
 
@@ -862,6 +863,13 @@ function BalancedBeamSim() {
    ═══════════════════════════════════════════════════════════ */
 export default function Unit4Content() {
   const t = useT();
+  const quizQuestions = useMemo(() => [
+    { question: t('unit4.quiz.q1'), options: [t('unit4.quiz.q1.opt1'), t('unit4.quiz.q1.opt2'), t('unit4.quiz.q1.opt3'), t('unit4.quiz.q1.opt4')], correctIndex: 1 },
+    { question: t('unit4.quiz.q2'), options: [t('unit4.quiz.q2.opt1'), t('unit4.quiz.q2.opt2'), t('unit4.quiz.q2.opt3'), t('unit4.quiz.q2.opt4')], correctIndex: 2 },
+    { question: t('unit4.quiz.q3'), options: [t('unit4.quiz.q3.opt1'), t('unit4.quiz.q3.opt2'), t('unit4.quiz.q3.opt3'), t('unit4.quiz.q3.opt4')], correctIndex: 2 },
+    { question: t('unit4.quiz.q4'), options: [t('unit4.quiz.q4.opt1'), t('unit4.quiz.q4.opt2'), t('unit4.quiz.q4.opt3'), t('unit4.quiz.q4.opt4')], correctIndex: 1 },
+    { question: t('unit4.quiz.q5'), options: [t('unit4.quiz.q5.opt1'), t('unit4.quiz.q5.opt2'), t('unit4.quiz.q5.opt3'), t('unit4.quiz.q5.opt4')], correctIndex: 1 },
+  ], [t]);
 
   return (
     <div>
@@ -1038,53 +1046,24 @@ export default function Unit4Content() {
       </Section>
 
       {/* MOMENT ARM CALCULATOR */}
-      <div className="unit-detail-reveal glass-card rounded-3xl p-8" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
         <h2 className="text-3xl font-black mb-2">Moment Arm & Torque Calculator</h2>
         <p className="text-gray-400 mb-6">Adjust force position and angle to see how moment arm and torque change.</p>
         <MomentArmSim />
       </div>
 
       {/* PRINCIPLE OF MOMENTS */}
-      <div className="unit-detail-reveal glass-card rounded-3xl p-8" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
         <h2 className="text-3xl font-black mb-2">Principle of Moments</h2>
         <p className="text-gray-400 mb-6">Add weights on both sides and find the balance condition: Σ clockwise = Σ anticlockwise.</p>
         <PrincipleOfMomentsSim />
       </div>
 
       {/* Quiz */}
-      <UnitQuiz
-        unitId="unit4"
-        questions={[
-          {
-            question: t('unit4.quiz.q1'),
-            options: [t('unit4.quiz.q1.opt1'), t('unit4.quiz.q1.opt2'), t('unit4.quiz.q1.opt3'), t('unit4.quiz.q1.opt4')],
-            correctIndex: 1,
-          },
-          {
-            question: t('unit4.quiz.q2'),
-            options: [t('unit4.quiz.q2.opt1'), t('unit4.quiz.q2.opt2'), t('unit4.quiz.q2.opt3'), t('unit4.quiz.q2.opt4')],
-            correctIndex: 2,
-          },
-          {
-            question: t('unit4.quiz.q3'),
-            options: [t('unit4.quiz.q3.opt1'), t('unit4.quiz.q3.opt2'), t('unit4.quiz.q3.opt3'), t('unit4.quiz.q3.opt4')],
-            correctIndex: 2,
-          },
-          {
-            question: t('unit4.quiz.q4'),
-            options: [t('unit4.quiz.q4.opt1'), t('unit4.quiz.q4.opt2'), t('unit4.quiz.q4.opt3'), t('unit4.quiz.q4.opt4')],
-            correctIndex: 1,
-          },
-          {
-            question: t('unit4.quiz.q5'),
-            options: [t('unit4.quiz.q5.opt1'), t('unit4.quiz.q5.opt2'), t('unit4.quiz.q5.opt3'), t('unit4.quiz.q5.opt4')],
-            correctIndex: 1,
-          },
-        ]}
-      />
+      <UnitQuiz unitId="unit4" questions={quizQuestions} />
 
       {/* Quick Summary */}
-      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" {...GSAP_REVEAL_STYLE}>
         <h3 className="text-2xl md:text-3xl font-black text-white mb-6">{t('unit4.summary')}</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-start">
           <div className="bg-white/5 rounded-xl p-4">

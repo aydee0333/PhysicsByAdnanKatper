@@ -1,11 +1,142 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import {
   RotateCcw, FlaskConical, Droplets, Waves, Wind,
   Atom
 } from 'lucide-react';
 import { useT } from '../../i18n/LanguageContext';
+import { GSAP_REVEAL_STYLE } from '../../utils/styles';
 import Section from '../Section';
 import UnitQuiz from '../UnitQuiz';
+
+/* ─── STREAMLINE FLOW VISUALIZATION ─── */
+function StreamlineFlowSim() {
+  const [flowRate, setFlowRate] = useState(5);
+  const [turbulent, setTurbulent] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const particlesRef = useRef<{ x: number; y: number; speed: number }[]>([]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+
+    // Initialize particles
+    if (particlesRef.current.length === 0) {
+      for (let i = 0; i < 60; i++) {
+        particlesRef.current.push({ x: Math.random() * w, y: 60 + Math.random() * 160, speed: 1 + Math.random() * 2 });
+      }
+    }
+
+    const narrowX = w * 0.4, narrowW = w * 0.2;
+    const wideH = 160, narrowH = 60;
+    const pipeY = 60;
+
+    const getPipeHeight = (x: number) => {
+      if (x < narrowX) return wideH;
+      if (x < narrowX + narrowW) {
+        const t = (x - narrowX) / narrowW;
+        return wideH - (wideH - narrowH) * Math.sin(t * Math.PI);
+      }
+      return wideH;
+    };
+
+    const draw = () => {
+      animRef.current = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, w, h);
+
+      // Pipe outline
+      ctx.fillStyle = 'rgba(6,182,212,0.06)';
+      ctx.beginPath();
+      ctx.moveTo(20, pipeY); ctx.lineTo(w - 20, pipeY);
+      ctx.lineTo(w - 20, pipeY + wideH); ctx.lineTo(20, pipeY + wideH);
+      ctx.closePath(); ctx.fill();
+
+      // Narrow section highlight
+      ctx.fillStyle = 'rgba(245,158,11,0.08)';
+      const nh = getPipeHeight(narrowX + narrowW / 2);
+      ctx.fillRect(narrowX, pipeY + (wideH - nh) / 2, narrowW, nh);
+
+      // Pipe walls
+      ctx.strokeStyle = 'rgba(6,182,212,0.4)'; ctx.lineWidth = 2;
+      // Top wall
+      ctx.beginPath(); ctx.moveTo(20, pipeY);
+      for (let x = 20; x <= w - 20; x += 5) {
+        const ph = getPipeHeight(x);
+        ctx.lineTo(x, pipeY + (wideH - ph) / 2);
+      }
+      ctx.stroke();
+      // Bottom wall
+      ctx.beginPath(); ctx.moveTo(20, pipeY + wideH);
+      for (let x = 20; x <= w - 20; x += 5) {
+        const ph = getPipeHeight(x);
+        ctx.lineTo(x, pipeY + wideH - (wideH - ph) / 2);
+      }
+      ctx.stroke();
+
+      // Update & draw particles
+      particlesRef.current.forEach(p => {
+        const ph = getPipeHeight(p.x);
+        const topY = pipeY + (wideH - ph) / 2;
+        const botY = pipeY + wideH - (wideH - ph) / 2;
+        const speedMult = (wideH / ph) * flowRate * 0.3;
+
+        p.x += speedMult;
+        if (turbulent) p.y += (Math.random() - 0.5) * 4;
+
+        if (p.x > w - 20) { p.x = 20; p.y = pipeY + 20 + Math.random() * (wideH - 40); }
+        if (p.y < topY + 5) p.y = topY + 5;
+        if (p.y > botY - 5) p.y = botY - 5;
+
+        // Color by speed
+        const t = Math.min(speedMult / (flowRate * 1.5), 1);
+        const r = Math.round(6 + t * 239), g = Math.round(182 - t * 24), b = Math.round(212 - t * 101);
+        ctx.fillStyle = `rgba(${r},${g},${b},0.7)`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
+      });
+
+      // Labels
+      ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.font = '11px Poppins'; ctx.textAlign = 'center';
+      ctx.fillText('Wide Section', 100, pipeY - 10);
+      ctx.fillText('Narrow Section', narrowX + narrowW / 2, pipeY - 10);
+      ctx.fillText('Wide Section', w - 100, pipeY - 10);
+
+      // Velocity labels
+      const vWide = flowRate;
+      const vNarrow = (wideH / narrowH) * flowRate;
+      ctx.fillStyle = '#06b6d4'; ctx.font = 'bold 11px Poppins';
+      ctx.fillText(`v = ${vWide.toFixed(1)}`, 100, pipeY + wideH + 20);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillText(`v = ${vNarrow.toFixed(1)}`, narrowX + narrowW / 2, pipeY + wideH + 20);
+
+      // Continuity equation
+      ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '10px Poppins';
+      ctx.fillText(`A₁v₁ = A₂v₂ → ${vWide.toFixed(1)} × Wide = ${vNarrow.toFixed(1)} × Narrow`, w / 2, h - 15);
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animRef.current);
+  }, [flowRate, turbulent]);
+
+  return (
+    <div>
+      <div className="flex gap-3 mb-4">
+        <div className="flex-1">
+          <label className="text-gray-400 text-sm block mb-2">Flow Rate: {flowRate}</label>
+          <input type="range" min={1} max={15} value={flowRate} onChange={e => setFlowRate(Number(e.target.value))} className="w-full accent-brand-cyan" />
+        </div>
+        <button onClick={() => setTurbulent(!turbulent)} className={`px-4 py-2 rounded-xl text-sm font-semibold border self-end transition-all ${turbulent ? 'bg-brand-rose/20 text-brand-rose border-brand-rose/30' : 'glass-card text-gray-400 border-white/10'}`}>
+          {turbulent ? '🌀 Turbulent' : '〰️ Laminar'}
+        </button>
+      </div>
+      <div className="bg-brand-dark/60 rounded-2xl overflow-hidden border border-white/5 mb-4">
+        <canvas ref={canvasRef} width={500} height={260} className="w-full" style={{ maxWidth: 500, margin: '0 auto', display: 'block' }} />
+      </div>
+    </div>
+  );
+}
 
 /* ═══ 1. PARTICLE ANIMATION ═══ */
 function ParticleAnimation() {
@@ -331,8 +462,159 @@ function HookeLawExp() {
 }
 
 /* ═══ MAIN UNIT 7 CONTENT ═══ */
+/* ─── BERNOULLI'S PRINCIPLE SIMULATOR ─── */
+function BernoulliSim() {
+  const [constriction, setConstriction] = useState(40);
+  const [flowSpeed, setFlowSpeed] = useState(50);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const particlesRef = useRef<{ x: number; y: number; vx: number }[]>([]);
+
+  // Initialize particles
+  useEffect(() => {
+    particlesRef.current = Array.from({ length: 60 }, () => ({
+      x: Math.random() * 500,
+      y: 60 + Math.random() * 120,
+      vx: 0,
+    }));
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+
+    const draw = () => {
+      animRef.current = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, w, h);
+
+      const pipeY = h / 2;
+      const pipeH = 140;
+      const narrowW = 120;
+      const narrowX = w / 2 - narrowW / 2;
+      const narrowH = pipeH * (1 - constriction / 100);
+      const speed = flowSpeed / 50;
+
+      // Pipe walls
+      ctx.strokeStyle = 'rgba(6,182,212,0.4)'; ctx.lineWidth = 2;
+      // Top wall
+      ctx.beginPath(); ctx.moveTo(0, pipeY - pipeH / 2);
+      ctx.lineTo(narrowX, pipeY - pipeH / 2);
+      ctx.quadraticCurveTo(narrowX + 20, pipeY - narrowH / 2, narrowX + 30, pipeY - narrowH / 2);
+      ctx.lineTo(narrowX + narrowW - 30, pipeY - narrowH / 2);
+      ctx.quadraticCurveTo(narrowX + narrowW - 20, pipeY - pipeH / 2, narrowX + narrowW, pipeY - pipeH / 2);
+      ctx.lineTo(w, pipeY - pipeH / 2); ctx.stroke();
+      // Bottom wall
+      ctx.beginPath(); ctx.moveTo(0, pipeY + pipeH / 2);
+      ctx.lineTo(narrowX, pipeY + pipeH / 2);
+      ctx.quadraticCurveTo(narrowX + 20, pipeY + narrowH / 2, narrowX + 30, pipeY + narrowH / 2);
+      ctx.lineTo(narrowX + narrowW - 30, pipeY + narrowH / 2);
+      ctx.quadraticCurveTo(narrowX + narrowW - 20, pipeY + pipeH / 2, narrowX + narrowW, pipeY + pipeH / 2);
+      ctx.lineTo(w, pipeY + pipeH / 2); ctx.stroke();
+
+      // Flow particles
+      const particles = particlesRef.current;
+      particles.forEach(p => {
+        // Compute local pipe height
+        let localH = pipeH;
+        if (p.x > narrowX && p.x < narrowX + narrowW) {
+          localH = narrowH;
+        }
+        const speedMult = pipeH / localH * speed;
+        p.x += speedMult * 2;
+        if (p.x > w + 10) { p.x = -10; p.y = pipeY + (Math.random() - 0.5) * pipeH * 0.8; }
+
+        // Keep inside pipe
+        const halfH = localH / 2;
+        if (p.y < pipeY - halfH + 5) p.y = pipeY - halfH + 5;
+        if (p.y > pipeY + halfH - 5) p.y = pipeY + halfH - 5;
+
+        // Color based on speed
+        const speedRatio = speedMult / (speed * pipeH / narrowH);
+        const r = Math.floor(6 + speedRatio * 238);
+        const g = Math.floor(182 - speedRatio * 119);
+        const b = Math.floor(212 - speedRatio * 161);
+        ctx.fillStyle = `rgba(${r},${g},${b},0.6)`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
+      });
+
+      // Pressure bars
+      const wideP = 100;
+      const narrowP = wideP * (narrowH / pipeH) ** 2;
+      // Wide section bar
+      ctx.fillStyle = 'rgba(6,182,212,0.3)';
+      ctx.fillRect(20, pipeY + pipeH / 2 + 15, 60, -wideP * 0.5);
+      ctx.fillStyle = '#06b6d4'; ctx.font = '10px Poppins'; ctx.textAlign = 'center';
+      ctx.fillText('P₁ HIGH', 50, pipeY + pipeH / 2 + 30);
+      // Narrow section bar
+      ctx.fillStyle = 'rgba(244,63,94,0.3)';
+      ctx.fillRect(w / 2 - 30, pipeY + pipeH / 2 + 15, 60, -narrowP * 0.5);
+      ctx.fillStyle = '#f43f5e'; ctx.fillText('P₂ LOW', w / 2, pipeY + pipeH / 2 + 30);
+
+      // Section labels
+      ctx.fillStyle = '#94a3b8'; ctx.font = '11px Poppins'; ctx.textAlign = 'center';
+      ctx.fillText('Wide Section', 80, pipeY - pipeH / 2 - 10);
+      ctx.fillText('Narrow Section', w / 2, pipeY - narrowH / 2 - 10);
+
+      // Velocity arrows
+      ctx.strokeStyle = 'rgba(132,204,22,0.5)'; ctx.lineWidth = 1.5;
+      // Slow arrow (wide)
+      ctx.beginPath(); ctx.moveTo(50, pipeY); ctx.lineTo(90, pipeY); ctx.stroke();
+      ctx.fillStyle = '#84cc16'; ctx.font = '10px Poppins'; ctx.fillText('v₁ (slow)', 70, pipeY - 8);
+      // Fast arrow (narrow)
+      ctx.beginPath(); ctx.moveTo(w / 2 - 20, pipeY); ctx.lineTo(w / 2 + 30, pipeY); ctx.stroke();
+      ctx.fillText('v₂ (fast)', w / 2 + 5, pipeY - 8);
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animRef.current);
+  }, [constriction, flowSpeed]);
+
+  const v1 = flowSpeed / 50;
+  const areaRatio = 1 / (1 - constriction / 100);
+  const v2 = v1 * areaRatio;
+  const p1 = 100;
+  const p2 = p1 - 0.5 * (v2 * v2 - v1 * v1) * 50;
+
+  return (
+    <div>
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div><label className="text-gray-400 text-xs block mb-1">Constriction: {constriction}%</label><input type="range" min={10} max={80} step={5} value={constriction} onChange={e => setConstriction(Number(e.target.value))} className="w-full accent-brand-pink" /></div>
+        <div><label className="text-gray-400 text-xs block mb-1">Flow Speed: {flowSpeed}%</label><input type="range" min={10} max={100} step={5} value={flowSpeed} onChange={e => setFlowSpeed(Number(e.target.value))} className="w-full accent-brand-cyan" /></div>
+      </div>
+      <div className="bg-brand-dark/60 rounded-2xl overflow-hidden border border-white/5 mb-4">
+        <canvas ref={canvasRef} width={500} height={240} className="w-full" style={{ maxWidth: 500, margin: '0 auto', display: 'block' }} />
+      </div>
+      <div className="grid grid-cols-4 gap-3 mb-4">
+        <div className="formula-box rounded-xl p-3 text-center"><p className="text-gray-400 text-xs uppercase">v₁</p><p className="text-lg font-space font-bold text-brand-cyan">{v1.toFixed(2)} m/s</p></div>
+        <div className="formula-box rounded-xl p-3 text-center"><p className="text-gray-400 text-xs uppercase">v₂</p><p className="text-lg font-space font-bold text-brand-rose">{v2.toFixed(2)} m/s</p></div>
+        <div className="formula-box rounded-xl p-3 text-center"><p className="text-gray-400 text-xs uppercase">P₁</p><p className="text-lg font-space font-bold text-brand-lime">{p1.toFixed(0)} Pa</p></div>
+        <div className="formula-box rounded-xl p-3 text-center"><p className="text-gray-400 text-xs uppercase">P₂</p><p className="text-lg font-space font-bold text-brand-amber">{Math.max(0, p2).toFixed(0)} Pa</p></div>
+      </div>
+      <div className="formula-box rounded-xl p-4 text-center">
+        <p className="text-lg font-space font-bold text-white">P₁ + ½ρv₁² = P₂ + ½ρv₂²</p>
+        <p className="text-gray-400 text-sm mt-1">Bernoulli's Principle: Where speed is high, pressure is low</p>
+      </div>
+      <div className="grid grid-cols-3 gap-2 mt-4">
+        {[{ label: 'Airplane Wing', desc: 'Faster air above = lower pressure = lift' }, { label: 'Perfume Spray', desc: 'Fast air over tube = low pressure draws liquid up' }, { label: 'Shower Curtain', desc: 'Fast moving air inside = low pressure pulls curtain in' }].map(e => (
+          <div key={e.label} className="glass-card rounded-xl p-3"><p className="text-brand-cyan font-bold text-xs mb-1">{e.label}</p><p className="text-gray-400 text-xs">{e.desc}</p></div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Unit7Content() {
   const t = useT();
+  const quizQuestions = useMemo(() => [
+    { question: t('unit7.quiz.q1'), options: [t('unit7.quiz.q1.opt1'), t('unit7.quiz.q1.opt2'), t('unit7.quiz.q1.opt3'), t('unit7.quiz.q1.opt4')], correctIndex: 1 },
+    { question: t('unit7.quiz.q2'), options: [t('unit7.quiz.q2.opt1'), t('unit7.quiz.q2.opt2'), t('unit7.quiz.q2.opt3'), t('unit7.quiz.q2.opt4')], correctIndex: 1 },
+    { question: t('unit7.quiz.q3'), options: [t('unit7.quiz.q3.opt1'), t('unit7.quiz.q3.opt2'), t('unit7.quiz.q3.opt3'), t('unit7.quiz.q3.opt4')], correctIndex: 1 },
+    { question: t('unit7.quiz.q4'), options: [t('unit7.quiz.q4.opt1'), t('unit7.quiz.q4.opt2'), t('unit7.quiz.q4.opt3'), t('unit7.quiz.q4.opt4')], correctIndex: 2 },
+    { question: t('unit7.quiz.q5'), options: [t('unit7.quiz.q5.opt1'), t('unit7.quiz.q5.opt2'), t('unit7.quiz.q5.opt3'), t('unit7.quiz.q5.opt4')], correctIndex: 1 },
+  ], [t]);
   return (
     <div>
       <Section title={t('unit7.kineticMolecular')} icon={<Atom size={24} />} color="brand-cyan">
@@ -386,20 +668,32 @@ export default function Unit7Content() {
         <ViscositySim />
       </Section>
 
+      {/* BERNOULLI'S PRINCIPLE */}
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
+        <h2 className="text-3xl font-black mb-2">Bernoulli's Principle</h2>
+        <p className="text-gray-400 mb-4">Where fluid speed is high, pressure is low — and vice versa.</p>
+        <div className="formula-box rounded-2xl p-5 text-center mb-6">
+          <p className="text-xl font-space font-bold text-white">P + ½ρv² + ρgh = constant</p>
+        </div>
+        <h4 className="text-lg font-bold text-white mb-4">Venturi Tube Demonstrator</h4>
+        <BernoulliSim />
+      </div>
+
+      {/* STREAMLINE FLOW */}
+      <div className="unit-detail-reveal glass-card rounded-3xl p-8" {...GSAP_REVEAL_STYLE}>
+        <h2 className="text-3xl font-black mb-2">Streamline Flow Visualization</h2>
+        <p className="text-gray-400 mb-6">Watch how fluid speeds up in narrow sections and slows in wide sections — continuity in action.</p>
+        <StreamlineFlowSim />
+      </div>
+
       <Section title={t('unit7.hookeLawExp')} icon={<FlaskConical size={24} />} color="brand-lime">
         <h4 className="text-lg font-bold text-white mb-4">{t('unit7.plotGraphTitle')}</h4>
         <HookeLawExp />
       </Section>
 
-      <UnitQuiz unitId="unit7" questions={[
-        { question: t('unit7.quiz.q1'), options: [t('unit7.quiz.q1.opt1'), t('unit7.quiz.q1.opt2'), t('unit7.quiz.q1.opt3'), t('unit7.quiz.q1.opt4')], correctIndex: 1 },
-        { question: t('unit7.quiz.q2'), options: [t('unit7.quiz.q2.opt1'), t('unit7.quiz.q2.opt2'), t('unit7.quiz.q2.opt3'), t('unit7.quiz.q2.opt4')], correctIndex: 1 },
-        { question: t('unit7.quiz.q3'), options: [t('unit7.quiz.q3.opt1'), t('unit7.quiz.q3.opt2'), t('unit7.quiz.q3.opt3'), t('unit7.quiz.q3.opt4')], correctIndex: 1 },
-        { question: t('unit7.quiz.q4'), options: [t('unit7.quiz.q4.opt1'), t('unit7.quiz.q4.opt2'), t('unit7.quiz.q4.opt3'), t('unit7.quiz.q4.opt4')], correctIndex: 2 },
-        { question: t('unit7.quiz.q5'), options: [t('unit7.quiz.q5.opt1'), t('unit7.quiz.q5.opt2'), t('unit7.quiz.q5.opt3'), t('unit7.quiz.q5.opt4')], correctIndex: 1 },
-      ]} />
+      <UnitQuiz unitId="unit7" questions={quizQuestions} />
 
-      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" style={{ opacity: 0, transform: 'translateY(60px)' }}>
+      <div className="unit-detail-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center mb-16" {...GSAP_REVEAL_STYLE}>
         <h3 className="text-2xl md:text-3xl font-black text-white mb-6">{t('unit7.summary')}</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-start">
           <div className="bg-white/5 rounded-xl p-4"><p className="text-brand-purple font-bold text-sm mb-1">{t('unit7.sumStatesOfMatter')}</p><p className="text-gray-400 text-xs">{t('unit7.sumStatesOfMatterDesc')}</p></div>

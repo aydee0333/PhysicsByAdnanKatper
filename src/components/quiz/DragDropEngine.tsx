@@ -270,7 +270,7 @@ function DragDropQuestionView({
             )}
           >
             {Object.values(results).every(Boolean) ? <Check size={16} /> : <X size={16} />}
-            {Object.values(results).filter(Boolean).length}/{question.items.length} correct
+            {Object.values(results).filter(Boolean).length}/{question.items.length} {qs('correct').toLowerCase()}
           </div>
 
           {showExplanations && question.explanation && (
@@ -514,7 +514,7 @@ function MatchQuestionView({
                 )}
               >
                 {correctCount === question.pairs.length ? <Check size={16} /> : <X size={16} />}
-                {correctCount}/{question.pairs.length} correct
+                {correctCount}/{question.pairs.length} {qs('correct').toLowerCase()}
               </div>
             );
           })()}
