@@ -100,6 +100,7 @@ import StaticSlidingFrictionSim from '../simulations/StaticSlidingFrictionSim';
 import MatchingGame from '../simulations/MatchingGame';
 import TransverseLongitudinalSim from '../simulations/TransverseLongitudinalSim';
 import WaveBehaviorsSim from '../simulations/WaveBehaviorsSim';
+import WaveInRopeSim from '../simulations/WaveInRopeSim';
 
 // Registry of interactive components that can be referenced from content files.
 export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string, unknown>>> = {
@@ -204,4 +205,5 @@ export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string,
   MatchingGame,
   TransverseLongitudinalSim,
   WaveBehaviorsSim,
+  WaveInRopeSim,
 };
