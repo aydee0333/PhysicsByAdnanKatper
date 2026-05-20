@@ -75,6 +75,31 @@ import SeeSawSim from '../simulations/SeeSawSim';
 import ForceCombineSim from '../simulations/ForceCombineSim';
 import BlockStabilitySim from '../simulations/BlockStabilitySim';
 import BalancedBeamSim from '../simulations/BalancedBeamSim';
+import MotionTypesAnimation from '../simulations/MotionTypesAnimation';
+import DistanceDisplacementExplainer from '../simulations/DistanceDisplacementExplainer';
+import SpeedVelocityComparison from '../simulations/SpeedVelocityComparison';
+import UniformMotionExplainer from '../simulations/UniformMotionExplainer';
+import VectorRepresentation from '../simulations/VectorRepresentation';
+import DistanceTimeGraph from '../simulations/DistanceTimeGraph';
+import VelocityTimeGraphAnalyzer from '../simulations/VelocityTimeGraphAnalyzer';
+import EquationsOfMotionCalc from '../simulations/EquationsOfMotionCalc';
+import RelativeMotionSim from '../simulations/RelativeMotionSim';
+import TickerTapeSimulation from '../simulations/TickerTapeSimulation';
+import PushPullSim from '../simulations/PushPullSim';
+import CoinCardExperiment from '../simulations/CoinCardExperiment';
+import FmaCalculator from '../simulations/FmaCalculator';
+import ActionReactionGame from '../simulations/ActionReactionGame';
+import WeightCalculator from '../simulations/WeightCalculator';
+import CollisionSim from '../simulations/CollisionSim';
+import FrictionSlopeSim from '../simulations/FrictionSlopeSim';
+import CircularMotionSim from '../simulations/CircularMotionSim';
+import InertiaRaceSim from '../simulations/InertiaRaceSim';
+import ImpulseMomentumSim from '../simulations/ImpulseMomentumSim';
+import FreeBodyDiagramSim from '../simulations/FreeBodyDiagramSim';
+import StaticSlidingFrictionSim from '../simulations/StaticSlidingFrictionSim';
+import MatchingGame from '../simulations/MatchingGame';
+import TransverseLongitudinalSim from '../simulations/TransverseLongitudinalSim';
+import WaveBehaviorsSim from '../simulations/WaveBehaviorsSim';
 
 // Registry of interactive components that can be referenced from content files.
 export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string, unknown>>> = {
@@ -154,4 +179,29 @@ export const INTERACTIVE_COMPONENTS: Record<string, ComponentType<Record<string,
   ForceCombineSim,
   BlockStabilitySim,
   BalancedBeamSim,
+  MotionTypesAnimation,
+  DistanceDisplacementExplainer,
+  SpeedVelocityComparison,
+  UniformMotionExplainer,
+  VectorRepresentation,
+  DistanceTimeGraph,
+  VelocityTimeGraphAnalyzer,
+  EquationsOfMotionCalc,
+  RelativeMotionSim,
+  TickerTapeSimulation,
+  PushPullSim,
+  CoinCardExperiment,
+  FmaCalculator,
+  ActionReactionGame,
+  WeightCalculator,
+  CollisionSim,
+  FrictionSlopeSim,
+  CircularMotionSim,
+  InertiaRaceSim,
+  ImpulseMomentumSim,
+  FreeBodyDiagramSim,
+  StaticSlidingFrictionSim,
+  MatchingGame,
+  TransverseLongitudinalSim,
+  WaveBehaviorsSim,
 };
