@@ -10,6 +10,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { LanguageProvider } from './i18n/LanguageContext';
+import TMSOverlay from './i18n/tms/components/TMSOverlay';
 
 function Shell() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function Shell() {
         </Routes>
       </main>
       {!isLogin && <Footer />}
+      <TMSOverlay />
     </div>
   );
 }

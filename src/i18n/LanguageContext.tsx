@@ -1,11 +1,17 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { LANG_META, translate, type Lang } from './translations';
+import { createContext, useContext, useEffect, useMemo, useState, useCallback, type ReactNode } from 'react';
+import { LANG_META, type Lang } from './translations';
+import { translateWithTMS } from './tms/translationEngine';
+import { loadAdminState, saveAdminState, onStorageChange } from './tms/persistence';
+import type { AdminState } from './tms/types';
 
 interface LanguageContextValue {
   lang: Lang;
   setLang: (l: Lang) => void;
   t: (key: string, fallback?: string) => string;
   dir: 'ltr' | 'rtl';
+  adminState: AdminState;
+  toggleAdmin: () => void;
+  toggleGlossary: () => void;
 }
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
@@ -23,14 +29,49 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   });
 
+  // Bumped whenever an override is saved/removed — forces t() to re-memoize
+  const [overrideVersion, setOverrideVersion] = useState(0);
+
+  useEffect(() => {
+    const handler = () => setOverrideVersion((v) => v + 1);
+    window.addEventListener('tms:override-updated', handler);
+    return () => window.removeEventListener('tms:override-updated', handler);
+  }, []);
+
+  // TMS admin state
+  const [adminState, setAdminState] = useState<AdminState>(loadAdminState);
+
+  // Keep admin state in sync across tabs
+  useEffect(() => {
+    return onStorageChange(() => {
+      setAdminState(loadAdminState());
+    });
+  }, []);
+
   const setLang = (l: Lang) => {
     setLangState(l);
-    try { 
-      window.localStorage.setItem(STORAGE_KEY, l); 
-    } catch { 
+    try {
+      window.localStorage.setItem(STORAGE_KEY, l);
+    } catch {
       console.warn('Failed to save language preference');
     }
   };
+
+  const toggleAdmin = useCallback(() => {
+    setAdminState((prev) => {
+      const next = { ...prev, enabled: !prev.enabled };
+      saveAdminState(next);
+      return next;
+    });
+  }, []);
+
+  const toggleGlossary = useCallback(() => {
+    setAdminState((prev) => {
+      const next = { ...prev, showGlossary: !prev.showGlossary };
+      saveAdminState(next);
+      return next;
+    });
+  }, []);
 
   const dir = LANG_META[lang].dir;
 
@@ -43,12 +84,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [lang, dir]);
 
   // Memoize the context value to prevent unnecessary re-renders
+  // overrideVersion dependency ensures t() re-memoizes after every override save/remove
   const value = useMemo<LanguageContextValue>(() => ({
     lang,
     setLang,
-    t: (key: string, fallback?: string) => translate(lang, key, fallback),
+    t: (key: string, fallback?: string) => translateWithTMS(lang, key, fallback),
     dir,
-  }), [lang, dir]);
+    adminState,
+    toggleAdmin,
+    toggleGlossary,
+  }), [lang, dir, adminState, toggleAdmin, toggleGlossary, overrideVersion]);
 
   return (
     <LanguageContext.Provider value={value}>

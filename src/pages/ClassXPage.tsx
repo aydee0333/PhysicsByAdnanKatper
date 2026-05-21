@@ -7,7 +7,7 @@ import {
   Waves, Volume2, Eye, Zap, Battery,
   Magnet, Cpu, Radio, Atom
 } from 'lucide-react';
-import { useT } from '../i18n/LanguageContext';
+import EditableTranslation from '../i18n/tms/components/EditableTranslation';
 
 const unitIcons = [Waves, Volume2, Eye, Zap, Battery, Magnet, Cpu, Radio, Atom];
 const unitColors = [
@@ -66,7 +66,6 @@ const colorHexMap: Record<string, string> = {
 
 export default function ClassXPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const t = useT();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -115,17 +114,10 @@ export default function ClassXPage() {
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-6 float-anim">
             <span className="w-2 h-2 rounded-full bg-brand-lime pulse-glow" />
-            <span className="text-xs font-medium text-brand-pink tracking-widest uppercase">{t('classX.badge')}</span>
+            <EditableTranslation tKey="classX.badge" as="span" className="text-xs font-medium text-brand-pink tracking-widest uppercase" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
-            {t('classX.title').split(' ').map((word, i) =>
-              word === 'X' ? <span key={i} className="gradient-text">{word} </span> : <span key={i}>{word} </span>
-            )}
-          </h1>
-          <p
-            className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: t('classX.subtitle') }}
-          />
+          <EditableTranslation tKey="classX.title" as="h1" className="text-5xl md:text-7xl font-black text-white mb-4" />
+          <EditableTranslation tKey="classX.subtitle" as="p" className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed" html />
         </div>
       </section>
 
@@ -133,21 +125,14 @@ export default function ClassXPage() {
       <section className="relative py-20 md:py-28 grid-bg">
         <div className="max-w-6xl mx-auto px-6">
           <div className="x-reveal text-center mb-16" {...GSAP_REVEAL_STYLE}>
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-              {t('classX.sectionTitle').split(' ').map((word, i) =>
-                word === 'Physics' || word === 'فزڪس' ? <span key={i} className="gradient-text-amber">{word} </span> : <span key={i}>{word} </span>
-              )}
-            </h2>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">{t('classX.sectionDesc')}</p>
+            <EditableTranslation tKey="classX.sectionTitle" as="h2" className="text-3xl md:text-5xl font-black text-white mb-4" />
+            <EditableTranslation tKey="classX.sectionDesc" as="p" className="text-gray-400 text-lg max-w-xl mx-auto" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {Array.from({ length: 9 }, (_, idx) => {
               const num = String(idx + 1).padStart(2, '0');
               const Icon = unitIcons[idx];
-              const title = t(`classX.u${idx + 1}.title`);
-              const topicKeys = ['t1', 't2', 't3', 't4'];
-              const topics = topicKeys.map(tk => t(`classX.u${idx + 1}.${tk}`));
 
               return (
                 <Link
@@ -166,22 +151,20 @@ export default function ClassXPage() {
                       </div>
                       <div>
                         <span className={`text-xs font-bold uppercase tracking-widest ${unitTextColors[idx]} mb-1 block`}>
-                          {t('classX.unitLabel')} {num}
+                          <EditableTranslation tKey="classX.unitLabel" as="span" /> {num}
                         </span>
-                        <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">{title}</h3>
+                        <EditableTranslation tKey={`classX.u${idx + 1}.title`} as="h3" className="text-xl md:text-2xl font-bold text-white leading-tight" />
                       </div>
                     </div>
 
                     <div className="flex flex-wrap gap-2 mt-4">
-                      {topics.map((topic, ti) => (
-                        <span key={ti} className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5">
-                          {topic}
-                        </span>
+                      {['t1', 't2', 't3', 't4'].map((tk, ti) => (
+                        <EditableTranslation key={ti} tKey={`classX.u${idx + 1}.${tk}`} as="span" className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5" />
                       ))}
                     </div>
 
                     <div className="mt-6 flex items-center gap-2">
-                      <span className={`${unitTextColors[idx]} font-semibold text-sm`}>{t('classX.exploreBtn')}</span>
+                      <EditableTranslation tKey="classX.exploreBtn" as="span" className={`${unitTextColors[idx]} font-semibold text-sm`} />
                       <svg className={`w-4 h-4 ${unitTextColors[idx]}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>

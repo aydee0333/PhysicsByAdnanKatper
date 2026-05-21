@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Atom, LogOut, User, Home, BookOpen, FlaskConical, Search } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import { useT, useLang } from '../i18n/LanguageContext';
+import EditableTranslation from '../i18n/tms/components/EditableTranslation';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchModal from './search/SearchModal';
 import { cn } from '../utils/cn';
@@ -135,7 +136,7 @@ export default function Navbar() {
             aria-label={t('search.open')}
           >
             <Search size={14} />
-            <span className="hidden lg:inline">{t('search.open')}</span>
+            <EditableTranslation tKey="search.open" as="span" className="hidden lg:inline" />
             <kbd className="hidden lg:inline px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] text-gray-500 ms-1">Ctrl+K</kbd>
           </button>
           <LanguageSwitcher variant="compact" />
@@ -151,7 +152,7 @@ export default function Navbar() {
                 title={t('nav.logout')}
               >
                 <LogOut size={14} />
-                <span className="hidden xl:inline">{t('nav.logout')}</span>
+                <EditableTranslation tKey="nav.logout" as="span" className="hidden xl:inline" />
               </button>
             </>
           )}
@@ -262,7 +263,7 @@ export default function Navbar() {
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-rose/10 border border-brand-rose/30 text-brand-rose text-sm font-bold transition-all hover:bg-brand-rose/20"
             >
               <LogOut size={16} />
-              {t('nav.logout')}
+              <EditableTranslation tKey="nav.logout" as="span" />
             </button>
           </div>
         )}

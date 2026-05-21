@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { List, X, Check, ChevronUp } from 'lucide-react';
 import { useProgress } from '../hooks/useProgress';
 import { useT } from '../i18n/LanguageContext';
+import EditableTranslation from '../i18n/tms/components/EditableTranslation';
 import { cn } from '../utils/cn';
 
 interface Section {
@@ -62,7 +63,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
       <aside className="hidden xl:block fixed right-[max(1rem,calc((100vw-80rem)/2+1rem))] top-24 w-56 z-30">
         <div className="glass-card rounded-2xl p-4 border border-white/5">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('common.contents')}</span>
+            <EditableTranslation tKey="common.contents" as="span" className="text-xs font-bold text-gray-400 uppercase tracking-widest" />
             <span className="text-xs font-bold text-brand-cyan tabular-nums">{progress}%</span>
           </div>
 
@@ -161,7 +162,7 @@ export default function UnitSidebar({ sections, unitId }: UnitSidebarProps) {
 
           {/* Header */}
           <div className="flex items-center justify-between px-5 pb-3">
-            <h3 className="text-sm font-bold text-white">{t('common.contents')}</h3>
+            <EditableTranslation tKey="common.contents" as="h3" className="text-sm font-bold text-white" />
             <span className="text-xs text-brand-cyan font-bold">{progress}%</span>
           </div>
 

@@ -9,13 +9,48 @@
 
 ## File Structure
 ```
-src/i18n/translations/
-├── index.ts      # Merges all modules, exports translate() and LANG_META
-├── common.ts     # Shared strings (nav, login, footer, homepage)
-├── unit1.ts      # Unit 1 translations
-├── unit2.ts      # Unit 2 translations
-└── ...           # One file per unit
+src/i18n/
+├── LanguageContext.tsx        # React context, useLang() / useT() hooks
+├── languageUtils.ts           # RTL, number formatting, font helpers
+├── translations/
+│   ├── index.ts               # Merges all modules, exports translate() and LANG_META
+│   ├── common.ts              # Shared strings (nav, login, footer, homepage)
+│   ├── unit1.ts ... unit9.ts  # Per-unit translation dictionaries
+└── tms/                       # Translation Management System
+    ├── index.ts               # Public API barrel export
+    ├── types.ts               # TypeScript types
+    ├── translationEngine.ts   # Core translateWithTMS() with override chain
+    ├── overrideManager.ts     # localStorage-based override CRUD
+    ├── translationMemory.ts   # Correction history tracking
+    ├── glossary.ts            # Physics terminology glossary
+    ├── persistence.ts         # localStorage helpers + cross-tab sync
+    ├── overrides/
+    │   ├── physics_terms.json # Physics glossary (~150 terms across 8 categories)
+    │   ├── ur_overrides.json  # Pre-baked Urdu corrections
+    │   └── sd_overrides.json  # Pre-baked Sindhi corrections
+    ├── providers/
+    │   ├── index.ts           # Provider registry (pluggable)
+    │   ├── localProvider.ts   # Wraps TRANSLATIONS dict
+    │   └── googleTranslateProvider.ts  # Stub for Google Translate API
+    └── components/
+        ├── TMSOverlay.tsx         # Admin panel with key search + bulk ops
+        ├── AdminToggle.tsx        # Floating admin mode button
+        ├── TranslationEditor.tsx  # Modal for editing translations
+        ├── GlossaryPanel.tsx      # Physics terminology browser
+        └── EditableTranslation.tsx # Inline edit wrapper component
 ```
+
+## Translation Resolution Chain (TMS)
+
+The `translateWithTMS()` function resolves translations in this order:
+
+1. **Override** (localStorage) — highest priority, user/admin corrections
+2. **Translation Memory** — auto-suggests corrections made 2+ times (non-English only)
+3. **Base Translation** — the static `TRANSLATIONS` dictionary from `.ts` files
+4. **Provider Chain** — pluggable providers (local is default; Google Translate is stubbed)
+5. **Fallback** — the provided fallback string, or the raw key itself
+
+This means: **manual overrides always win**. Once you correct a translation through the admin panel, it persists in localStorage and overrides the base translation on every load.
 
 ## Translation File Format
 Each file exports three dictionaries:
@@ -81,6 +116,44 @@ const t = useT();
 return <h1>{t('unitN.title')}</h1>;
 ```
 
+## Admin Panel (TMS)
+
+### How to Use
+
+1. **Login** to the app (credentials in AuthContext)
+2. Click the **gear icon** (bottom-right) to enter Edit Mode
+3. A **Translation Manager** panel appears (top-right) with a search box
+4. **Search** for any translation key or text content across all 3 languages
+5. **Click a result** to open the TranslationEditor modal
+6. **Edit** English, Urdu, and Sindhi values
+7. **Save** — changes persist in localStorage and override base translations
+
+### Inline Editing with EditableTranslation
+
+For components that want inline edit buttons, use the `EditableTranslation` wrapper:
+
+```tsx
+import { EditableTranslation } from '../i18n/tms';
+
+// Instead of:
+<h1>{t('unit1.title')}</h1>
+
+// Use:
+<EditableTranslation tKey="unit1.title" as="h1" />
+```
+
+When admin mode is ON, a small edit pencil icon appears on hover. Clicking it opens the TranslationEditor for that key. When admin mode is OFF, it renders identically to `t()`.
+
+### Bulk Export/Import
+
+- **Export**: Click the download icon in the panel header to export all overrides as JSON
+- **Import**: Click the upload icon to import overrides from a JSON file
+- Supports multiple formats: flat key-value, multi-language objects, and full override store format
+
+### Glossary
+
+Click the "Glossary" button in the admin toggle to browse the physics terminology glossary. Use it to ensure consistent translations of physics terms across all units.
+
 ## Translation Guidelines
 
 ### Do
@@ -89,9 +162,11 @@ return <h1>{t('unitN.title')}</h1>;
 - Reuse existing translated terms from other units
 - Provide meaningful fallback text in English
 - Test RTL layout with Urdu/Sindhi text
+- Use the admin panel to correct translations — corrections persist automatically
+- Check the glossary before translating physics terms
 
 ### Don't
-- Hardcode text in components (always use `t()`)
+- Hardcode text in components (always use `t()` or `EditableTranslation`)
 - Leave empty values in translation dictionaries
 - Mix English text into Urdu/Sindhi translations
 - Use HTML entities in translation values
@@ -102,6 +177,7 @@ When adding new physics terms, check existing translations for consistency:
 - Search existing translation files for the term
 - Use the same Urdu/Sindhi translation across all units
 - For new terms, consult standard physics textbooks in Urdu/Sindhi
+- The glossary (`physics_terms.json`) has ~150 terms across 8 categories
 
 ## RTL Considerations
 - Urdu and Sindhi are RTL languages
@@ -117,3 +193,21 @@ The `translate()` function uses this fallback:
 3. The key string itself (or provided fallback)
 
 This ensures the app never shows blank text even if translations are missing.
+
+## Override System
+
+Overrides are stored in `localStorage` under key `tms_overrides`. They persist across page reloads and sync across browser tabs. The override format is:
+
+```json
+{
+  "lang::key": {
+    "key": "unit1.title",
+    "lang": "ur",
+    "value": "تصحیح شدہ عنوان",
+    "timestamp": 1716300000000,
+    "source": "manual"
+  }
+}
+```
+
+To clear all overrides: use the admin panel or call `clearOverrides()` from the TMS API.

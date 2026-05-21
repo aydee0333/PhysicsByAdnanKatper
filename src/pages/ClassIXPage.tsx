@@ -7,10 +7,9 @@ import {
   Ruler, Move, Gauge, RotateCcw, Magnet,
   Zap, Droplets, Thermometer
 } from 'lucide-react';
-import { useT } from '../i18n/LanguageContext';
+import EditableTranslation from '../i18n/tms/components/EditableTranslation';
 
 export default function ClassIXPage() {
-  const t = useT();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const classIXUnits = [
@@ -162,15 +161,10 @@ export default function ClassIXPage() {
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card mb-6 float-anim">
             <span className="w-2 h-2 rounded-full bg-brand-lime pulse-glow" />
-            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{t('classIX.badge')}</span>
+            <EditableTranslation tKey="classIX.badge" as="span" className="text-xs font-medium text-brand-cyan tracking-widest uppercase" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
-            {t('classIX.title')}
-          </h1>
-          <p 
-            className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: t('classIX.subtitle') }} 
-          />
+          <EditableTranslation tKey="classIX.title" as="h1" className="text-5xl md:text-7xl font-black text-white mb-4" />
+          <EditableTranslation tKey="classIX.subtitle" as="p" className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed" html />
         </div>
       </section>
 
@@ -178,12 +172,8 @@ export default function ClassIXPage() {
       <section className="relative py-20 md:py-28 grid-bg">
         <div className="max-w-6xl mx-auto px-6">
           <div className="ix-reveal text-center mb-16" {...GSAP_REVEAL_STYLE}>
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-              {t('classIX.sectionTitle')}
-            </h2>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">
-              {t('classIX.sectionDesc')}
-            </p>
+            <EditableTranslation tKey="classIX.sectionTitle" as="h2" className="text-3xl md:text-5xl font-black text-white mb-4" />
+            <EditableTranslation tKey="classIX.sectionDesc" as="p" className="text-gray-400 text-lg max-w-xl mx-auto" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -203,23 +193,19 @@ export default function ClassIXPage() {
                       {unit.icon}
                     </div>
                     <div>
-                      <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}>{t('classIX.unitLabel')} {unit.number}</span>
-                      <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">
-                        {t(unit.titleKey)}
-                      </h3>
+                      <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}><EditableTranslation tKey="classIX.unitLabel" as="span" /> {unit.number}</span>
+                      <EditableTranslation tKey={unit.titleKey} as="h3" className="text-xl md:text-2xl font-bold text-white leading-tight" />
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mt-4">
                     {unit.topicsKeys.map((topicKey, idx) => (
-                      <span key={idx} className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5">
-                        {t(topicKey)}
-                      </span>
+                      <EditableTranslation key={idx} tKey={topicKey} as="span" className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5" />
                     ))}
                   </div>
 
                   <div className="mt-6 flex items-center gap-2">
-                    <span className={`${unit.textColor} font-semibold text-sm`}>{t('classIX.exploreBtn')}</span>
+                    <EditableTranslation tKey="classIX.exploreBtn" as="span" className={`${unit.textColor} font-semibold text-sm`} />
                     <svg className={`w-4 h-4 ${unit.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -236,10 +222,8 @@ export default function ClassIXPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="ix-reveal glass-card-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" {...GSAP_REVEAL_STYLE}>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan" />
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-3">{t('classIX.comingSoon')}</h3>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">
-              {t('classIX.comingSoonDesc')}
-            </p>
+            <EditableTranslation tKey="classIX.comingSoon" as="h3" className="text-2xl md:text-3xl font-black text-white mb-3" />
+            <EditableTranslation tKey="classIX.comingSoonDesc" as="p" className="text-gray-400 text-lg max-w-xl mx-auto" />
           </div>
         </div>
       </section>

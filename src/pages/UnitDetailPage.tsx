@@ -6,6 +6,7 @@ import PhysicsBackground from '../components/PhysicsBackground';
 import { BookOpen, AlertTriangle } from 'lucide-react';
 import { useProgress } from '../hooks/useProgress';
 import { useT } from '../i18n/LanguageContext';
+import EditableTranslation from '../i18n/tms/components/EditableTranslation';
 import UnitSidebar from '../components/UnitSidebar';
 import { Breadcrumb, ProgressBar } from '../components/ui';
 
@@ -199,14 +200,14 @@ export default function UnitDetailPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-6">
               <AlertTriangle size={32} className="text-red-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-black text-white mb-3">{t('unitDetail.comingSoon')}</h1>
-            <p className="text-lg text-gray-400 mb-8">{t('unitDetail.comingSoonDesc')}</p>
+            <EditableTranslation tKey="unitDetail.comingSoon" as="h1" className="text-3xl md:text-4xl font-black text-white mb-3" />
+            <EditableTranslation tKey="unitDetail.comingSoonDesc" as="p" className="text-lg text-gray-400 mb-8" />
             <Link
               to={backLink}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-cyan/20 text-brand-cyan font-semibold hover:bg-brand-cyan/30 transition-colors"
             >
               <BookOpen size={18} />
-              {t('nav.home')}
+              <EditableTranslation tKey="nav.home" as="span" />
             </Link>
           </div>
         </div>
@@ -235,7 +236,7 @@ export default function UnitDetailPage() {
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card mb-4">
             <BookOpen size={14} className="text-brand-cyan" />
-            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{classLabel} — {t('classIX.unitLabel')} {unitNumber}</span>
+            <span className="text-xs font-medium text-brand-cyan tracking-widest uppercase">{classLabel} — <EditableTranslation tKey="classIX.unitLabel" as="span" /> {unitNumber}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-3 leading-tight">
@@ -289,8 +290,8 @@ export default function UnitDetailPage() {
           )}
           {!useNewContent && unitNumber && !lazyUnitComponents[unitNumber] && (
             <div className="unit-detail-reveal glass-card-strong rounded-3xl p-10 md:p-12 text-center" {...GSAP_REVEAL_STYLE}>
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-3">{t('unitDetail.comingSoon')}</h2>
-              <p className="text-gray-400 text-base md:text-lg">{t('unitDetail.comingSoonDesc')}</p>
+              <EditableTranslation tKey="unitDetail.comingSoon" as="h2" className="text-2xl md:text-3xl font-black text-white mb-3" />
+              <EditableTranslation tKey="unitDetail.comingSoonDesc" as="p" className="text-gray-400 text-base md:text-lg" />
             </div>
           )}
         </div>
