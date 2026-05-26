@@ -1,4 +1,5 @@
 import { useLang } from '../../i18n/LanguageContext';
+import { getOverride } from '../../i18n/tms/overrideManager';
 
 const STRINGS = {
   en: {
@@ -127,7 +128,9 @@ export function useQuizStrings() {
   const lang = (language in STRINGS ? language : 'en') as keyof typeof STRINGS;
 
   const qs = (key: QuizStringKey, replacements?: Record<string, string | number>): string => {
-    let text: string = STRINGS[lang][key] || STRINGS.en[key];
+    // Check for TMS override first
+    const override = getOverride(`quiz.${key}`, lang);
+    let text: string = override ?? STRINGS[lang][key] ?? STRINGS.en[key];
     if (replacements) {
       Object.entries(replacements).forEach(([k, v]) => {
         text = text.replace(`{${k}}`, String(v));

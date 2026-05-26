@@ -100,7 +100,7 @@ import type { AdminState } from './types';
 
 const ADMIN_KEY = STORAGE_KEYS.adminMode;
 
-const DEFAULT_ADMIN: AdminState = { enabled: false, showGlossary: false };
+const DEFAULT_ADMIN: AdminState = { enabled: true, showGlossary: false };
 
 export function loadAdminState(): AdminState {
   return loadJSON<AdminState>(ADMIN_KEY, DEFAULT_ADMIN);

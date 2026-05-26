@@ -1,7 +1,13 @@
 import { QuizEngine } from '../quiz';
 import type { QuizBlock as QuizBlockType } from '../../content/types';
 
-export default function QuizBlockRenderer({ block, unitId }: { block: QuizBlockType; unitId?: string }) {
+interface QuizBlockRendererProps {
+  block: QuizBlockType;
+  unitId?: string;
+  contentKeyPrefix?: string;
+}
+
+export default function QuizBlockRenderer({ block, unitId, contentKeyPrefix }: QuizBlockRendererProps) {
   const resolvedUnitId = unitId ?? 'default';
   const quizKey = `${resolvedUnitId}-quiz`;
 
@@ -13,6 +19,7 @@ export default function QuizBlockRenderer({ block, unitId }: { block: QuizBlockT
         questions: block.questions,
         showExplanations: true,
       }}
+      contentKeyPrefix={contentKeyPrefix}
     />
   );
 }

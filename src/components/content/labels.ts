@@ -1,4 +1,5 @@
 import type { Lang } from '../../content/types';
+import { getOverride } from '../../i18n/tms/overrideManager';
 
 const LABELS: Record<string, Record<Lang, string>> = {
   example: { en: 'Example:', ur: 'مثال:', sd: 'مثال:' },
@@ -12,5 +13,8 @@ const LABELS: Record<string, Record<Lang, string>> = {
 };
 
 export function getLabel(key: string, lang: Lang): string {
+  // Check for TMS override first
+  const override = getOverride(`label.${key}`, lang);
+  if (override) return override;
   return LABELS[key]?.[lang] ?? LABELS[key]?.en ?? key;
 }

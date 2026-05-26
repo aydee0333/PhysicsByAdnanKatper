@@ -12,6 +12,7 @@ interface LanguageContextValue {
   adminState: AdminState;
   toggleAdmin: () => void;
   toggleGlossary: () => void;
+  overrideVersion: number;
 }
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
@@ -93,6 +94,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     adminState,
     toggleAdmin,
     toggleGlossary,
+    overrideVersion,
   }), [lang, dir, adminState, toggleAdmin, toggleGlossary, overrideVersion]);
 
   return (

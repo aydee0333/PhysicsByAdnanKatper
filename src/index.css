@@ -503,6 +503,20 @@ html[dir="rtl"] .mixed-content {
   unicode-bidi: embed;
 }
 
+/* LTR number rendering — always use for phone numbers, dates, IDs, quantities
+   Rule: ALL numbers in all languages use Western (0-9) numerals, rendered LTR */
+.ltr-number {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+/* Force numbers in RTL text to always render LTR */
+html[dir="rtl"] .ltr-number {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 /* RTL-aware scrollbar */
 html[dir="rtl"] ::-webkit-scrollbar {
   direction: rtl;

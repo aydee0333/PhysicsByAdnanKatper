@@ -8,8 +8,10 @@ import {
   Zap, Droplets, Thermometer
 } from 'lucide-react';
 import EditableTranslation from '../i18n/tms/components/EditableTranslation';
+import { useLang } from '../i18n/LanguageContext';
 
 export default function ClassIXPage() {
+  const { adminState } = useLang();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const classIXUnits = [
@@ -177,42 +179,47 @@ export default function ClassIXPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {classIXUnits.map((unit) => (
-              <Link
-                key={unit.number}
-                to={`/class-ix/unit/${unit.number}`}
-                className={`unit-card glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden cursor-pointer transition-all duration-500 block ${unit.bgGlow} ${unit.borderGlow}`}
-              >
-                <div className="unit-number" style={{ color: unit.colorHex }}>
-                  {unit.number}
-                </div>
+            {classIXUnits.map((unit) => {
+              const cardClasses = `unit-card glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden cursor-pointer transition-all duration-500 block ${unit.bgGlow} ${unit.borderGlow}`;
+              const cardContent = (
+                <>
+                  <div className="unit-number" style={{ color: unit.colorHex }}>
+                    {unit.number}
+                  </div>
 
-                <div className="relative z-10">
-                  <div className="flex items-start gap-5 mb-5">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${unit.color} flex items-center justify-center text-white shrink-0`}>
-                      {unit.icon}
+                  <div className="relative z-10">
+                    <div className="flex items-start gap-5 mb-5">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${unit.color} flex items-center justify-center text-white shrink-0`}>
+                        {unit.icon}
+                      </div>
+                      <div>
+                        <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}><EditableTranslation tKey="classIX.unitLabel" as="span" /> {unit.number}</span>
+                        <EditableTranslation tKey={unit.titleKey} as="h3" className="text-xl md:text-2xl font-bold text-white leading-tight" />
+                      </div>
                     </div>
-                    <div>
-                      <span className={`text-xs font-bold uppercase tracking-widest ${unit.textColor} mb-1 block`}><EditableTranslation tKey="classIX.unitLabel" as="span" /> {unit.number}</span>
-                      <EditableTranslation tKey={unit.titleKey} as="h3" className="text-xl md:text-2xl font-bold text-white leading-tight" />
+
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {unit.topicsKeys.map((topicKey, idx) => (
+                        <EditableTranslation key={idx} tKey={topicKey} as="span" className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5" />
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-2">
+                      <EditableTranslation tKey="classIX.exploreBtn" as="span" className={`${unit.textColor} font-semibold text-sm`} />
+                      <svg className={`w-4 h-4 ${unit.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
                     </div>
                   </div>
+                </>
+              );
 
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {unit.topicsKeys.map((topicKey, idx) => (
-                      <EditableTranslation key={idx} tKey={topicKey} as="span" className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 text-xs font-medium border border-white/5" />
-                    ))}
-                  </div>
-
-                  <div className="mt-6 flex items-center gap-2">
-                    <EditableTranslation tKey="classIX.exploreBtn" as="span" className={`${unit.textColor} font-semibold text-sm`} />
-                    <svg className={`w-4 h-4 ${unit.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
+              return adminState.enabled ? (
+                <div key={unit.number} className={cardClasses}>{cardContent}</div>
+              ) : (
+                <Link key={unit.number} to={`/class-ix/unit/${unit.number}`} className={cardClasses}>{cardContent}</Link>
+              );
+            })}
           </div>
         </div>
       </section>

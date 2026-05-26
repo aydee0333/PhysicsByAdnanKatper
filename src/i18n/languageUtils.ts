@@ -24,31 +24,41 @@ export function getDirClass(lang: Lang): string {
 
 // ─── Number Formatting ──────────────────────────────────────────────
 
-/** Convert Western numerals to Urdu numerals */
-const URDU_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-
-/** Convert Western numerals to Sindhi numerals */
-const SINDHI_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+// RULE: Always use Western (English/Latin) numerals 0-9 in ALL languages,
+// including Urdu and Sindhi. Never convert to Eastern Arabic/Urdu/Sindhi
+// digit scripts. Numbers must always render left-to-right (LTR).
+// This applies to: phone numbers, dates, quantities, physics values,
+// addresses, formulas, quiz answers — everything.
 
 /**
- * Format number for display in a specific language
- * For physics content, we keep Western numerals for formulas
- * but can convert for display text
+ * Format number for display in a specific language.
+ * Always returns Western (0-9) numerals, even for RTL languages.
+ * Numbers are inherently LTR and must not be converted to local digit scripts.
  */
-export function formatNumber(
-  num: number | string,
-  lang: Lang,
-  options?: { convertDigits?: boolean }
-): string {
-  const str = String(num);
-
-  if (!options?.convertDigits || lang === 'en') {
-    return str;
-  }
-
-  const digits = lang === 'ur' ? URDU_DIGITS : SINDHI_DIGITS;
-  return str.replace(/[0-9]/g, (d) => digits[parseInt(d)]);
+export function formatNumber(num: number | string): string {
+  return String(num);
 }
+
+/**
+ * Wrap a number/phone string in a <span dir="ltr"> for correct LTR rendering
+ * inside RTL text. Use this for phone numbers, dates, IDs, etc.
+ * Returns raw HTML string — use with dangerouslySetInnerHTML or JSX.
+ *
+ * Example: ltrNumber('0312-3456789') → '<span dir="ltr">0312-3456789</span>'
+ */
+export function ltrNumber(num: number | string): string {
+  return `<span dir="ltr">${String(num)}</span>`;
+}
+
+/**
+ * JSX-friendly: returns style object to make an element render numbers LTR.
+ * Apply to a <span> wrapping numbers in RTL contexts.
+ */
+export const LTR_NUMBER_STYLE: React.CSSProperties = {
+  direction: 'ltr',
+  unicodeBidi: 'isolate',
+  display: 'inline-block',
+};
 
 /**
  * Format a physics formula for display

@@ -8,20 +8,26 @@ import ExerciseBlock from './ExerciseBlock';
 import InteractiveBlock from './InteractiveBlock';
 import QuizBlockRenderer from './QuizBlockRenderer';
 
-export default memo(function BlockRenderer({ block, unitId }: { block: ContentBlock; unitId?: string }) {
+interface BlockRendererProps {
+  block: ContentBlock;
+  unitId?: string;
+  contentKeyPrefix?: string;
+}
+
+export default memo(function BlockRenderer({ block, unitId, contentKeyPrefix }: BlockRendererProps) {
   switch (block.type) {
     case 'definition':
-      return <DefinitionBlock block={block} />;
+      return <DefinitionBlock block={block} contentKeyPrefix={contentKeyPrefix} />;
     case 'formula':
-      return <FormulaBlock block={block} />;
+      return <FormulaBlock block={block} contentKeyPrefix={contentKeyPrefix} />;
     case 'example':
-      return <ExampleBlock block={block} />;
+      return <ExampleBlock block={block} contentKeyPrefix={contentKeyPrefix} />;
     case 'quiz':
-      return <QuizBlockRenderer block={block} unitId={unitId} />;
+      return <QuizBlockRenderer block={block} unitId={unitId} contentKeyPrefix={contentKeyPrefix} />;
     case 'numerical':
-      return <NumericalBlock block={block} />;
+      return <NumericalBlock block={block} contentKeyPrefix={contentKeyPrefix} />;
     case 'exercise':
-      return <ExerciseBlock block={block} />;
+      return <ExerciseBlock block={block} contentKeyPrefix={contentKeyPrefix} />;
     case 'interactive':
       return <InteractiveBlock block={block} />;
     default:

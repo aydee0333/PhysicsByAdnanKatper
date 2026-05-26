@@ -14,9 +14,10 @@ import type { QuizConfig, QuizQuestion, QuestionResult, QuizResult } from './typ
 
 interface QuizEngineProps {
   config: QuizConfig;
+  contentKeyPrefix?: string;
 }
 
-export default function QuizEngine({ config }: QuizEngineProps) {
+export default function QuizEngine({ config, contentKeyPrefix: _contentKeyPrefix }: QuizEngineProps) {
   const { unitId, quizKey, title, questions, showExplanations = true, onComplete } = config;
   const { qs } = useQuizStrings();
   const { saveQuizScore } = useProgress(unitId);

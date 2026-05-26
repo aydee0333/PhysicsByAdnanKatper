@@ -8,6 +8,7 @@ import {
   Magnet, Cpu, Radio, Atom
 } from 'lucide-react';
 import EditableTranslation from '../i18n/tms/components/EditableTranslation';
+import { useLang } from '../i18n/LanguageContext';
 
 const unitIcons = [Waves, Volume2, Eye, Zap, Battery, Magnet, Cpu, Radio, Atom];
 const unitColors = [
@@ -66,6 +67,7 @@ const colorHexMap: Record<string, string> = {
 
 export default function ClassXPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { adminState } = useLang();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -133,13 +135,9 @@ export default function ClassXPage() {
             {Array.from({ length: 9 }, (_, idx) => {
               const num = String(idx + 1).padStart(2, '0');
               const Icon = unitIcons[idx];
-
-              return (
-                <Link
-                  key={num}
-                  to={`/class-x/unit/${num}`}
-                  className={`unit-card glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden cursor-pointer transition-all duration-500 block ${unitBgs[idx]} ${unitBorders[idx]}`}
-                >
+              const cardClasses = `unit-card glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden cursor-pointer transition-all duration-500 block ${unitBgs[idx]} ${unitBorders[idx]}`;
+              const cardContent = (
+                <>
                   <div className="unit-number" style={{ color: colorHexMap[unitTextColors[idx]] || '#7c3aed' }}>
                     {num}
                   </div>
@@ -170,7 +168,13 @@ export default function ClassXPage() {
                       </svg>
                     </div>
                   </div>
-                </Link>
+                </>
+              );
+
+              return adminState.enabled ? (
+                <div key={num} className={cardClasses}>{cardContent}</div>
+              ) : (
+                <Link key={num} to={`/class-x/unit/${num}`} className={cardClasses}>{cardContent}</Link>
               );
             })}
           </div>

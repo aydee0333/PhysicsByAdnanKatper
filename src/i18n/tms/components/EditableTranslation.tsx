@@ -5,7 +5,6 @@
 import { useState, useCallback, type ReactNode } from 'react';
 import { Pencil } from 'lucide-react';
 import { useLang } from '../../LanguageContext';
-import { useAuth } from '../../../auth/AuthContext';
 import TranslationEditor from './TranslationEditor';
 import { setOverride, removeOverride } from '../overrideManager';
 import { recordCorrection, getCorrectionHistory } from '../translationMemory';
@@ -37,10 +36,9 @@ export default function EditableTranslation({
   html = false,
 }: EditableTranslationProps) {
   const { t, adminState } = useLang();
-  const { loggedIn } = useAuth();
   const [editorOpen, setEditorOpen] = useState(false);
 
-  const isAdmin = loggedIn && adminState.enabled && editable;
+  const isAdmin = adminState.enabled && editable;
 
   const handleEdit = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();

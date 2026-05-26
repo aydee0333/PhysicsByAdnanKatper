@@ -5,10 +5,10 @@
 import { useState, useCallback, useMemo, useRef } from 'react';
 import { Search, Download, Upload, X } from 'lucide-react';
 import { useLang } from '../../LanguageContext';
-import { useAuth } from '../../../auth/AuthContext';
 import AdminToggle from './AdminToggle';
 import GlossaryPanel from './GlossaryPanel';
 import TranslationEditor from './TranslationEditor';
+import GlobalEditOverlay from './GlobalEditOverlay';
 import { setOverride, removeOverride, getOverrideCount, exportOverrides, importOverrides, getAllOverrides } from '../overrideManager';
 import { recordCorrection, getCorrectionHistory } from '../translationMemory';
 import {
@@ -25,7 +25,6 @@ const MAX_RESULTS = 50;
 
 export default function TMSOverlay() {
   const { adminState, toggleAdmin, toggleGlossary } = useLang();
-  const { loggedIn } = useAuth();
 
   // Translation editor state
   const [editorOpen, setEditorOpen] = useState(false);
@@ -164,9 +163,6 @@ export default function TMSOverlay() {
     e.target.value = '';
   }, []);
 
-  // Don't render anything if user is not logged in
-  if (!loggedIn) return null;
-
   return (
     <>
       <AdminToggle
@@ -175,6 +171,8 @@ export default function TMSOverlay() {
         onGlossary={toggleGlossary}
         overrideCount={getOverrideCount()}
       />
+
+      <GlobalEditOverlay />
 
       {/* Admin Panel — Key Search + Bulk Operations */}
       {adminState.enabled && (
